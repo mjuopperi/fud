@@ -8,7 +8,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'fud',
+        'NAME': 'fud_test',
         'USER': 'fuduser',
         'PASSWORD': 'kugganen',
         'HOST': '192.168.33.10',
