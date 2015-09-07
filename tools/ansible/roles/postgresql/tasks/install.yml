@@ -1,0 +1,22 @@
+
+- name: Add PostgreSQL ppa key
+  apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 state=present
+
+- name: Add PostgreSQL ppa repository
+  apt_repository:
+      repo: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release  }}-pgdg main"
+      state: present
+
+- name: Install PostgreSQL dependencies
+  apt:
+    pkg: "{{item }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  with_items: ["python-psycopg2", "python-pycurl", "locales"]
+
+- name: Install PostgreSQL
+  apt:
+    name: "postgresql-{{ postgresql_version }}"
+    state: present
+    update_cache: yes

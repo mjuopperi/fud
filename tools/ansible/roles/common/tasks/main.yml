@@ -1,0 +1,6 @@
+---
+# tasks file for common
+- name: Ensure Finnish locale is present
+  locale_gen:
+    name: fi_FI.UTF-8
+    state: present

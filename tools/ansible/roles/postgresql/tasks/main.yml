@@ -1,0 +1,11 @@
+---
+# tasks file for postgresql
+
+- include: install.yml
+  tags: [postgresql, postgresql-install]
+
+- include: db_and_users.yml
+  tags: [postgresql, postgresql-db-and-users]
+
+- include: config.yml
+  tags: [postgresql, postgresql-config]

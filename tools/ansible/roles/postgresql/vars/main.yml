@@ -1,0 +1,13 @@
+---
+# vars file for postgresql
+postgresql_version: 9.4
+postgresql_repo: http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+postgresql_databases:
+  - name: "fud"
+  - name: "fud_test"
+postgresql_user_name: "fuduser"
+postgresql_user_password: "kugganen"
+postgresql_admin_user: "postgres"
+postgresql_config_path: "/etc/postgresql/9.4/main"
+postgresql_encoding: UTF8
+postgresql_locale: en_US.UTF-8

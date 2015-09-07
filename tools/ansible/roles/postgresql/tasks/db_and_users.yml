@@ -1,0 +1,39 @@
+
+- name: Ensure PostgreSQL is running
+  service:
+    name: postgresql
+    state: started
+
+- name: Ensure the PostgreSQL user is present
+  postgresql_user:
+    name: "{{postgresql_user_name }}"
+    password: "{{postgresql_user_password }}"
+    state: present
+    login_user: "{{postgresql_admin_user }}"
+  sudo: yes
+  sudo_user: "{{postgresql_admin_user }}"
+
+- name: Ensure database is present
+  postgresql_db:
+    name: "{{item.name }}"
+    owner: "{{postgresql_user_name }}"
+    encoding: "UTF-8"
+    lc_collate: "fi_FI.UTF-8"
+    lc_ctype: "fi_FI.UTF-8"
+    template: "template0"
+    state: present
+    login_user: "{{postgresql_admin_user }}"
+  with_items: postgresql_databases
+  sudo: yes
+  sudo_user: "{{postgresql_admin_user }}"
+
+- name: Set user privileges
+  postgresql_privs:
+    db: "{{item.name }}"
+    privs: ALL
+    type: database
+    role: "{{postgresql_user_name }}"
+    login_user: "{{postgresql_admin_user }}"
+  with_items: postgresql_databases
+  sudo: yes
+  sudo_user: "{{postgresql_admin_user }}"
