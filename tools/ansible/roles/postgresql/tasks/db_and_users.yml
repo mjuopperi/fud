@@ -10,6 +10,7 @@
     password: "{{postgresql_user_password }}"
     state: present
     login_user: "{{postgresql_admin_user }}"
+    role_attr_flags: CREATEDB,NOSUPERUSER
   sudo: yes
   sudo_user: "{{postgresql_admin_user }}"
 
