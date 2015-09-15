@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Fud.fi{% endblock %}</title>
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Mr+Bedfort'>
+    {% block style %}{% endblock %}
+</head>
+<body>
+<header>
+    <h1>Fud.fi</h1>
+</header>
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

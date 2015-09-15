@@ -1,3 +1,7 @@
+# Gulp
+/node_modules
+/restaurants/static/restaurants/css
+
 # Vagrant
 .vagrant/
 
