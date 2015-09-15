@@ -1,18 +1,4 @@
-body {
-  margin: 0;
-}
-
-header {
-  background-color: #fafafa;
-
-  h1 {
-    font-family: 'Mr Bedfort', cursive;
-    color: #555;
-    font-size: 42px;
-    margin: 0;
-    padding: 4px 16px;
-  }
-}
+@import '_base';
 
 #content {
   width: 960px;
