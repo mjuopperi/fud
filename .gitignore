@@ -70,3 +70,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#shortcuts
+runserver.sh
+test.sh
+migrate.sh
