@@ -1,4 +1,12 @@
 @import '_reset';
+@import '_colors';
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
 
 header {
   background-color: #fafafa;
@@ -14,4 +22,36 @@ header {
 #content {
   width: 960px;
   margin: 0 auto;
+}
+
+textarea:focus, input:focus{
+  outline: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+  @include border-radius(8px);
+  height: 34px;
+  font-size: 18px;
+  border: 1px solid #555;
+  background: #fff;
+  color: #333;
+  padding: 4px;
+  margin: 4px;
+}
+
+button {
+  @include border-radius(8px);
+  height: 34px;
+  font-size: 18px;
+  border: 1px solid #555;
+  background: $highlight;
+  color: #fff;
+  padding: 4px;
+  margin: 4px;
+
+  &:hover {
+    background: darken($highlight, 10%);
+  }
 }

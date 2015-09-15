@@ -1,0 +1,11 @@
+@import '_base';
+
+form {
+  background: transparent;
+  max-width: 400px;
+  margin: 40px auto;
+
+  input, button {
+    width: 300px;
+  }
+}
