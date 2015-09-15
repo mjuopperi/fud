@@ -60,6 +60,12 @@ Install python dependencies in project root
 
     pip install -r requirements.txt
 
+### Install gulp
+
+Install gulp globally
+
+    npm install --global gulp
+
 ### Run the application
 
 Start the virtual machine in project root
@@ -69,6 +75,10 @@ Start the virtual machine in project root
 Configure local database
 
     python manage.py migrate --settings=fud.settings.dev
+
+Start gulp
+
+    gulp
 
 Start the server in development mode
 
