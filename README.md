@@ -62,9 +62,13 @@ Install python dependencies in project root
 
 ### Install gulp
 
-Install gulp globally
+Install gulp globally to be able to use the `gulp` command anywhere
 
     npm install --global gulp
+
+Install dependencies
+
+    npm install
 
 ### Run the application
 
