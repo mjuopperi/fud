@@ -1,6 +1,6 @@
 # Gulp
 /node_modules
-/restaurants/static/restaurants/css
+/restaurants/static/restaurants/
 
 # Vagrant
 .vagrant/
