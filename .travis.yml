@@ -1,7 +1,8 @@
 language: python
 branches:
   only:
-    - feature_travis_setup
+    - master
+    - /^feature_.*$/
 services:
 - postgresql
 python:
