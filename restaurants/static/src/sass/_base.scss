@@ -1,27 +1,32 @@
 @import 'reset';
 @import 'colors';
 
-@mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-  -moz-border-radius: $radius;
-  -ms-border-radius: $radius;
-  border-radius: $radius;
+@mixin background-size($type) {
+  -webkit-background-size: $type;
+  -moz-background-size: $type;
+  -o-background-size: $type;
+  background-size: $type;
 }
+
+$header-height: 80px;
 
 header {
-  background-color: #fafafa;
+  background-color: $header-background;
+  width: 100%;
+  height: $header-height;
+
+  a {
+    text-decoration: none;
+  }
 
   h1 {
+    display: inline-block;
     font-family: 'Mr Bedfort', cursive;
-    color: #555;
+    color: #fff;
     font-size: 42px;
-    padding: 16px;
+    line-height: $header-height;
+    margin-left: 16px;
   }
-}
-
-#content {
-  width: 960px;
-  margin: 0 auto;
 }
 
 textarea:focus, input:focus{
@@ -31,7 +36,6 @@ textarea:focus, input:focus{
 input[type="text"],
 input[type="email"],
 input[type="password"]{
-  @include border-radius(8px);
   height: 34px;
   font-size: 18px;
   border: 1px solid #555;
@@ -42,7 +46,6 @@ input[type="password"]{
 }
 
 button {
-  @include border-radius(8px);
   height: 34px;
   font-size: 18px;
   border: 1px solid #555;
