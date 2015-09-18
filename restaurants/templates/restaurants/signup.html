@@ -1,10 +1,14 @@
 {% extends "restaurants/base.html" %}
 {% load staticfiles %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Sign up{% endblock %}
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/signup.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'restaurants/js/signup.js' %}"></script>
 {% endblock %}
 
 {% block content %}
