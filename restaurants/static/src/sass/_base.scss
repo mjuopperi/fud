@@ -1,14 +1,18 @@
 @import 'reset';
+@import 'mixins';
 @import 'colors';
 
-@mixin background-size($type) {
-  -webkit-background-size: $type;
-  -moz-background-size: $type;
-  -o-background-size: $type;
-  background-size: $type;
-}
-
 $header-height: 80px;
+$logo-font: 'Mr Bedfort', cursive;
+$body-font: 'Raleway', sans-serif;
+
+h1 {
+  font-family: $body-font;
+  color: #16262E;
+  text-align: center;
+  font-size: 2em;
+  margin: 1.5em 0 0.5em;
+}
 
 header {
   background-color: $header-background;
@@ -21,38 +25,54 @@ header {
 
   h1 {
     display: inline-block;
-    font-family: 'Mr Bedfort', cursive;
+    font-family: $logo-font;
     color: #fff;
     font-size: 42px;
     line-height: $header-height;
-    margin-left: 16px;
+    margin: 0 0 0 16px;
   }
 }
 
-textarea:focus, input:focus{
+textarea:focus, input:focus, button:focus {
   outline: 0;
+}
+
+input, button, label {
+  display: block;
+  font-family: $body-font;
+}
+
+label {
+  color: #333;
+  margin-bottom: 0.2em;
+}
+
+input, button {
+  @include box-sizing(border-box);
+  font-size: 1.125em;
+  line-height: 1.125em;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"]{
   height: 34px;
-  font-size: 18px;
   border: 1px solid #555;
   background: #fff;
   color: #333;
-  padding: 4px;
-  margin: 4px;
+  padding: 0.5em;
+  margin: 0 0 0.8em;
+  border-radius: 4px;
 }
 
 button {
   height: 34px;
-  font-size: 18px;
   border: 1px solid #555;
   background: $highlight;
   color: #fff;
-  padding: 4px;
-  margin: 4px;
+  padding: 8px;
+  margin: 0 0 0.8em;
+  border-radius: 4px;
 
   &:hover {
     background: darken($highlight, 10%);

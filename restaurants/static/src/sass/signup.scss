@@ -1,11 +1,18 @@
 @import 'base';
 
+section {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 form {
   background: transparent;
   max-width: 400px;
-  margin: 40px auto;
+  margin: 2em 1em;
 
   input, button {
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
   }
 }
