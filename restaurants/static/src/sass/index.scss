@@ -19,12 +19,12 @@ section {
 #header {
   background: url("/static/restaurants/img/background.jpg") no-repeat center center;
   @include background-size(cover);
-  height: 100vh;
+  height: 90vh;
   min-height: 600px;
   padding-top: $header-height;
 
   h1 {
-    color: $foreground;
+    color: $color-foreground-inverted;
 
     &:first-child {
       margin-top: 100px;
@@ -33,6 +33,6 @@ section {
 }
 
 #features {
-  background: $background;
+  background: $color-background-inverted;
   min-height: 600px;
 }

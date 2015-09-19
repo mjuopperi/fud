@@ -8,14 +8,14 @@ $body-font: 'Raleway', sans-serif;
 
 h1 {
   font-family: $body-font;
-  color: #16262E;
+  color: $color-foreground;
   text-align: center;
   font-size: 2em;
   margin: 1.5em 0 0.5em;
 }
 
 header {
-  background-color: $header-background;
+  background-color: $color-background-inverted;
   width: 100%;
   height: $header-height;
 
@@ -26,8 +26,8 @@ header {
   h1 {
     display: inline-block;
     font-family: $logo-font;
-    color: #fff;
     font-size: 42px;
+    color: $color-foreground-inverted;
     line-height: $header-height;
     margin: 0 0 0 16px;
   }
@@ -43,38 +43,35 @@ input, button, label {
 }
 
 label {
-  color: #333;
+  color: $color-foreground;
   margin-bottom: 0.2em;
 }
 
 input, button {
   @include box-sizing(border-box);
   font-size: 1.125em;
-  line-height: 1.125em;
+  padding: 0.6em 0.4em;
+  border-radius: 4px;
+  margin: 0 0 0.8em;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"]{
-  height: 34px;
+  height: auto;
   border: 1px solid #555;
-  background: #fff;
-  color: #333;
-  padding: 0.5em;
-  margin: 0 0 0.8em;
-  border-radius: 4px;
+  background: $color-background;
+  color: $color-foreground;
 }
 
 button {
-  height: 34px;
-  border: 1px solid #555;
-  background: $highlight;
-  color: #fff;
-  padding: 8px;
-  margin: 0 0 0.8em;
-  border-radius: 4px;
+  border: 1px solid darken($color-success, 20%);
+  background: $color-success;
+  color: $color-foreground-inverted;
+  cursor: pointer;
+  font-weight: 700;
 
   &:hover {
-    background: darken($highlight, 10%);
+    background: darken($color-success, 10%);
   }
 }

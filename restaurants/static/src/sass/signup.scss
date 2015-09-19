@@ -15,4 +15,9 @@ form {
     width: 100%;
     max-width: 400px;
   }
+
+  input {
+    background-color: $color-background;
+    color: $color-foreground;
+  }
 }
