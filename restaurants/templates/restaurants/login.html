@@ -7,10 +7,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/signup.css' %}" />
 {% endblock %}
 
+{% block scripts %}
+    <script src="{% static 'restaurants/js/login.js' %}"></script>
+{% endblock %}
+
 {% block content %}
-    <form>
-        <input type="text" placeholder="username">
-        <input type="password" placeholder="password">
-        <button type="submit">Sign up</button>
-    </form>
+    <section>
+        <h1>Log in to Fud.fi</h1>
+        <div id="error">
+            <p></p>
+        </div>
+        <form id="login">
+            <label for="username">Username</label>
+            <input type="text" name="username" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+            <button type="submit">Log In</button>
+        </form>
+    </section>
 {% endblock %}
