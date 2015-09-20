@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('restaurants.urls')),
+    url(r'^', include('restaurants.urls', namespace='restaurants')),
+    url(r'^api/auth/', include('djoser.urls.authtoken')),
 ]

@@ -1,0 +1,23 @@
+@import 'base';
+
+section {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form {
+  background: transparent;
+  max-width: 400px;
+  margin: 1.5em 1em;
+
+  input, button {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  input {
+    background-color: $color-background;
+    color: $color-foreground;
+  }
+}

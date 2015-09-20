@@ -1,0 +1,98 @@
+@import 'reset';
+@import 'mixins';
+@import 'colors';
+
+$header-height: 80px;
+$logo-font: 'Mr Bedfort', cursive;
+$body-font: 'Raleway', sans-serif;
+
+h1 {
+  font-family: $body-font;
+  color: $color-foreground;
+  text-align: center;
+  font-size: 2em;
+  margin: 1.5em 0 1.5em;
+}
+
+header {
+  background-color: $color-background-inverted;
+  width: 100%;
+  height: $header-height;
+
+  a {
+    text-decoration: none;
+  }
+
+  h1 {
+    display: inline-block;
+    font-family: $logo-font;
+    font-size: 42px;
+    color: $color-foreground-inverted;
+    line-height: $header-height;
+    margin: 0 0 0 16px;
+  }
+}
+
+textarea:focus, input:focus, button:focus {
+  outline: 0;
+}
+
+input, button, label {
+  display: block;
+  font-family: $body-font;
+}
+
+label {
+  color: $color-foreground;
+  margin-bottom: 0.2em;
+}
+
+input, button {
+  @include box-sizing(border-box);
+  font-size: 1.125em;
+  padding: 0.6em 0.4em;
+  border-radius: 4px;
+  margin: 0 0 0.8em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]{
+  height: auto;
+  border: 1px solid #555;
+  background: $color-background;
+  color: $color-foreground;
+  box-shadow: 0 0 0 transparent;
+
+  &.invalid {
+    border-color: $color-error;
+    box-shadow: 0 0 5px $color-error;
+  }
+}
+
+button {
+  border: 1px solid darken($color-success, 20%);
+  background: $color-success;
+  color: $color-foreground-inverted;
+  cursor: pointer;
+  font-weight: 700;
+
+  &:hover {
+    background: darken($color-success, 10%);
+  }
+}
+
+#error {
+  display: none;
+  background: lighten($color-error, 30%);
+  padding: 1em;
+  margin: 0 1em;
+  border: 1px solid $color-error;
+  border-radius: 4px;
+
+  p {
+    font-family: $body-font;
+    color: darken($color-error, 30%);
+    font-size: 1em;
+  }
+}
