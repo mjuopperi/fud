@@ -1,35 +1,53 @@
-var SignUpForm = React.createClass({
-  handleSubmit: function(e) {
-    e.preventDefault();
+const apiUrl = '/api/auth/register/';
+const errorTexts = {
+  usernameInUse: 'Username already in use.',
+  default: 'Something went wrong. Please try again.'
+};
 
-    $.ajax({
-      type: 'POST',
-      url: '/api/auth/register/',
-      data: {
-        username: this.refs.username.getDOMNode().value.trim(),
-        email: this.refs.email.getDOMNode().value.trim(),
-        password: this.refs.password.getDOMNode().value.trim()
-      },
-      success: function() {
-        console.log('success')
-      }
-    });
-  },
-  render: function() {
-    return (
-      <form onSubmit={ this.handleSubmit }>
-        <label htmlFor='username'>Username</label>
-        <input type='text' name='username' ref='username'></input>
-        <label htmlFor='email'>Email</label>
-        <input type='email' name='email' ref='email'></input>
-        <label htmlFor='password'>Password</label>
-        <input type='password' name='password' ref='password'></input>
-        <button type='submit'>Sign up</button>
-      </form>
-    );
+function getInput() {
+  return {
+    username: $('input[name="username"]').val(),
+    email: $('input[name="email"]').val(),
+    password: $('input[name="password"]').val()
   }
-});
+}
+
+function signUpRequest(data) {
+  return $.ajax({
+    type: 'POST',
+    url: apiUrl,
+    data: data
+  });
+}
+
+function signUp(e) {
+  e.preventDefault();
+  var request = signUpRequest(getInput());
+  request.done(handleSuccess);
+  request.fail(handleErrors);
+}
+
+function redirectToLoginPage() {
+  window.location = '/login#new'
+}
+
+function usernameInUse(errors) {
+  return errors.responseJSON.hasOwnProperty('username') && errors.responseJSON.username[0].indexOf('unique') > -1;
+}
+
+function handleSuccess() {
+  redirectToLoginPage();
+}
+
+function handleErrors(errors) {
+  if (usernameInUse(errors)) {
+    $('#error').find('p').text(errorTexts.usernameInUse).parent().show();
+    $('input[name="username"]').addClass('invalid');
+  } else {
+    $('#error').find('p').text(errorTexts.default).parent().show();
+  }
+}
 
 $(function() {
-  React.render(<SignUpForm />, document.getElementById('signup-form'));
+  $('#signup').submit(signUp);
 });

@@ -14,6 +14,17 @@
 {% block content %}
     <section>
         <h1>Sign up for Fud.fi</h1>
-        <div id="signup-form"></div>
+        <div id="error">
+            <p></p>
+        </div>
+        <form id="signup">
+            <label for="username">Username</label>
+            <input type="text" name="username" required>
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+            <button type="submit">Sign up</button>
+        </form>
     </section>
 {% endblock %}

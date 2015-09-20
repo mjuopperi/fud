@@ -3,7 +3,6 @@
 var gulp   = require('gulp');
 var watch  = require('gulp-watch');
 var sass   = require('gulp-sass');
-var react  = require('gulp-react');
 var uglify = require('gulp-uglify');
 var copy   = require('gulp-copy');
 
@@ -25,7 +24,6 @@ gulp.task('sass', function () {
 
 gulp.task('js', function () {
     return gulp.src(path.js_src)
-        .pipe(react())
         .pipe(uglify())
         .pipe(gulp.dest(path.js_dest));
 });

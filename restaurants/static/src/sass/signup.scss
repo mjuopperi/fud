@@ -6,10 +6,25 @@ section {
   margin: 0 auto;
 }
 
+#error {
+  display: none;
+  background: lighten($color-error, 30%);
+  padding: 1em;
+  margin: 0 1em;
+  border: 1px solid $color-error;
+  border-radius: 4px;
+
+  p {
+    font-family: $body-font;
+    color: darken($color-error, 30%);
+    font-size: 1em;
+  }
+}
+
 form {
   background: transparent;
   max-width: 400px;
-  margin: 2em 1em;
+  margin: 1.5em 1em;
 
   input, button {
     width: 100%;
