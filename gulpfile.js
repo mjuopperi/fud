@@ -39,3 +39,5 @@ gulp.task('copy-images', function () {
 });
 
 gulp.task('default', ['sass', 'js', 'watch', 'copy-images']);
+
+gulp.task('build', ['sass', 'js', 'copy-images']);
