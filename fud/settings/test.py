@@ -1,6 +1,10 @@
 from .base import *
+from subprocess import call
 
 DEBUG = True
+
+# run gulp build
+call(['gulp', 'build'])
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
