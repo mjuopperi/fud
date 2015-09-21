@@ -48,6 +48,7 @@ gulp.task('js', function(done) {
 gulp.task('watch', function () {
     gulp.watch(path.sass_src, ['sass']);
     gulp.watch(path.js_src, ['js']);
+    gulp.watch(path.images_src, ['copy-images']);
 });
 
 gulp.task('copy-images', function () {
