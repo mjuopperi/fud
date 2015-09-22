@@ -10,3 +10,11 @@
   -moz-box-sizing: $type;
   box-sizing: $type;
 }
+
+@mixin unselectable {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

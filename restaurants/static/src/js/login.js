@@ -1,3 +1,5 @@
+require('./_header');
+
 const apiUrl = '/api/auth/login/';
 const errorTexts = {
   invalidCredentials: 'Invalid username or password.',
