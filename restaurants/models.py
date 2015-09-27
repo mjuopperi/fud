@@ -1,28 +1,33 @@
 from django.db import models
 
+import re
+
 NOT_ALLOWED_SUBDOMAINS = [
 	'static', 
-	'www', 
 	'api', 
+	'fud',
 ]
+
+SUBDOMAIN_PATTERN = re.compile("^[a-z0-9][a-z0-9\-][a-z0-9]*$")
 
 def validate_subdomain(subdomain):
 	if subdomain in NOT_ALLOWED_SUBDOMAINS:
 		raise ValidationError('%s is not allowed subdomain' % subdomain)
-	if subdomain != subdomain.lower():
-		raise ValidationError('Only lovercase letters')
+	if SUBDOMAIN_PATTERN.match(subdomain) is None:
+		raise ValidationError('%s is not allowed subdomain' % subdomain)
+	if subdomain.startswith('www'):
+		raise ValidationError('Subdomain starting with www* is not allowed')
+
 
 class Restaurant(models.Model):
-	name = models.CharFiend(max_length=255)
-	subdomain = models.CharFiend(max_length=255, unique=True, validators=[validate_subdomain])
+	name = models.CharField(max_length=255)
+	subdomain = models.CharField(max_length=30, unique=True, validators=[validate_subdomain])
 	address = models.CharField(max_length=255, null=True, blank=True, default=None)
 	postal_code = models.CharField(max_length=5, null=True, blank=True, default=None)
 	city = models.CharField(max_length=45, null=True, blank=True, default=None)
 	phone_number = models.CharField(max_length=32, null=True, blank=True, default=None)
-	public_email = models.EmailField(null=True, blank=True, default=None)
-	contact_email = models.EmailField()
-	#admins = models.TODO
-	#owner = models.TODO
+	email = models.EmailField()
+	#TODO owner ??
 
 class MenuCategory(models.Model):
 	restaurant = models.ForeignKey(Restaurant)
