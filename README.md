@@ -1,3 +1,7 @@
+### Status
+
+[![Build Status](https://magnum.travis-ci.com/mjuopperi/fud.svg?token=vQUUTgeveVz3wPSNPQET&branch=master)](https://magnum.travis-ci.com/mjuopperi/fud)
+
 Development server setup
 ========================
 
