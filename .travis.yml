@@ -13,9 +13,9 @@ install:
   - pip install -r requirements.txt
   - npm install
 before_script:
+  - psql -c 'create database fud_test;' -U postgres
   - python manage.py makemigrations --settings=fud.settings.travis
   - python manage.py migrate --settings=fud.settings.travis
-  - psql -c 'create database fud_test;' -U postgres
   - gulp build
 script:
   - python manage.py test --settings=fud.settings.travis
