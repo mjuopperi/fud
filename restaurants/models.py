@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 import re
 
@@ -27,7 +28,7 @@ class Restaurant(models.Model):
 	city = models.CharField(max_length=45, null=True, blank=True, default=None)
 	phone_number = models.CharField(max_length=32, null=True, blank=True, default=None)
 	email = models.EmailField()
-	#TODO owner ??
+	owner = models.ForeignKey(User)
 
 class MenuCategory(models.Model):
 	restaurant = models.ForeignKey(Restaurant)
