@@ -9,7 +9,12 @@
 
 {% block content %}
     <section>
+    	{{ user}}
         <h1>Register restaurant</h1>
+        <form method="POST">
+        {% csrf_token %}
         {{ form }}
+        <button type="submit">Register</button>
+    	</form>
     </section>
 {% endblock %}

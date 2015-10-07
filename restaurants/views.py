@@ -12,8 +12,14 @@ def login(request):
     return render(request, 'restaurants/login.html')
 
 def register(request):
+	if request.method == 'POST':
+		form = forms.RegistrationForm(request.POST)
+		if form.is_valid():
+			#restaurant = form.save(commit=False)
+			pass
 	form = forms.RegistrationForm()
 	context = {
 		'form' : form,
+		'user' : request,
 	}
 	return render(request, 'restaurants/register.html', context)

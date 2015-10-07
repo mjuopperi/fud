@@ -1,7 +1,7 @@
-from django.forms import ModelForm
+from django import forms
 from restaurants import models
 
-class RegistrationForm(ModelForm):
+class RegistrationForm(forms.ModelForm):
 
 	class Meta:
 		model = models.Restaurant
