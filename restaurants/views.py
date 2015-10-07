@@ -15,11 +15,12 @@ def register(request):
 	if request.method == 'POST':
 		form = forms.RegistrationForm(request.POST)
 		if form.is_valid():
-			#restaurant = form.save(commit=False)
-			pass
+			restaurant = form.save(commit=False)
+			restaurant.owner = request.user
+			restaurant.save()
 	form = forms.RegistrationForm()
 	context = {
 		'form' : form,
-		'user' : request,
+		'user' : request.user,
 	}
 	return render(request, 'restaurants/register.html', context)
