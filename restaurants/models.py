@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 import re
@@ -15,7 +16,7 @@ def validate_subdomain(subdomain):
 	if subdomain in NOT_ALLOWED_SUBDOMAINS:
 		raise ValidationError('%s is not allowed subdomain' % subdomain)
 	if SUBDOMAIN_PATTERN.match(subdomain) is None:
-		raise ValidationError('%s is not allowed subdomain' % subdomain)
+		raise ValidationError('Allowed characters: a-z, 0-9 and -, only lowercase')
 	if subdomain.startswith('www'):
 		raise ValidationError('Subdomain starting with www* is not allowed')
 

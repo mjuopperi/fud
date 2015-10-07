@@ -9,12 +9,20 @@
 
 {% block content %}
     <section>
-    	{{ user}}
         <h1>Register restaurant</h1>
         <form method="POST">
         {% csrf_token %}
-        {{ form }}
+        {% for field in form %}
+        	<label for="id_{{ field.label }}">{% if field.field.required %}*{% endif %} {{ field.label }}</label>
+        	{{ field }}
+        	{% for error in field.errors %}
+        	<p class="error">{{ error }}</p>
+        	{% endfor %}
+        {% endfor %}
         <button type="submit">Register</button>
+        {% if registered_message %}
+        	<span>{{ form.registered_message }}</span>
+        {% endif %}
     	</form>
     </section>
 {% endblock %}
