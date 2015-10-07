@@ -31,14 +31,14 @@ class Restaurant(models.Model):
 	owner = models.ForeignKey(User)
 
 	def __str__(self):
-        return u'%s' % (self.name,)
+		return u'%s' % (self.name,)
 
 class MenuCategory(models.Model):
 	restaurant = models.ForeignKey(Restaurant)
 	name = models.CharField(max_length=80)
 
 	def __str__(self):
-        return u'%s' % (self.name,)
+		return u'%s' % (self.name,)
 
 class MenuItem(models.Model):
 	category = models.ForeignKey(MenuCategory)
@@ -48,4 +48,4 @@ class MenuItem(models.Model):
 	allergies = models.TextField(null=True, blank=True, default=None)
 
 	def __str__(self):
-        return u'%s' % (self.title,)
+		return u'%s' % (self.title,)
