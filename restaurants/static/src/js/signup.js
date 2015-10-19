@@ -1,3 +1,5 @@
+require('./_header');
+
 const apiUrl = '/api/auth/register/';
 const errorTexts = {
   usernameInUse: 'Username already in use.',
@@ -28,7 +30,7 @@ function signUp(e) {
 }
 
 function redirectToLoginPage() {
-  window.location = '/login#new'
+  window.location = '/login'
 }
 
 function usernameInUse(errors) {

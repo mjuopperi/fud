@@ -2,9 +2,13 @@
 @import 'mixins';
 @import 'colors';
 
-$header-height: 80px;
+$header-height: 70px;
 $logo-font: 'Mr Bedfort', cursive;
 $body-font: 'Raleway', sans-serif;
+
+* {
+  @include box-sizing(border-box);
+}
 
 h1 {
   font-family: $body-font;
@@ -15,21 +19,95 @@ h1 {
 }
 
 header {
-  background-color: $color-background-inverted;
+  background-color: $color-background;
   width: 100%;
   height: $header-height;
+  text-align: right;
+  border-bottom: 1px solid #ebebeb;
+  box-shadow: 0 1px 12px 0 rgba(119,119,119,0.1);
 
   a {
+    color: $color-foreground;
     text-decoration: none;
   }
 
   h1 {
-    display: inline-block;
+    display: block;
+    position: absolute;
+    left: 0;
     font-family: $logo-font;
-    font-size: 42px;
-    color: $color-foreground-inverted;
+    font-size: 2.6em;
     line-height: $header-height;
-    margin: 0 0 0 16px;
+    margin: 4px 0 0 16px;
+  }
+
+  .user {
+    display: inline-block;
+    margin-right: 16px;
+    min-width: 100px;
+    max-width: 30%;
+    text-align: right;
+
+    a {
+      cursor: pointer;
+      color: $color-foreground;
+    }
+    h2 {
+      @include unselectable;
+      display: inline-block;
+      font-family: "Raleway", sans-serif;
+      font-size: 1.2em;
+      line-height: $header-height;
+      cursor: pointer;
+
+      &:not(:first-child) {
+        margin-left: 34px;
+      }
+    }
+
+    ul {
+      position: absolute;
+      display: none;
+      min-width: 130px;
+      max-width: 200px;
+      padding-right: 20px;
+      text-align: right;
+      top: $header-height - 1px;
+      right: 10px;
+      z-index: 100;
+      background: $color-background;
+
+      border: 1px solid #ebebeb;
+      border-top-width: 0;
+      box-shadow: 0 2px 2px 0 rgba(119,119,119,0.1);
+
+      li {
+        margin: 4px 0;
+        a {
+          display: block;
+          font-family: "Raleway", sans-serif;
+          font-size: 1em;
+          padding: 4px 0;
+        }
+      }
+    }
+
+    &.logged-in {
+      h2 {
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-right: 30px;
+        &:after {
+          content: '\f107';
+          position: absolute;
+          top: 2px;
+          right: 10px;
+          font-family: FontAwesome;
+          color: $color-foreground;
+        }
+      }
+    }
   }
 }
 
@@ -48,7 +126,6 @@ label {
 }
 
 input, button {
-  @include box-sizing(border-box);
   font-size: 1.125em;
   padding: 0.6em 0.4em;
   border-radius: 4px;
