@@ -16,6 +16,8 @@ function renderUser(user) {
   ).append($('<ul/>')
      .append($('<li/>').append($('<a/>', {href: '/me',text: 'Profile'})))
      .append($('<li/>').append($('<a/>', {class: 'logout', text: 'Log out'})))
+  ).append(
+    $('<i>', {class: 'fa fa-bars'})
   )
 }
 
@@ -42,8 +44,13 @@ function logout(e) {
   renderDefaults();
 }
 
-function toggleUserMenu() {
+function toggleUserMenu(e) {
   $('.user ul').toggle();
+  e.stopPropagation();
+}
+
+function hideUserMenu() {
+  $('.user ul').hide();
 }
 
 $(function() {
@@ -53,6 +60,7 @@ $(function() {
     renderDefaults();
   }
   $('.user').on('click', '.logout', logout);
-  $('header').on('click', '.user.logged-in', toggleUserMenu);
+  $('header').on('click', '.user.logged-in h2, .user.logged-in i', toggleUserMenu);
+  $(document).click(hideUserMenu);
 });
 

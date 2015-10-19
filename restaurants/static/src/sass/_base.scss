@@ -45,7 +45,7 @@ header {
     display: inline-block;
     margin-right: 16px;
     min-width: 100px;
-    max-width: 30%;
+    max-width: 60%;
     text-align: right;
 
     a {
@@ -73,27 +73,42 @@ header {
       padding-right: 20px;
       text-align: right;
       top: $header-height - 1px;
-      right: 10px;
+      right: 0;
       z-index: 100;
       background: $color-background;
 
       border: 1px solid #ebebeb;
       border-top-width: 0;
       box-shadow: 0 2px 2px 0 rgba(119,119,119,0.1);
-
+      @media screen and (min-width: 769px) {
+        right: 10px;
+      }
       li {
         margin: 4px 0;
+        @media screen and (max-width: 768px) {
+          margin: 12px 0;
+        }
         a {
           display: block;
           font-family: "Raleway", sans-serif;
           font-size: 1em;
           padding: 4px 0;
+          @media screen and (max-width: 768px) {
+            font-size: 1.4em;
+            padding: 12px 8px;
+          }
         }
       }
     }
 
     &.logged-in {
-      h2 {
+      @media screen and (max-width: 768px) {
+        margin-right: 0;
+      }
+      h2:first-child {
+        @media screen and (max-width: 768px) {
+          display: none;
+        }
         position: relative;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -106,6 +121,18 @@ header {
           font-family: FontAwesome;
           color: $color-foreground;
         }
+      }
+      i {
+        @include unselectable;
+        @media screen and (min-width: 769px) {
+          display: none;
+        }
+        font-size: 40px;
+        line-height: 70px;
+        color: $color-foreground;
+        cursor: pointer;
+        padding: 0 20px;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
     }
   }
