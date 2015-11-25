@@ -23,12 +23,12 @@ def validate_subdomain(subdomain):
 
 
 class Restaurant(models.Model):
-    name = models.CharField(max_length=255)
-    subdomain = models.CharField(max_length=30, unique=True, validators=[validate_subdomain])
-    address = models.CharField(max_length=255, null=True, blank=True, default=None)
-    postal_code = models.CharField(max_length=5, null=True, blank=True, default=None)
-    city = models.CharField(max_length=45, null=True, blank=True, default=None)
-    phone_number = models.CharField(max_length=32, null=True, blank=True, default=None)
+    name = models.TextField()
+    subdomain = models.TextField(unique=True, validators=[validate_subdomain])
+    address = models.TextField(null=True, blank=True, default=None)
+    postal_code = models.TextField(null=True, blank=True, default=None)
+    city = models.TextField(null=True, blank=True, default=None)
+    phone_number = models.TextField(null=True, blank=True, default=None)
     email = models.EmailField()
     owner = models.ForeignKey(User)
 
