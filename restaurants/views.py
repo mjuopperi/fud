@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import render
 from rest_framework import permissions, mixins, generics
 
 from restaurants import forms
@@ -21,13 +20,6 @@ def login(request):
 
 def register(request):
     form = forms.RegistrationForm()
-    if request.method == 'POST':
-        form = forms.RegistrationForm(request.POST)
-        if form.is_valid():
-            restaurant = form.save(commit=False)
-            restaurant.owner = request.user
-            restaurant.save()
-            return redirect(reverse('restaurants:index'))
     context = {
         'form': form,
     }
