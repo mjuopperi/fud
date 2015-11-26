@@ -2,7 +2,7 @@ require('./_header');
 
 const apiUrl = '/api/restaurants/';
 const errorTexts = {
-  unauthorized: 'You need to be logged in to create a restaurant.',
+  unauthorized: 'You need to be logged in to register a restaurant.',
   subdomainInUse: 'Subdomain is already in use.',
   default: 'Something went wrong. Please try again.'
 };
