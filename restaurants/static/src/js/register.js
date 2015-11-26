@@ -2,7 +2,7 @@ require('./_header');
 
 const apiUrl = '/api/restaurants/';
 const errorTexts = {
-  unauthorized: 'You need to be logged in to create a restaurant.',
+  unauthorized: 'You need to be logged in to register a restaurant.',
   subdomainInUse: 'Subdomain is already in use.',
   default: 'Something went wrong. Please try again.'
 };
@@ -48,8 +48,18 @@ function handleErrors(errors) {
   }
 }
 
+function updateSubdomainInfo() {
+  var subdomain = $(this).val();
+  if (subdomain !== '') {
+    $('p.subdomain-info span.name').text($(this).val());
+  } else {
+    $('p.subdomain-info span.name').text('<name>');
+  }
+}
+
 $(function() {
   $('#register').submit(register);
+  $('input[name=subdomain]').keyup(updateSubdomainInfo);
   $('#register').on('keypress', '.invalid', function() {
     $(this).removeClass('invalid');
   })
