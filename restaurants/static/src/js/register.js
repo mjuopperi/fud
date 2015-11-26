@@ -48,8 +48,18 @@ function handleErrors(errors) {
   }
 }
 
+function updateSubdomainInfo() {
+  var subdomain = $(this).val();
+  if (subdomain !== '') {
+    $('p.subdomain-info span.name').text($(this).val());
+  } else {
+    $('p.subdomain-info span.name').text('<name>');
+  }
+}
+
 $(function() {
   $('#register').submit(register);
+  $('input[name=subdomain]').keyup(updateSubdomainInfo);
   $('#register').on('keypress', '.invalid', function() {
     $(this).removeClass('invalid');
   })

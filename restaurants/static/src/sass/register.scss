@@ -22,4 +22,15 @@ label span.required {
   margin-left: 0.5em;
 }
 
+p.subdomain-info {
+  color: darken($color-info, 20%);
+  border: 1px solid $color-info;
+  border-radius: 4px;
+  background: lighten($color-info, 30%);
+  padding: 0.3em;
+  margin-bottom: 0.8em;
+
+  span.name {
+    color: $color-success;
+  }
 }
