@@ -23,7 +23,7 @@ section {
   padding-top: $header-height;
 
   h1 {
-    color: $color-foreground-inverted;
+    color: $color-background;
 
     &:first-child {
       margin-top: 100px;
@@ -32,6 +32,6 @@ section {
 }
 
 #features {
-  background: $color-background-inverted;
+  background: $color-foreground;
   min-height: 600px;
 }
