@@ -1,0 +1,68 @@
+@import 'base';
+
+$content-max-width: 960px;
+
+.wrapper > section {
+  max-width: $content-max-width;
+  margin: 1.5em auto;
+  text-align: center;
+
+  > section {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    @media screen and (min-width: 769px) {
+      width: 46%;
+      padding: 0 2%;
+    }
+    max-width: $content-max-width / 2.5;
+    min-width: $content-max-width / 4;
+    margin: 0 auto 30px;
+
+    h2 {
+      font-family: $body-font;
+      font-size: 1.4em;
+      margin: 1em 0;
+    }
+
+    input, label {
+      text-align: left;
+      width: 100%;
+    }
+
+    label {
+      margin-top: 1em;
+    }
+
+    li {
+      margin: 0 auto;
+      max-width: 90%;
+      white-space: nowrap;
+      a {
+        display: inline-block;
+        position: relative;
+        font-family: $body-font;
+        font-size: 1.125em;
+        text-decoration: none;
+        color: $color-foreground;
+        padding: 1em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 100%;
+
+        &:hover {
+          color: $color-info;
+          &:before {
+            content: '\f054';
+            position: absolute;
+            top: 50%;
+            left: 4px;
+            transform: translate(0, -50%);
+            font-family: FontAwesome;
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

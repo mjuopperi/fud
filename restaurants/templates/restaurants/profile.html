@@ -1,0 +1,38 @@
+{% extends "restaurants/base.html" %}
+{% load revisioned_staticfiles %}
+
+{% block title %}Profile{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/profile.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'restaurants/js/profile.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1 class="welcome">Hi</h1>
+        <section id="profile">
+            <h2>Profile settings</h2>
+            <form id="change-email">
+                <label for="email">Email</label>
+                <input name="email" type="email">
+                <button type="submit">Change email</button>
+            </form>
+            <form id="change-password">
+                <label for="old-password">Old password</label>
+                <input name="old-password" type="password" placeholder="••••••••">
+                <label for="new-password">New password</label>
+                <input name="new-password" type="password" placeholder="••••••••">
+                <button type="submit">Change password</button>
+            </form>
+        </section>
+        <section id="restaurants">
+            <h2>Your restaurants</h2>
+            <ul></ul>
+        </section>
+
+    </section>
+{% endblock %}

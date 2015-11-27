@@ -15,7 +15,7 @@ function renderUser(user) {
   $('header').find('.user').addClass('logged-in').html(
     $('<h2/>').append($('<a/>', {text: user.username}))
   ).append($('<ul/>')
-     .append($('<li/>').append($('<a/>', {href: '/me',text: 'Profile'})))
+     .append($('<li/>').append($('<a/>', {href: '/profile',text: 'Profile'})))
      .append($('<li/>').append($('<a/>', {class: 'logout', text: 'Log out'})))
   ).append(
     $('<i>', {class: 'fa fa-bars'})
@@ -32,6 +32,7 @@ function userInfoRequest(authToken) {
 
 function getUserInfo() {
   var request = userInfoRequest(localStorage.getItem('authToken'));
+  exports.userInfo = request;
   request.done(renderUser);
 }
 

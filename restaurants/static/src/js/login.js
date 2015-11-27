@@ -35,7 +35,7 @@ function logIn(e) {
 }
 
 function redirectToUserPage() {
-  window.location = '/me'
+  window.location = '/profile'
 }
 
 function handleSuccess(data) {

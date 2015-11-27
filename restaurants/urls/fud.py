@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^register/?', views.register, name='register'),
     url(r'^activation/?', views.activation, name='activation'),
     url(r'^activate/(?P<uid>.+)/(?P<token>.+)/?', views.activate, name='activate'),
+    url(r'^profile/?', views.profile, name='profile'),
     url(r'^status-check/?', views.StatusCheck.as_view(), name='status-check'),
 ]
