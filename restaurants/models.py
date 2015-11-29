@@ -10,7 +10,7 @@ NOT_ALLOWED_SUBDOMAINS = [
     'fud',
 ]
 
-SUBDOMAIN_PATTERN = re.compile("^[a-z0-9][a-z0-9\-][a-z0-9]*$")
+SUBDOMAIN_PATTERN = re.compile("^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$")
 
 
 def validate_subdomain(subdomain):
