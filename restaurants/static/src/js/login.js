@@ -50,5 +50,6 @@ function handleErrors(errors) {
 }
 
 $(function() {
+  $('input[name=username]').focus();
   $('#login').submit(logIn);
 });

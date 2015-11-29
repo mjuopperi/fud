@@ -82,6 +82,7 @@ function updateSubdomainInfo() {
 }
 
 $(function() {
+  $('input[name=name]').focus();
   $('#register').validate(validationSettings);
   $('input[name=subdomain]').keyup(updateSubdomainInfo);
 });

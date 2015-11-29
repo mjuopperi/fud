@@ -84,5 +84,6 @@ function handleErrors(errors) {
 }
 
 $(function() {
+  $('input[name=username]').focus();
   $('#signup').validate(validationSettings);
 });
