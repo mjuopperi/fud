@@ -44,6 +44,17 @@ class UsernameValidationView(APIView):
             return Response('true')
 
 
+class SubdomainValidationView(APIView):
+    renderer_classes = (JSONRenderer, )
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, format=None):
+        if Restaurant.objects.filter(subdomain=self.request.GET.get('subdomain')).exists():
+            return Response('Subdomain is already in use.')
+        else:
+            return Response('true')
+
+
 class RestaurantList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
     """
     List all restaurants or create a new one

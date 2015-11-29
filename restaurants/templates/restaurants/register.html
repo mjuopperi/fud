@@ -18,21 +18,35 @@
             <p></p>
         </div>
         <form id="register">
-            <label for="name">Name <span class="required">(Required)</span></label>
-            <input name="name" type="text" placeholder="e.g. Fantastic Falafel" required />
-            <label for="subdomain">Subdomain <span class="required">(Required)</span></label>
-            <input name="subdomain" type="text" placeholder="e.g. fantastic" required />
+            <div class="input-container">
+                <label for="name">Name <span class="required">(Required)</span></label>
+                <input name="name" type="text" placeholder="e.g. Fantastic Falafel" required />
+            </div>
+            <div class="input-container">
+                <label for="subdomain">Subdomain <span class="required">(Required)</span></label>
+                <input name="subdomain" type="text" placeholder="e.g. fantastic" required />
+            </div>
             <p class="subdomain-info">Your restaurant will be found at <span class="name">&lt;name&gt;</span>.fud.fi</p>
-            <label for="address">Address</label>
-            <input name="address" type="text" />
-            <label for="postal code">Postal code</label>
-            <input name="postal_code" type="text" />
-            <label for="city">City</label>
-            <input name="city" type="text" />
-            <label for="phone number">Phone number</label>
-            <input name="phone_number" type="text" />
-            <label for="email">Email</label>
-            <input name="email" type="email" />
+            <div class="input-container">
+                <label for="address">Address</label>
+                <input name="address" type="text" class="ignore" />
+            </div>
+            <div class="input-container">
+                <label for="postal code">Postal code</label>
+                <input name="postal_code" type="text" class="ignore" />
+            </div>
+            <div class="input-container">
+                <label for="city">City</label>
+                <input name="city" type="text" class="ignore" />
+            </div>
+            <div class="input-container">
+                <label for="phone number">Phone number</label>
+                <input name="phone_number" type="text" class="ignore" />
+            </div>
+            <div class="input-container">
+                <label for="email">Email</label>
+                <input name="email" type="email" class="ignore" />
+            </div>
             <button type="submit">Register</button>
         </form>
     </section>
