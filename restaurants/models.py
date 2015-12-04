@@ -29,7 +29,7 @@ class Restaurant(models.Model):
     postal_code = models.TextField(null=True, blank=True, default=None)
     city = models.TextField(null=True, blank=True, default=None)
     phone_number = models.TextField(null=True, blank=True, default=None)
-    email = models.EmailField()
+    email = models.TextField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User)
 
     def __str__(self):
