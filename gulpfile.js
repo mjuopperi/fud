@@ -11,6 +11,7 @@ var es          = require('event-stream');
 var browserify  = require('browserify');
 var rename      = require('gulp-rename');
 var buffer      = require('vinyl-buffer');
+var notify      = require('gulp-notify');
 
 var path = {
     js_src: './restaurants/static/src/js/**/!(_)*.js',
@@ -26,7 +27,8 @@ var path = {
 gulp.task('sass', function () {
     gulp.src(path.sass_src)
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest(path.sass_dest));
+        .pipe(gulp.dest(path.sass_dest))
+        .pipe(notify({ message: "sass done!", onLast: true}));
 });
 
 gulp.task('js', function(done) {
@@ -42,7 +44,8 @@ gulp.task('js', function(done) {
               .pipe(uglify())
               .pipe(gulp.dest(path.js_dest));
         });
-        es.merge(tasks).on('end', done);
+        es.merge(tasks).on('end', done)
+          .pipe(notify({ message: "js done!", onLast: true}));
     })
 });
 
@@ -55,7 +58,8 @@ gulp.task('watch', function () {
 
 gulp.task('copy-images', function () {
     return gulp.src(path.image_src)
-        .pipe(copy(path.image_dest, { prefix: 5 }));
+        .pipe(copy(path.image_dest, { prefix: 5 }))
+        .pipe(notify({ message: "copy-images done!", onLast: true}));
 });
 
 gulp.task('default', ['sass', 'js', 'copy-images', 'watch']);
