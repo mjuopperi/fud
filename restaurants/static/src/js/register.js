@@ -25,6 +25,9 @@ const validationSettings = {
   },
   submitHandler: function(form, e) {
     register(e);
+  },
+  onfocusout: function(element) {
+    $(element).valid();
   }
 };
 $.validator.addMethod('subdomain', function(value, element) {

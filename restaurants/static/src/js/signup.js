@@ -32,6 +32,9 @@ const validationSettings = {
   },
   submitHandler: function(form, e) {
     signUp(e);
+  },
+  onfocusout: function(element) {
+    $(element).valid();
   }
 };
 
