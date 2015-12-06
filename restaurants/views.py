@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from django.contrib.auth import get_user_model
 from rest_framework import permissions, mixins, generics
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
+from rest_framework.views import APIView
 
 from restaurants import forms
 from restaurants.models import Restaurant
 from restaurants.permissions import IsOwnerOrReadOnly
 from restaurants.serializers import RestaurantSerializer
+
+User = get_user_model()
 
 
 def index(request):
@@ -25,6 +31,28 @@ def register(request):
         'form': form,
     }
     return render(request, 'restaurants/register.html', context)
+
+
+class UsernameValidationView(APIView):
+    renderer_classes = (JSONRenderer, )
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, format=None):
+        if User.objects.filter(username=self.request.GET.get('username')).exists():
+            return Response('Username is already in use.')
+        else:
+            return Response('true')
+
+
+class SubdomainValidationView(APIView):
+    renderer_classes = (JSONRenderer, )
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, format=None):
+        if Restaurant.objects.filter(subdomain=self.request.GET.get('subdomain')).exists():
+            return Response('Subdomain is already in use.')
+        else:
+            return Response('true')
 
 
 class RestaurantList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):

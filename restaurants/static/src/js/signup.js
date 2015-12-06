@@ -1,10 +1,46 @@
 require('./_header');
+require('./lib/jquery.validate');
 
 const apiUrl = '/api/auth/register/';
 const errorTexts = {
   usernameInUse: 'Username already in use.',
   default: 'Something went wrong. Please try again.'
 };
+const validationSettings = {
+  rules: {
+    username: {
+      required: true,
+      remote: '/api/restaurants/validate-username'
+    },
+    email: {
+      required: true,
+      emailAddress: true
+    },
+    password: {
+      required: true,
+      minlength: 8
+    }
+  },
+  messages: {
+    password: {
+      minlength: 'Password must be atleast 8 characters long.'
+    }
+  },
+  errorClass: 'invalid',
+  success: function(label) {
+    label.addClass('valid')
+  },
+  submitHandler: function(form, e) {
+    signUp(e);
+  },
+  onfocusout: function(element) {
+    $(element).valid();
+  }
+};
+
+$.validator.addMethod('emailAddress', function(value, element) {
+  return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,})?$/.test(value);
+}, 'Please enter a valid email.');
 
 function getInput() {
   return {
@@ -51,5 +87,6 @@ function handleErrors(errors) {
 }
 
 $(function() {
-  $('#signup').submit(signUp);
+  $('input[name=username]').focus();
+  $('#signup').validate(validationSettings);
 });

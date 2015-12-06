@@ -7,5 +7,7 @@ urlpatterns = [
     url(r'^login/?', views.login, name='login'),
     url(r'^register/?', views.register, name='register'),
     url(r'^api/restaurants/?$', views.RestaurantList.as_view()),
-    url(r'^api/restaurants/(?P<subdomain>([a-z0-9]+(-[a-z0-9]+)?)*)/?$', views.RestaurantDetail.as_view()),
+    url(r'^api/restaurants/validate-username/?$', views.UsernameValidationView.as_view(), name='validate-username'),
+    url(r'^api/restaurants/validate-subdomain/?$', views.SubdomainValidationView.as_view(), name='validate-subdomain'),
+    url(r'^api/restaurants/(?P<subdomain>[\w-]+)/?$', views.RestaurantDetail.as_view()),
 ]

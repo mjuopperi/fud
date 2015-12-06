@@ -10,7 +10,7 @@ NOT_ALLOWED_SUBDOMAINS = [
     'fud',
 ]
 
-SUBDOMAIN_PATTERN = re.compile("^[a-z0-9][a-z0-9\-][a-z0-9]*$")
+SUBDOMAIN_PATTERN = re.compile("^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$")
 
 
 def validate_subdomain(subdomain):
@@ -29,7 +29,7 @@ class Restaurant(models.Model):
     postal_code = models.TextField(null=True, blank=True, default=None)
     city = models.TextField(null=True, blank=True, default=None)
     phone_number = models.TextField(null=True, blank=True, default=None)
-    email = models.EmailField()
+    email = models.TextField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User)
 
     def __str__(self):

@@ -168,11 +168,6 @@ input[type="password"]{
   background: $color-background;
   color: $color-foreground;
   box-shadow: 0 0 0 transparent;
-
-  &.invalid {
-    border-color: $color-error;
-    box-shadow: 0 0 5px $color-error;
-  }
 }
 
 button {
@@ -191,9 +186,14 @@ form {
   background: transparent;
   margin: 1.5em 1em;
 
+  .input-container {
+    position: relative;
+  }
+
   input, button {
     width: 100%;
     max-width: 400px;
+    margin: 0 0 1.6em;
   }
 
   input {
@@ -201,9 +201,50 @@ form {
     color: $color-foreground;
 
     &.invalid {
-      border-color: darken($color-error, 20%);
-      background-color: lighten($color-error, 30%);
-      color: darken($color-error, 30%);
+      border-color: $color-error;
+    }
+
+    &.valid {
+      border-color: $color-success;
+    }
+
+    &:focus {
+      border-color: $color-info;
+    }
+  }
+
+  label {
+    &.invalid, &.valid {
+      position: absolute;
+      font-size: 0.8em;
+      text-align: left;
+      width: 100%;
+      margin-top: -1.6em;
+      margin-bottom: 0.9em;
+      min-height: 13px;
+      max-height: 13px;
+    }
+    &.invalid {
+      color: $color-error;
+    }
+    &.valid {
+      color: $color-success;
+    }
+    &.invalid:before, &.valid:before {
+      display: block;
+      position: absolute;
+      right: 8px;
+      top: -41px;
+      font-family: FontAwesome;
+      font-size: 20px;
+    }
+    &.invalid:before {
+      content: "\f00d";
+      color: $color-error;
+    }
+    &.valid:before {
+      content: "\f00c";
+      color: $color-success;
     }
   }
 
@@ -213,6 +254,7 @@ form {
     font-size: 0.8em;
     color: $color-error;
   }
+
 }
 
 #error {

@@ -1,4 +1,5 @@
 require('./_header');
+require('./lib/jquery.validate');
 
 const apiUrl = '/api/restaurants/';
 const errorTexts = {
@@ -6,6 +7,32 @@ const errorTexts = {
   subdomainInUse: 'Subdomain is already in use.',
   default: 'Something went wrong. Please try again.'
 };
+const validationSettings = {
+  rules: {
+    name: {
+      required: true
+    },
+    subdomain: {
+      required: true,
+      subdomain: true,
+      remote: '/api/restaurants/validate-subdomain'
+    }
+  },
+  ignore: '.ignore',
+  errorClass: 'invalid',
+  success: function(label) {
+    label.addClass('valid')
+  },
+  submitHandler: function(form, e) {
+    register(e);
+  },
+  onfocusout: function(element) {
+    $(element).valid();
+  }
+};
+$.validator.addMethod('subdomain', function(value, element) {
+  return /^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$/.test(value);
+}, 'Only lower case letters, numbers and dashes are allowed.');
 
 function getInput() {
   var data = {};
@@ -58,9 +85,7 @@ function updateSubdomainInfo() {
 }
 
 $(function() {
-  $('#register').submit(register);
+  $('input[name=name]').focus();
+  $('#register').validate(validationSettings);
   $('input[name=subdomain]').keyup(updateSubdomainInfo);
-  $('#register').on('keypress', '.invalid', function() {
-    $(this).removeClass('invalid');
-  })
 });
