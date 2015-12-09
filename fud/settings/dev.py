@@ -2,6 +2,8 @@ from .base import *
 
 DEBUG = True
 
+BASE_DOMAIN = 'localhost'
+
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 

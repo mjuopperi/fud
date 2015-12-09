@@ -37,13 +37,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
     'restaurants',
+    'subdomains',
 )
 
 MIDDLEWARE_CLASSES = (
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,7 +57,16 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'fud.urls'
+SITE_ID = 1
+
+# Wildcard subdomains for restaurants
+ROOT_URLCONF = 'fud.urls.restaurants'
+
+SUBDOMAIN_URLCONFS = {
+    None: 'fud.urls.fud',
+    'www': 'fud.urls.fud',
+    'api': 'fud.urls.api',
+}
 
 TEMPLATES = [
     {

@@ -1,5 +1,6 @@
-const apiUrl = '/api/auth/';
+var util = require('./_util');
 
+const apiUrl = util.getApiUrl();
 const loginElem = $('<h2/>').append($('<a/>', {'href': '/login', 'text': 'Log in'}));
 const signUpElem = $('<h2/>').append($('<a/>', {'href': '/signup', 'text': 'Sign up'}));
 
@@ -24,7 +25,7 @@ function renderUser(user) {
 function userInfoRequest(authToken) {
   return $.ajax({
     type: 'GET',
-    url: apiUrl + 'me/',
+    url: apiUrl + '/auth/me/',
     headers: {Authorization: 'Token ' + authToken}
   });
 }
