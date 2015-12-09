@@ -43,9 +43,11 @@ INSTALLED_APPS = (
     'djoser',
     'restaurants',
     'subdomains',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'subdomains.middleware.SubdomainURLRoutingMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +69,8 @@ SUBDOMAIN_URLCONFS = {
     'www': 'fud.urls.fud',
     'api': 'fud.urls.api',
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
