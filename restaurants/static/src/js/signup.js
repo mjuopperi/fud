@@ -1,7 +1,8 @@
 require('./_header');
 require('./lib/jquery.validate');
+var util = require('./_util');
 
-const apiUrl = '/api/auth/register/';
+const apiUrl = util.getApiUrl();
 const errorTexts = {
   usernameInUse: 'Username already in use.',
   default: 'Something went wrong. Please try again.'
@@ -10,7 +11,7 @@ const validationSettings = {
   rules: {
     username: {
       required: true,
-      remote: '/api/restaurants/validate-username'
+      remote: apiUrl + '/restaurants/validate-username'
     },
     email: {
       required: true,
@@ -53,7 +54,7 @@ function getInput() {
 function signUpRequest(data) {
   return $.ajax({
     type: 'POST',
-    url: apiUrl,
+    url: apiUrl + '/auth/register/',
     data: data
   });
 }

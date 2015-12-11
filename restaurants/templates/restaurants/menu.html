@@ -1,0 +1,19 @@
+{% extends "restaurants/restaurant-base.html" %}
+{% load staticfiles %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block name %}{{ name }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/restaurant.css' %}" />
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'restaurants/js/restaurant.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <section>
+
+    </section>
+{% endblock %}

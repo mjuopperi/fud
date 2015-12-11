@@ -1,7 +1,8 @@
 require('./_header');
 require('./lib/jquery.validate');
+var util = require('./_util');
 
-const apiUrl = '/api/restaurants/';
+const apiUrl = util.getApiUrl() + '/restaurants';
 const errorTexts = {
   unauthorized: 'You need to be logged in to register a restaurant.',
   subdomainInUse: 'Subdomain is already in use.',
@@ -15,7 +16,7 @@ const validationSettings = {
     subdomain: {
       required: true,
       subdomain: true,
-      remote: '/api/restaurants/validate-subdomain'
+      remote: apiUrl + '/validate-subdomain'
     }
   },
   ignore: '.ignore',
@@ -57,7 +58,7 @@ function register(e) {
 }
 
 function redirectToRestaurantPage(subdomain) {
-  window.location = '/' + subdomain + '/admin'
+  window.location = util.getRestaurantUrl(subdomain)
 }
 
 function handleSuccess(data) {
@@ -88,4 +89,5 @@ $(function() {
   $('input[name=name]').focus();
   $('#register').validate(validationSettings);
   $('input[name=subdomain]').keyup(updateSubdomainInfo);
+  console.log(apiUrl + '/validate-subdomain')
 });

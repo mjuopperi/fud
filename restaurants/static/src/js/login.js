@@ -1,6 +1,7 @@
 require('./_header');
+var util = require('./_util');
 
-const apiUrl = '/api/auth/login/';
+const apiUrl = util.getApiUrl();
 const errorTexts = {
   invalidCredentials: 'Invalid username or password.',
   default: 'Something went wrong. Please try again.'
@@ -20,7 +21,7 @@ function getInput() {
 function loginRequest(data) {
   return $.ajax({
     type: 'POST',
-    url: apiUrl,
+    url: apiUrl + '/auth/login/',
     data: data
   });
 }
