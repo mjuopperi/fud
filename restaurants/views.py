@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework import permissions, mixins, generics
@@ -31,6 +32,17 @@ def register(request):
         'form': form,
     }
     return render(request, 'restaurants/register.html', context)
+
+
+def restaurant_index(request):
+    restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
+    if restaurant is not None:
+        return render(request, 'restaurants/menu.html', {
+            "title": restaurant.name,
+            "name": restaurant.name,
+        })
+    else:
+        raise Http404('Not found')
 
 
 class UsernameValidationView(APIView):
