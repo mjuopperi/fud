@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import JSONField
 
 import re
 
@@ -24,7 +25,7 @@ def validate_subdomain(subdomain):
 
 class Restaurant(models.Model):
     name = models.TextField()
-    subdomain = models.TextField(unique=True, validators=[validate_subdomain])
+    subdomain = models.TextField(unique=True, validators=[validate_subdomain], db_index=True)
     address = models.TextField(null=True, blank=True, default=None)
     postal_code = models.TextField(null=True, blank=True, default=None)
     city = models.TextField(null=True, blank=True, default=None)
@@ -32,24 +33,17 @@ class Restaurant(models.Model):
     email = models.TextField(null=True, blank=True, default=None)
     owner = models.ForeignKey(User)
 
+    class Meta:
+        db_table = 'restaurant'
+
     def __str__(self):
         return u'%s' % (self.name,)
 
 
-class MenuCategory(models.Model):
+class Menu(models.Model):
+    title = models.TextField()
+    content = JSONField()
     restaurant = models.ForeignKey(Restaurant)
-    name = models.CharField(max_length=80)
 
-    def __str__(self):
-        return u'%s' % (self.name,)
-
-
-class MenuItem(models.Model):
-    category = models.ForeignKey(MenuCategory)
-    title = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True, default=None)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
-    allergies = models.TextField(null=True, blank=True, default=None)
-
-    def __str__(self):
-        return u'%s' % (self.title,)
+    class Meta:
+        db_table = 'menu'
