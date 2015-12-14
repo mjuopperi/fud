@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import JSONField
 
 import re
 
-NOT_ALLOWED_SUBDOMAINS = [
+RESERVED_SUBDOMAINS = [
     'static',
     'api',
     'fud',
@@ -15,12 +15,12 @@ SUBDOMAIN_PATTERN = re.compile("^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$")
 
 
 def validate_subdomain(subdomain):
-    if subdomain in NOT_ALLOWED_SUBDOMAINS:
-        raise ValidationError('%s is not allowed subdomain' % subdomain)
+    if subdomain in RESERVED_SUBDOMAINS:
+        raise ValidationError('The subdomain "%s" is reserved' % subdomain)
     if SUBDOMAIN_PATTERN.match(subdomain) is None:
-        raise ValidationError('Allowed characters: a-z, 0-9 and -, only lowercase')
+        raise ValidationError('Allowed characters: a-z, 0-9 and -')
     if subdomain.startswith('www'):
-        raise ValidationError('Subdomain starting with www* is not allowed')
+        raise ValidationError('Subdomains starting with www* are not allowed')
 
 
 class Restaurant(models.Model):
