@@ -1,0 +1,12 @@
+[Unit]
+Description=fud gunicorn daemon
+After=network.target
+
+[Service]
+User=fud
+Group=nginx
+WorkingDirectory=/home/fud/server
+ExecStart=/home/fud/env/bin/gunicorn --workers 3 --bind unix:/home/fud/server/fud.sock fud.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

@@ -4,3 +4,4 @@ django-cors-headers==1.1.0
 djsubdomains==2.1.0
 psycopg2==2.6.1
 djoser==0.4.0
+Fabric==1.10.2
