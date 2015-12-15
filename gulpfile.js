@@ -12,6 +12,7 @@ var browserify  = require('browserify');
 var rename      = require('gulp-rename');
 var buffer      = require('vinyl-buffer');
 var notify      = require('gulp-notify');
+var del         = require('del');
 
 var path = {
     js_src: './restaurants/static/src/js/**/!(_)*.js',
@@ -23,6 +24,13 @@ var path = {
     image_dest: './restaurants/static/restaurants/img'
 };
 
+gulp.task('clean', function() {
+    return del([
+        path.js_dest + '/**/*',
+        path.sass_dest + '/**/*',
+        path.image_dest + '/**/*'
+    ]);
+});
 
 gulp.task('sass', function () {
     gulp.src(path.sass_src)
@@ -64,4 +72,4 @@ gulp.task('copy-images', function () {
 
 gulp.task('default', ['sass', 'js', 'copy-images', 'watch']);
 
-gulp.task('build', ['sass', 'js', 'copy-images']);
+gulp.task('build', ['clean', 'sass', 'js', 'copy-images']);

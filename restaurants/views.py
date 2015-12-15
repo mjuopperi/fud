@@ -1,3 +1,5 @@
+import time
+
 from django.http import Http404
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
@@ -167,3 +169,10 @@ class MenuDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Dest
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class StatusCheck(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, format=None):
+        return Response({'server_time': int(time.time() * 1000)})
