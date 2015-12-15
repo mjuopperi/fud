@@ -4,8 +4,12 @@ function getPort() {
 }
 
 function getDomainName() {
-  var parts = window.location.hostname.split('.');
-  return parts[parts.length - 1]
+  if (window.location.hostname.indexOf('fud.fi') > -1) return 'fud.fi';
+  else if (window.location.hostname.indexOf('localhost') > -1) return 'localhost';
+  else {
+    var parts = window.location.hostname.split('.');
+    return parts[parts.length - 2]
+  }
 }
 
 function getApiUrl() {
