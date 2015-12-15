@@ -1,15 +1,16 @@
 from django.http import Http404
-from django.shortcuts import render
 from django.contrib.auth import get_user_model
+from django.shortcuts import render, get_object_or_404
 from rest_framework import permissions, mixins, generics
-from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from restaurants import forms
-from restaurants.models import Restaurant
+from restaurants.models import Restaurant, Menu
 from restaurants.permissions import IsOwnerOrReadOnly
-from restaurants.serializers import RestaurantSerializer
+from restaurants.serializers import RestaurantSerializer, MenuSerializer
+
 
 User = get_user_model()
 
@@ -100,6 +101,63 @@ class RestaurantDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixin
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly,
     )
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class MenuList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    """
+    List all menus of a restaurant or create a new one
+    """
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+    )
+
+    def perform_create(self, serializer):
+        serializer.save(restaurant=Restaurant.objects.get(subdomain=self.kwargs['subdomain']))
+
+    def get(self, request, subdomain):
+        restaurant = Restaurant.objects.get(subdomain=subdomain)
+        menus = Menu.objects.filter(restaurant=restaurant)
+        serializer = MenuSerializer(menus, many=True)
+        return Response({
+            'menus': serializer.data
+        })
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class MenuDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    """
+    Update or delete restaurants
+    """
+    queryset = Menu.objects.all()
+    serializer_class = MenuSerializer
+
+    permission_classes = (
+        permissions.IsAuthenticatedOrReadOnly,
+        IsOwnerOrReadOnly,
+    )
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        restaurant = Restaurant.objects.get(subdomain=self.kwargs['subdomain'])
+        filter = {'restaurant': restaurant, 'id': self.kwargs['id']}
+
+        menu = get_object_or_404(queryset, **filter)
+        self.check_object_permissions(self.request, restaurant)
+        return menu
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
