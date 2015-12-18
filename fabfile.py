@@ -42,10 +42,11 @@ def django_command(args):
 
 
 def init_dir(dir, clear=False):
-    if files.exists(dir) and clear:
-        run('rm -rf ' + dir)
+    if not files.exists(dir):
         run('mkdir -p ' + dir)
-    else:
+    elif clear:
+        if files.exists(dir):
+            run('rm -rf ' + dir)
         run('mkdir -p ' + dir)
 
 
@@ -62,7 +63,7 @@ def check_deployed_version():
 
 
 def gulp():
-    local('gulp build')
+    local('gulp clean && gulp build')
 
 
 def pack():
@@ -98,6 +99,7 @@ def setup_server():
     sudo('chmod 755 /etc/systemd/system/fud.service')
     sudo('mv {} {}'.format(conf_dir + 'nginx.conf', '/etc/nginx/'), shell=False)
     sudo('chown nginx:nginx /etc/nginx/nginx.conf', shell=False)
+    sudo('chown nginx:nginx /etc/nginx/fud/*', shell=False)
 
 
 def enable_service():
