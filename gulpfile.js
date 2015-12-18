@@ -4,7 +4,6 @@ var gulp        = require('gulp');
 var watch       = require('gulp-watch');
 var sass        = require('gulp-sass');
 var uglify      = require('gulp-uglify');
-var copy        = require('gulp-copy');
 var source      = require('vinyl-source-stream');
 var glob        = require('glob');
 var es          = require('event-stream');
@@ -66,8 +65,8 @@ gulp.task('watch', function () {
 
 gulp.task('copy-images', function () {
     return gulp.src(path.image_src)
-        .pipe(copy(path.image_dest, { prefix: 5 }))
-        .pipe(notify({ message: "copy-images done!", onLast: true}));
+        .pipe(gulp.dest(path.image_dest))
+        .pipe(notify({ message: "images done!", onLast: true}));
 });
 
 gulp.task('default', ['sass', 'js', 'copy-images', 'watch']);
