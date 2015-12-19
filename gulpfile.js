@@ -4,7 +4,6 @@ var gulp        = require('gulp');
 var watch       = require('gulp-watch');
 var sass        = require('gulp-sass');
 var uglify      = require('gulp-uglify');
-var copy        = require('gulp-copy');
 var source      = require('vinyl-source-stream');
 var glob        = require('glob');
 var es          = require('event-stream');
@@ -13,8 +12,11 @@ var rename      = require('gulp-rename');
 var buffer      = require('vinyl-buffer');
 var notify      = require('gulp-notify');
 var del         = require('del');
+var RevAll      = require('gulp-rev-all');
 
 var path = {
+    base: './restaurants',
+    dest_base: './restaurants/static/restaurants',
     js_src: './restaurants/static/src/js/**/!(_)*.js',
     js_dest: './restaurants/static/restaurants/js',
     js_extras: './restaurants/static/src/js/**/_*.js',
@@ -25,11 +27,19 @@ var path = {
 };
 
 gulp.task('clean', function() {
+    return del([path.dest_base + '/**']);
+});
+
+gulp.task('clean-rev', ['rev'], function() {
     return del([
-        path.js_dest + '/**/*',
-        path.sass_dest + '/**/*',
-        path.image_dest + '/**/*'
-    ]);
+        path.dest_base + '/**',
+        '!' + path.dest_base,  // Have to ignore all folders in the path as the glob
+        '!' + path.sass_dest,  // pattern will delete them even if their children are ignored.
+        '!' + path.js_dest,    // https://www.npmjs.com/package/del#beware
+        '!' + path.image_dest,
+        '!' + path.dest_base + '/**/*.rev.*',
+        '!' + path.dest_base + '/rev-manifest.json'
+    ])
 });
 
 gulp.task('sass', function () {
@@ -61,15 +71,30 @@ gulp.task('watch', function () {
     gulp.watch(path.sass_src, ['sass']);
     gulp.watch(path.js_src, ['js']);
     gulp.watch(path.js_extras, ['js']);
-    gulp.watch(path.image_src, ['copy-images']);
+    gulp.watch(path.image_src, ['images']);
 });
 
-gulp.task('copy-images', function () {
+gulp.task('images', function () {
     return gulp.src(path.image_src)
-        .pipe(copy(path.image_dest, { prefix: 5 }))
-        .pipe(notify({ message: "copy-images done!", onLast: true}));
+        .pipe(gulp.dest(path.image_dest))
+        .pipe(notify({ message: "images done!", onLast: true}));
 });
 
-gulp.task('default', ['sass', 'js', 'copy-images', 'watch']);
+gulp.task('rev', ['sass', 'js', 'images'], function () {
+    var revAll = new RevAll({
+        dontRenameFile: [/^\/favicon.ico$/g],
+        transformFilename: function (file, hash) {
+            return file.revFilenameOriginal + '.rev.' + hash.substr(0, 5) + file.revFilenameExtOriginal;
+        }
+    });
 
-gulp.task('build', ['clean', 'sass', 'js', 'copy-images']);
+    return gulp.src(path.dest_base + '/**', {base : path.base})
+        .pipe(revAll.revision())
+        .pipe(gulp.dest(path.base))
+        .pipe(revAll.manifestFile())
+        .pipe(gulp.dest(path.dest_base))
+});
+
+gulp.task('default', ['sass', 'js', 'images', 'watch']);
+
+gulp.task('build', ['sass', 'js', 'images', 'rev', 'clean-rev']);

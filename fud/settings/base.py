@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import json
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -122,3 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# File revisions
+
+filerevs_path = os.path.join(PROJECT_ROOT, 'restaurants/static/restaurants', 'rev-manifest.json')
+try:
+    with open(filerevs_path) as filerevs_fh:
+        FILEREVS = json.load(filerevs_fh)
+except IOError:
+    print('No file revisions found, continuing without')
+    FILEREVS = {}
