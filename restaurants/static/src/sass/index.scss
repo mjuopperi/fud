@@ -18,8 +18,7 @@ section {
 #header {
   background: url("/static/restaurants/img/background.jpg") no-repeat center center;
   @include background-size(cover);
-  height: 90vh;
-  min-height: 600px;
+  min-height: 100vh;
   padding-top: $header-height;
 
   h1 {
