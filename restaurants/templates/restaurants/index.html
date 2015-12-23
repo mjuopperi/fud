@@ -10,12 +10,25 @@
 {% endblock %}
 
 {% block content %}
-    <article>
-        <section id="header">
-            <h1>Create your restaurant's website in minutes</h1>
-        </section>
-        <section id="features">
-
-        </section>
-    </article>
+      <section id="header">
+          <h1>Create your restaurant's website in minutes</h1>
+          <div id="features">
+            <div class="feature">
+              <h2>Sign up</h2>
+              <img src="{% static 'restaurants/img/user.svg' %}">
+            </div>
+            <div class="feature">
+              <h2>Register your restaurant</h2>
+              <img src="{% static 'restaurants/img/cutlery.svg' %}">
+            </div>
+            <div class="feature">
+              <h2>Add menus</h2>
+              <img src="{% static 'restaurants/img/menu.svg' %}">
+            </div>
+          </div>
+          <h2><a href="{% url "restaurants:signup" %}">Get started</a></h2>
+      </section>
+      <div class="footer">
+        <p>Icons by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> are licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></p>
+      </div>
 {% endblock %}
