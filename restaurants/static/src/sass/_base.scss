@@ -3,12 +3,27 @@
 @import 'colors';
 
 $header-height: 70px;
+$footer-height: 80px;
 $logo-font: 'Mr Bedfort', cursive;
 $body-font: 'Raleway', sans-serif;
 
 * {
   @include box-sizing(border-box);
   -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%;
+  margin-bottom: -$footer-height;
+  &:after {
+    content: '';
+    display: block;
+    height: $footer-height;
+  }
 }
 
 h1 {
@@ -270,3 +285,41 @@ form {
     font-size: 1em;
   }
 }
+
+footer {
+  width: 100%;
+  height: $footer-height;
+  background: #000;
+  font-size: 0.8em;
+  &:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    margin-left: -0.25em;
+  }
+  h3 {
+    display: inline-block;
+    font-family: $logo-font;
+    color: $color-foreground;
+    font-size: 2em;
+    text-align: center;
+    line-height: 3em;
+    width: 100px;
+    vertical-align: middle;
+  }
+  .footer-content {
+    display: inline-block;
+    vertical-align: middle;
+    width: calc(100% - 104px);
+    p {
+      padding: 20px;
+    }
+    p, a {
+      font-family: $body-font;
+      color: darken($color-background, 40%);
+      text-align: right;
+    }
+  }
+}
+

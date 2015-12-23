@@ -99,15 +99,6 @@ section {
   }
 }
 
-.footer {
-  background: #000;
-  font-size: 0.8em;
-  text-align: right;
-  p {
-    padding: 20px 10px 10px;
-  }
-  p, a {
-    font-family: "Raleway", sans-serif;
-    color: darken($color-background, 40%);
-  }
+footer {
+  position: relative;
 }
