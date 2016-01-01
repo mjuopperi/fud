@@ -102,7 +102,6 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SITE_NAME': 'Fud',
-    'LOGIN_AFTER_ACTIVATION': True,
     'SEND_ACTIVATION_EMAIL': False,
 }
 
