@@ -13,11 +13,19 @@
     {% block scripts %}{% endblock %}
 </head>
 <body>
-    <header>
+    <div class="wrapper">
+      <header>
         <h1><a href="{% url "restaurants:index" %}">Fud.fi</a></h1>
         <div class="user">
         </div>
-    </header>
-    {% block content %}{% endblock %}
+      </header>
+      {% block content %}{% endblock %}
+    </div>
+    <footer>
+      <h3>Fud.fi</h3>
+      <div class="footer-content">
+        {% block footer %}{% endblock %}
+      </div>
+    </footer>
 </body>
 </html>

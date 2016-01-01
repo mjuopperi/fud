@@ -6,12 +6,14 @@ header {
 }
 
 section {
+  h1, h2 {
+    font-family: $body-font;
+  }
   h1 {
     width: 60%;
     text-align: center;
     margin: 0 auto;
-    font-size: 2em;
-    font-family: $body-font;
+    font-size: 2.6em;
   }
 }
 
@@ -20,17 +22,85 @@ section {
   @include background-size(cover);
   min-height: 100vh;
   padding-top: $header-height;
+  padding-bottom: 80px;
+  text-align: center;
 
   h1 {
     color: $color-background;
 
     &:first-child {
-      margin-top: 100px;
+      display: inline-block;
+      margin-top: 30%;
+      margin-bottom: 10%;
+      font-size: 2.2em;
+      @media screen and (min-width: 600px) {
+        margin-top: 120px;
+        margin-bottom: 40px;
+        font-size: 2.6em;
+      }
+    }
+  }
+  .nav-arrow {
+    display: block;
+    color: $color-background;
+    font-size: 80px;
+    cursor: pointer;
+    @media screen and (min-width: 600px) {
+      display: none;
+    }
+  }
+  > h2 {
+    display: inline-block;
+    font-size: 1.4em;
+    border: 2px solid $color-background;
+    border-radius: 2px;
+    margin: 40px auto;
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      color: $color-background;
+      text-decoration: none;
+      font-weight: 700;
+      &:hover {
+        background: rgba($color-info, 0.5);
+      }
+    }
+  }
+  #features {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+    width: 80%;
+    margin: 40px auto;
+
+    .feature {
+      display: block;
+      width: 200px;
+      height: 150px;
+      margin: 20px;
+      position: relative;
+
+      h2 {
+        color: $color-background;
+        font-size: 1.4em;
+        text-align: center;
+        margin: 20px 10px;
+        line-height: 1.2em;
+      }
+      img {
+        width: 70px;
+        position: absolute;
+        left: 50%;
+        top: 80%;
+        transform: translate(-50%,-50%);
+      }
     }
   }
 }
 
-#features {
-  background: $color-foreground;
-  min-height: 600px;
+footer {
+  position: relative;
 }
