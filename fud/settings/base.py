@@ -43,7 +43,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'restaurants',
+    'restaurants.apps.RestaurantsConfig',
     'subdomains',
     'corsheaders',
 )
