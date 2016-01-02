@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import json
 import os
 
+from fud.util.email import MockEmailSender
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
@@ -102,7 +104,9 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SITE_NAME': 'Fud',
-    'SEND_ACTIVATION_EMAIL': False,
+    'DOMAIN': 'localhost:8000',
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
 }
 
 # Internationalization
@@ -133,3 +137,6 @@ try:
 except IOError:
     print('No file revisions found, continuing without')
     FILEREVS = {}
+
+EMAIL_SENDER = MockEmailSender
+DEFAULT_FROM_EMAIL = 'noreply@fud.fi'
