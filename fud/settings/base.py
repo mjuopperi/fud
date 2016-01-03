@@ -26,6 +26,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+kzqr#ww(ic^9s89dy)rri3&$2ls^m*2=ccjr!$4h-590f+ah='
 
+AWS_ACCESS_KEY = 'N/A'
+AWS_SECRET_ACCESS_KEY = 'N/A'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
