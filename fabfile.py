@@ -13,6 +13,7 @@ project_files = [
     'fud/',
     'restaurants/',
     'manage.py',
+    'manage.sh',
     'requirements.txt',
     'tools/deploy/conf/',
 ]
