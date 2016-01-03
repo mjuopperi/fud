@@ -11,6 +11,7 @@ const validationSettings = {
   rules: {
     username: {
       required: true,
+      maxlength: 30,
       remote: apiUrl + '/restaurants/validate-username'
     },
     email: {
@@ -61,13 +62,10 @@ function signUpRequest(data) {
 
 function signUp(e) {
   e.preventDefault();
+  showLoader();
   var request = signUpRequest(getInput());
   request.done(handleSuccess);
   request.fail(handleErrors);
-}
-
-function redirectToLoginPage() {
-  window.location = '/login'
 }
 
 function usernameInUse(errors) {
@@ -75,16 +73,28 @@ function usernameInUse(errors) {
 }
 
 function handleSuccess() {
-  redirectToLoginPage();
+  hideLoader();
+  window.location = '/activation';
 }
 
 function handleErrors(errors) {
+  hideLoader();
   if (usernameInUse(errors)) {
     $('#error').find('p').text(errorTexts.usernameInUse).parent().show();
     $('input[name="username"]').addClass('invalid');
   } else {
     $('#error').find('p').text(errorTexts.default).parent().show();
   }
+}
+
+function showLoader() {
+  $('.overlay').show();
+  $('#signup > button').prop('disabled', true);
+}
+
+function hideLoader() {
+  $('.overlay').hide();
+  $('#signup > button').prop('disabled', false);
 }
 
 $(function() {

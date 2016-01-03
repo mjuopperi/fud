@@ -14,6 +14,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import json
 import os
 
+from fud.util.email import MockEmailSender
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
@@ -23,6 +25,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '+kzqr#ww(ic^9s89dy)rri3&$2ls^m*2=ccjr!$4h-590f+ah='
+
+AWS_ACCESS_KEY = 'N/A'
+AWS_SECRET_ACCESS_KEY = 'N/A'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,7 +48,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'restaurants',
+    'restaurants.apps.RestaurantsConfig',
     'subdomains',
     'corsheaders',
 )
@@ -102,8 +107,9 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SITE_NAME': 'Fud',
-    'LOGIN_AFTER_ACTIVATION': True,
-    'SEND_ACTIVATION_EMAIL': False,
+    'DOMAIN': 'localhost:8000',
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
 }
 
 # Internationalization
@@ -134,3 +140,6 @@ try:
 except IOError:
     print('No file revisions found, continuing without')
     FILEREVS = {}
+
+EMAIL_SENDER = MockEmailSender
+DEFAULT_FROM_EMAIL = 'noreply@fud.fi'

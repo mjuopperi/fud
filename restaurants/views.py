@@ -1,8 +1,10 @@
 import time
 
+from django.conf import settings
 from django.http import Http404
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
+from djoser.views import RegistrationView
 from rest_framework import permissions, mixins, generics
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -37,6 +39,17 @@ def register(request):
     return render(request, 'restaurants/register.html', context)
 
 
+def activation(request):
+    return render(request, 'restaurants/activation.html')
+
+
+def activate(request, uid, token):
+    return render(request, 'restaurants/activate.html', {
+        'uid': uid,
+        'token': token
+    })
+
+
 def restaurant_index(request):
     restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
     if restaurant is not None:
@@ -46,6 +59,12 @@ def restaurant_index(request):
         })
     else:
         raise Http404('Not found')
+
+
+class CustomRegistrationView(RegistrationView):
+
+    def send_email(self, *args, **kwargs):
+        settings.EMAIL_SENDER.send_email(*args, **kwargs)
 
 
 class UsernameValidationView(APIView):

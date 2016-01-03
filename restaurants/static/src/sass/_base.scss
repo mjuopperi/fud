@@ -34,6 +34,10 @@ h1 {
   margin: 1.5em 0 1.5em;
 }
 
+p {
+  font-family: $body-font;
+}
+
 header {
   background-color: $color-background;
   width: 100%;
@@ -171,7 +175,6 @@ label {
 
 input, button {
   font-size: 1.125em;
-  padding: 0.6em 0.4em;
   margin: 0 0 0.8em;
 }
 
@@ -179,6 +182,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"]{
   height: auto;
+  padding: 0.6em 0.4em;
   border: 2px solid lighten($color-foreground, 20%);
   background: $color-background;
   color: $color-foreground;
@@ -186,15 +190,21 @@ input[type="password"]{
 }
 
 button {
+  padding: 0.6em 1.2em;
   border: 2px solid darken($color-success, 20%);
   background: $color-success;
   color: $color-background;
   cursor: pointer;
   font-weight: 700;
 
-  &:hover {
+  &:hover:not([disabled]) {
     background: darken($color-success, 10%);
   }
+  &:disabled {
+    border-color: grayscale(lighten($color-success, 10%));
+    background: grayscale(lighten($color-success, 20%));
+  }
+
 }
 
 form {

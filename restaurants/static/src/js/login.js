@@ -28,6 +28,7 @@ function loginRequest(data) {
 
 function logIn(e) {
   e.preventDefault();
+  showLoader();
   var request = loginRequest(getInput());
   request.done(handleSuccess);
   request.fail(handleErrors);
@@ -38,16 +39,28 @@ function redirectToUserPage() {
 }
 
 function handleSuccess(data) {
+  hideLoader();
   storeAuthToken(data.auth_token);
   redirectToUserPage();
 }
 
 function handleErrors(errors) {
+  hideLoader();
   if (errors.status == 400) {
     $('#error').find('p').text(errorTexts.invalidCredentials).parent().show();
   } else {
     $('#error').find('p').text(errorTexts.default).parent().show();
   }
+}
+
+function showLoader() {
+  $('.overlay').show();
+  $('#login > button').prop('disabled', true);
+}
+
+function hideLoader() {
+  $('.overlay').hide();
+  $('#login > button').prop('disabled', false);
 }
 
 $(function() {

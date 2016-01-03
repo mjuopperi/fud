@@ -1,3 +1,4 @@
+from fud.util.email import SESEmailSender
 from .base import *
 try:
     from .secrets import *
@@ -7,6 +8,9 @@ except ImportError:
 DEBUG = False
 
 SECRET_KEY = FUD_SECRET_KEY
+
+AWS_ACCESS_KEY = AWS_ACCESS_KEY
+AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY
 
 BASE_DOMAIN = 'fud.fi'
 
@@ -26,3 +30,12 @@ DATABASES = {
 }
 
 STATIC_ROOT = '/home/fud/server/static/'
+
+DJOSER = {
+    'SITE_NAME': 'Fud',
+    'DOMAIN': 'fud.fi',
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+}
+
+EMAIL_SENDER = SESEmailSender
