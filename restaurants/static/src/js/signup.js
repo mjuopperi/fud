@@ -66,16 +66,12 @@ function signUp(e) {
   request.fail(handleErrors);
 }
 
-function redirectToLoginPage() {
-  window.location = '/login'
-}
-
 function usernameInUse(errors) {
   return errors.responseJSON.hasOwnProperty('username') && errors.responseJSON.username[0].indexOf('unique') > -1;
 }
 
 function handleSuccess() {
-  redirectToLoginPage();
+  window.location = '/activation';
 }
 
 function handleErrors(errors) {

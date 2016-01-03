@@ -39,6 +39,17 @@ def register(request):
     return render(request, 'restaurants/register.html', context)
 
 
+def activation(request):
+    return render(request, 'restaurants/activation.html')
+
+
+def activate(request, uid, token):
+    return render(request, 'restaurants/activate.html', {
+        'uid': uid,
+        'token': token
+    })
+
+
 def restaurant_index(request):
     restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
     if restaurant is not None:
