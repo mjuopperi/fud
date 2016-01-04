@@ -34,6 +34,12 @@ function getUserInfo() {
   var request = userInfoRequest(localStorage.getItem('authToken'));
   exports.userInfo = request;
   request.done(renderUser);
+  request.fail(handleAuthError)
+}
+
+function handleAuthError(e) {
+  localStorage.removeItem('authToken');
+  renderDefaults();
 }
 
 function loggedIn() {
