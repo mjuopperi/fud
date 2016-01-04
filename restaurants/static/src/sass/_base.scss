@@ -16,6 +16,11 @@ html, body {
   height: 100%;
 }
 
+h1, h2, h3, h4, p, a {
+  font-family: $body-font;
+  color: $color-foreground;
+}
+
 .wrapper {
   min-height: 100%;
   margin-bottom: -$footer-height;
@@ -27,15 +32,9 @@ html, body {
 }
 
 h1 {
-  font-family: $body-font;
-  color: $color-foreground;
   text-align: center;
   font-size: 2em;
   margin: 1.5em 0 1.5em;
-}
-
-p {
-  font-family: $body-font;
 }
 
 header {
@@ -60,6 +59,9 @@ header {
     font-size: 2.6em;
     line-height: $header-height;
     margin: 4px 0 0 16px;
+    a {
+      font-family: $logo-font;
+    }
   }
 
   .user {
