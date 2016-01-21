@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from restaurants import views
 
+app_name = 'restaurants'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^signup/?', views.signup, name='signup'),
