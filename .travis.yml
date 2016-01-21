@@ -14,7 +14,6 @@ install:
   - npm install
 before_script:
   - psql -c 'create database fud_test;' -U postgres
-  - python manage.py makemigrations --settings=fud.settings.travis
   - python manage.py migrate --settings=fud.settings.travis
   - gulp build
 script:
