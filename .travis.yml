@@ -18,7 +18,7 @@ before_script:
   - python manage.py migrate --settings=fud.settings.travis
   - gulp build
 script:
-  - python manage.py test --settings=fud.settings.travis
+  - py.test --ds=fud.settings.travis
 notifications:
   email: false
   flowdock:
