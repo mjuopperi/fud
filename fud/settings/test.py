@@ -3,6 +3,7 @@ from subprocess import call
 
 DEBUG = True
 
+BASE_DOMAIN = 'testserver'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
