@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.test import APITestCase
-from .test_support import *
+from .util import *
 
 User = get_user_model()
 
