@@ -3,8 +3,9 @@ import string
 
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
+from rest_framework.renderers import JSONRenderer
 
-from restaurants.models import Restaurant
+from restaurants.models import Restaurant, Menu
 
 User = get_user_model()
 API_HOST = 'api.testserver'
@@ -14,6 +15,12 @@ def random_string(length=6):
 
 def random_username():
     return 'user-' + random_string()
+
+def random_title():
+    return 'title-' + random_string()
+
+def render_json(json):
+    JSONRenderer().render(json).decode('utf-8')
 
 def authenticate_requests(user, client):
     token, _ = Token.objects.get_or_create(user=user)
@@ -26,6 +33,16 @@ def create_restaurant(subdomain, user=None):
     restaurant = Restaurant(name=subdomain, subdomain=subdomain, owner=user)
     restaurant.save()
     return (restaurant, user)
+
+
+def create_menu(restaurant, title=None, content=None):
+    if title == None:
+        title=random_title()
+    if content == None:
+        content = MENU_CONTENT
+    menu = Menu(title=title, content=content, restaurant=restaurant)
+    menu.save()
+    return menu
 
 
 def signup_data(username='test-user', email='test@example.com', password='password'):
@@ -46,4 +63,28 @@ def restaurant_data(name='Test Restaurant', subdomain='test-restaurant', address
         'city': city,
         'phone_number': phone_number,
         'email': email
+    }
+
+
+MENU_CONTENT = [
+    {
+        'name': 'Burgers',
+        'items': [
+            {
+                'name': 'Seitan Burger',
+                'price': '4.50 €',
+                'description': 'Seitan, whole wheat, lettuce',
+                'allergens': ['V']
+            }
+        ]
+    }
+]
+
+
+def menu_data(title='Test Menu', content=None):
+    if content == None:
+        content = MENU_CONTENT
+    return {
+        'title': title,
+        'content': content
     }
