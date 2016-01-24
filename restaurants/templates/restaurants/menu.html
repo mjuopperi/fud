@@ -8,12 +8,49 @@
     <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/restaurant.css' %}" />
 {% endblock %}
 
-{% block scripts %}
-    <script src="{% static 'restaurants/js/restaurant.js' %}"></script>
+{% block content %}
+    <section class="main">
+
+      <h1>Restaurant name or Logo</h1>
+
+      <section class="navigation">
+        <h1>Home</h1>
+        <h1>Menu</h1>
+        <h1>Contact</h1>
+      </section>
+
+      <script type="text/template" class="template">
+
+        <% _.each(restaurant.menus, function(menu) { %>
+
+          <h1>
+              <%- menu.title %>
+          </h1>
+
+          <h2>
+            <%- menu.content.name %>
+          </h2>
+
+          <ul>
+            <% _.each(menu.content.items, function(item) { %>
+
+             <li>
+                 <%- item.name %>
+                 <%- item.price %>
+                 <%- item.description %>
+                 <%- item.allergens %>
+             </li>
+
+            <% }); %>
+          </ul>
+
+        <% }); %>
+
+      </script>
+    </section>
 {% endblock %}
 
-{% block content %}
-    <section>
-
-    </section>
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+    <script src="{% static 'restaurants/js/menu.js' %}"></script>
 {% endblock %}
