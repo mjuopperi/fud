@@ -9,8 +9,11 @@ from restaurants.models import Restaurant
 User = get_user_model()
 API_HOST = 'api.testserver'
 
+def random_string(length=6):
+    return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(length))
+
 def random_username():
-    return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(10))
+    return 'user-' + random_string()
 
 def authenticate_requests(user, client):
     token, _ = Token.objects.get_or_create(user=user)
