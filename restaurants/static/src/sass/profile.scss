@@ -7,17 +7,25 @@ $content-max-width: 960px;
   margin: 1.5em auto;
   text-align: center;
 
+  @media screen and (min-width: 769px) {
+    padding: 0 2em;
+  }
+
   > section {
     display: inline-block;
     vertical-align: top;
     width: 100%;
-    @media screen and (min-width: 769px) {
-      width: 46%;
-      padding: 0 2%;
-    }
     max-width: $content-max-width / 2.5;
     min-width: $content-max-width / 4;
     margin: 0 auto 30px;
+    @media screen and (min-width: 769px) {
+      &:first-of-type {
+        margin-right: 3em;
+      }
+      &:last-of-type {
+        margin-left: 3em;
+      }
+    }
 
     h2 {
       font-size: 1.4em;
@@ -32,31 +40,24 @@ $content-max-width: 960px;
     label {
       margin-top: 1em;
     }
+    ul {
+      margin-top: 2.7em;
+      li {
+        max-width: 90%;
+        white-space: nowrap;
+        border-radius: 2px;
+        margin: 1.2em 0.5em;
+        a {
+          display: inline-block;
+          position: relative;
+          font-size: 1.125em;
+          text-decoration: none;
+          padding: 0.5em;
+          text-overflow: ellipsis;
+          overflow: hidden;
 
-    li {
-      margin: 0 auto;
-      max-width: 90%;
-      white-space: nowrap;
-      a {
-        display: inline-block;
-        position: relative;
-        font-size: 1.125em;
-        text-decoration: none;
-        padding: 1em;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 100%;
-
-        &:hover {
-          color: $color-info;
-          &:before {
-            content: '\f054';
-            position: absolute;
-            top: 50%;
-            left: 4px;
-            transform: translate(0, -50%);
-            font-family: FontAwesome;
-            font-size: 12px;
+          &:hover {
+            color: $color-info;
           }
         }
       }
