@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from restaurants import views
 
+app_name = 'restaurants'
 urlpatterns = [
     url(r'^auth/register/$', views.CustomRegistrationView.as_view()),
     url(r'^auth/', include('djoser.urls.authtoken')),

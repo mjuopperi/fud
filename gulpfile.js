@@ -10,7 +10,6 @@ var es          = require('event-stream');
 var browserify  = require('browserify');
 var rename      = require('gulp-rename');
 var buffer      = require('vinyl-buffer');
-var notify      = require('gulp-notify');
 var del         = require('del');
 var RevAll      = require('gulp-rev-all');
 
@@ -45,8 +44,7 @@ gulp.task('clean-rev', ['rev'], function() {
 gulp.task('sass', function () {
     gulp.src(path.sass_src)
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest(path.sass_dest))
-        .pipe(notify({ message: "sass done!", onLast: true}));
+        .pipe(gulp.dest(path.sass_dest));
 });
 
 gulp.task('js', function(done) {
@@ -62,8 +60,7 @@ gulp.task('js', function(done) {
               .pipe(uglify())
               .pipe(gulp.dest(path.js_dest));
         });
-        es.merge(tasks).on('end', done)
-          .pipe(notify({ message: "js done!", onLast: true}));
+        es.merge(tasks).on('end', done);
     })
 });
 
@@ -76,8 +73,7 @@ gulp.task('watch', function () {
 
 gulp.task('images', function () {
     return gulp.src(path.image_src)
-        .pipe(gulp.dest(path.image_dest))
-        .pipe(notify({ message: "images done!", onLast: true}));
+        .pipe(gulp.dest(path.image_dest));
 });
 
 gulp.task('rev', ['sass', 'js', 'images'], function () {

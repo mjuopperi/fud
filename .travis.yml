@@ -9,16 +9,18 @@ python:
   - '3.4'
 addons:
   postgresql: "9.4"
+  hosts:
+    - testserver
+    - api.testserver
 install:
   - pip install -r requirements.txt
   - npm install
 before_script:
   - psql -c 'create database fud_test;' -U postgres
-  - python manage.py makemigrations --settings=fud.settings.travis
   - python manage.py migrate --settings=fud.settings.travis
   - gulp build
 script:
-  - python manage.py test --settings=fud.settings.travis
+  - py.test --ds=fud.settings.travis
 notifications:
   email: false
   flowdock:

@@ -6,13 +6,14 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
 from djoser.views import RegistrationView
 from rest_framework import permissions, mixins, generics
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from restaurants import forms
 from restaurants.models import Restaurant, Menu
-from restaurants.permissions import IsOwnerOrReadOnly
+from restaurants.permissions import IsOwnerOrReadOnly, RestaurantPermission
 from restaurants.serializers import RestaurantSerializer, MenuSerializer
 
 
@@ -156,7 +157,12 @@ class MenuList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         })
 
     def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        if not Restaurant.objects.filter(subdomain=kwargs['subdomain']).exists():
+            raise ValidationError('Restaurant does not exist.')
+        elif RestaurantPermission.has_permission(request, kwargs['subdomain']):
+            return self.create(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
 
 class MenuDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
@@ -168,7 +174,6 @@ class MenuDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Dest
 
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
-        IsOwnerOrReadOnly,
     )
 
     def get_object(self):
@@ -184,10 +189,16 @@ class MenuDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Dest
         return self.retrieve(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+        if RestaurantPermission.has_permission(request, kwargs['subdomain']):
+            return self.update(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
     def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+        if RestaurantPermission.has_permission(request, kwargs['subdomain']):
+            return self.destroy(request, *args, **kwargs)
+        else:
+            raise PermissionDenied()
 
 
 class StatusCheck(APIView):

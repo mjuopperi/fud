@@ -3,8 +3,7 @@ from subprocess import call
 
 DEBUG = True
 
-# run gulp build
-call(['gulp', 'build'])
+BASE_DOMAIN = 'testserver'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -19,3 +18,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+ ]
