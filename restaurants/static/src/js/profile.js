@@ -9,7 +9,7 @@ function initPage(user) {
 }
 
 function renderRestaurants(restaurants) {
-  console.log("Restaurants: ", restaurants)
+  $('#restaurants ul').empty();
   restaurants.results.forEach(renderRestaurant);
 }
 

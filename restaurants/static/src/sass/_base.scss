@@ -191,13 +191,14 @@ input[type="password"]{
   color: $color-foreground;
 }
 
-button {
+button, .button {
   padding: 0.6em 1.2em;
   border: 2px solid darken($color-success, 3%);
   background: $color-success;
   color: $color-background;
   cursor: pointer;
   font-weight: 700;
+  text-decoration: none;
 
   &:hover:not([disabled]) {
     background: darken($color-success, 4%);
