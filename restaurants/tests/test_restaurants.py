@@ -11,6 +11,22 @@ class RestaurantApiSpec(APITestCase):
         User.objects.all().delete()
         Restaurant.objects.all().delete()
 
+
+    def test_validate_subdomain_existing(self):
+        existing_restaurant,_ = create_restaurant('existing')
+        url = '/restaurants/validate-subdomain?subdomain=' + existing_restaurant.subdomain
+        response = self.client.get(url, HTTP_HOST=API_HOST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, 'Subdomain is already in use.')
+
+
+    def test_validate_subdomain_new(self):
+        url = '/restaurants/validate-subdomain?subdomain=new-subdomain'
+        response = self.client.get(url, HTTP_HOST=API_HOST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, 'true')
+
+
     def test_create_restaurant_logged_in(self):
         user = User.objects.create_user('test-user', 'test@example.com', 'password')
         authenticate_requests(user, self.client)
