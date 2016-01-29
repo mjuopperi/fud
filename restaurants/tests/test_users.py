@@ -13,13 +13,13 @@ class AuthApiSpec(APITestCase):
         User.objects.all().delete()
 
     def test_validate_username_existing(self):
-        url = '/restaurants/validate-username?username=existing-user'
+        url = '/auth/validate-username?username=existing-user'
         response = self.client.get(url, HTTP_HOST=API_HOST)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, 'Username is already in use.')
 
     def test_validate_username_new(self):
-        url = '/restaurants/validate-username?username=new-user'
+        url = '/auth/validate-username?username=new-user'
         response = self.client.get(url, HTTP_HOST=API_HOST)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, 'true')

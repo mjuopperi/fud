@@ -12,7 +12,7 @@ const validationSettings = {
     username: {
       required: true,
       maxlength: 30,
-      remote: apiUrl + '/restaurants/validate-username'
+      remote: apiUrl + '/auth/validate-username'
     },
     email: {
       required: true,
