@@ -24,10 +24,10 @@ label span.required {
 
 p.subdomain-info {
   color: darken($color-info, 20%);
-  border: 1px solid $color-info;
-  background: lighten($color-info, 30%);
-  padding: 0.3em;
-  margin-bottom: 0.8em;
+  margin-top: -1.2em;
+  margin-bottom: 1.6em;
+  font-style: italic;
+  display: inline-block;
 
   span.name {
     color: $color-success;
