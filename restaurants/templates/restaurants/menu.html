@@ -5,24 +5,26 @@
 {% block name %}{{ name }}{% endblock %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/restaurant.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/menu.css' %}" />
 {% endblock %}
 
 {% block content %}
     <section class="main">
 
-      <h1>Restaurant name or Logo</h1>
+        <script type="text/template" class="template">
 
-      <section class="navigation">
-        <h1>Home</h1>
-        <h1>Menu</h1>
-        <h1>Contact</h1>
-      </section>
+        <section class="menus">
+          <% _.each(restaurant.menus, function(menu) { %>
+            <h1>
+              <%- menu.title %>
+            </h1>
+          <% }); %>
+        </section>
 
-      <script type="text/template" class="template">
 
         <% _.each(restaurant.menus, function(menu) { %>
 
+          <article class="menu">
           <h1>
               <%- menu.title %>
           </h1>
@@ -44,7 +46,9 @@
             <% }); %>
           </ul>
 
+        </article>
         <% }); %>
+
 
       </script>
     </section>

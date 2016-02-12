@@ -7,9 +7,27 @@ function buildTemplate() {
   );
 }
 
+function setListeners() {
+  $(".menus h1").on( "click", function() {
+    $(".menu").removeClass("active-menu");
+    $(".menu").eq($(this).index()).addClass("active-menu");
+    storeActiveMenu($(this).index())
+  });
+}
+
 function renderMenu(data) {
   const template = buildTemplate();
-  $("section").html(template(data));
+  var index = retrieveActiveMenu();
+  $(".main").html(template(data));
+  $(".menu").eq(index).addClass("active-menu");
+}
+
+function retrieveActiveMenu() {
+  return sessionStorage.getItem('active-menu') === null ? 0 : sessionStorage.getItem('active-menu');
+}
+
+function storeActiveMenu(index) {
+  sessionStorage.setItem('active-menu', index);
 }
 
 function getMenu() {
@@ -23,7 +41,7 @@ function getMenu() {
 
 function init() {
   _.templateSettings.variable = "restaurant";
-  getMenu();
+  getMenu().then(setListeners);
 }
 
 $(function() {
