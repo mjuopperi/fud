@@ -13,42 +13,51 @@
 
         <script type="text/template" class="template">
 
-        <section class="menus">
+        <ul class="menus">
           <% _.each(restaurant.menus, function(menu) { %>
-            <h1>
-              <%- menu.title %>
-            </h1>
+            <li>
+              <h1>
+                <span>
+                  <%- menu.title %>
+                </span>
+              </h1>
+            </li>
           <% }); %>
-        </section>
+        </ul>
 
-
+        <ul class="menu-container">
         <% _.each(restaurant.menus, function(menu) { %>
 
-          <article class="menu">
-          <h1>
-              <%- menu.title %>
-          </h1>
+          <li class="menu">
+            <h1>
+                <%- menu.title %>
+            </h1>
 
-          <h2>
-            <%- menu.content.name %>
-          </h2>
+            <ul class="categories">
+            <li>
+              <% if(menu.content.name) { %>
+                <h2>
+                  <%- menu.content.name %>
+                </h2>
+              <% }; %>
 
-          <ul>
-            <% _.each(menu.content.items, function(item) { %>
-
-             <li>
-                 <%- item.name %>
-                 <%- item.price %>
-                 <%- item.description %>
-                 <%- item.allergens %>
-             </li>
-
-            <% }); %>
+              <ul class="menu-item">
+                <% _.each(menu.content.items, function(item) { %>
+                 <li>
+                     <article>
+                       <h4> <%- item.name %> </h4>
+                       <h4> <%- item.price %> </h4>
+                     </article>
+                     <p> <%- item.description %> </p>
+                     <p> <%- item.allergens %> </p>
+                 </li>
+                <% }); %>
+              </ul>
+            </li>
           </ul>
-
-        </article>
+          </li>
         <% }); %>
-
+      </ul>
 
       </script>
     </section>

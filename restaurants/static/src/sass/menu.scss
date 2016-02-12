@@ -1,4 +1,10 @@
 @import 'base';
+$active-menu: #226f54;
+
+@mixin active-menu {
+  color: $active-menu;
+  border-bottom: solid 2px $active-menu;
+}
 
 .menu {
   display: none;
@@ -6,4 +12,55 @@
 
 .active-menu {
   display: block;
+}
+
+.active-menu-title  {
+  color: $active-menu;
+  border-bottom: solid 2px $active-menu;
+}
+
+.categories {
+  font-family: $body-font;
+  li {
+    margin: 20px;
+    article {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+    }
+    h2 {
+      font-size: 1.5em;
+      text-align: center;
+    }
+    p {
+      font-size: 0.8em;
+      padding-bottom: 10px;
+    }
+  }
+}
+
+
+@media (min-width:961px) {
+  .main {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .menus {
+    display: flex;
+    li {
+      width: 100%;
+      cursor: pointer;
+      span {
+        &:hover {
+          @include active-menu;
+        }
+      }
+    }
+  }
+
+  .categories {
+    width: 70%;
+    margin: auto;
+  }
 }
