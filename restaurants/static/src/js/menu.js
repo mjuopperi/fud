@@ -1,9 +1,10 @@
 require('./_header');
 var util = require('./_util');
+var menuTemplate = require('./templates/_menuTemplate');
 
 function buildTemplate() {
   return _.template(
-    $("script.template").html()
+    menuTemplate.Menu
   );
 }
 
@@ -19,6 +20,7 @@ function setListeners() {
 
 function renderMenu(data) {
   const template = buildTemplate();
+  console.log(template)
   var index = retrieveActiveMenu();
   $(".main").html(template(data));
   $(".menu").eq(index).addClass("active-menu");
