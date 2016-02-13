@@ -20,7 +20,6 @@ function setListeners() {
 
 function renderMenu(data) {
   const template = buildTemplate();
-  console.log(template)
   var index = retrieveActiveMenu();
   $(".main").html(template(data));
   $(".menu").eq(index).addClass("active-menu");
