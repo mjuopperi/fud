@@ -8,6 +8,10 @@ function buildTemplate() {
   );
 }
 
+function getRestaurantSubdomain() {
+  return window.location.host.split('.')[0];
+}
+
 function setListeners() {
   $(".menus li").on( "click", function() {
     $(".menu").removeClass("active-menu");
@@ -36,9 +40,10 @@ function storeActiveMenu(index) {
 
 function getMenu() {
   const apiUrl = util.getApiUrl();
+  const subdomain = getRestaurantSubdomain();
   return $.ajax({
     type: 'GET',
-    url: apiUrl + '/restaurants/fudu/menus',
+    url: apiUrl + '/restaurants/' + subdomain +  '/menus',
     success: renderMenu
   });
 }
