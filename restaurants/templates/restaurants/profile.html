@@ -14,28 +14,37 @@
 {% block content %}
     <section>
         <h1 class="welcome">Hi</h1>
-        <section id="profile">
-            <h2>Profile settings</h2>
-            <form id="change-email">
-                <label for="email">Email</label>
-                <input name="email" type="email">
-                <button type="submit">Change email</button>
-            </form>
-            <form id="change-password">
-                <label for="old-password">Old password</label>
-                <input name="old-password" type="password" placeholder="••••••••">
-                <label for="new-password">New password</label>
-                <input name="new-password" type="password" placeholder="••••••••">
-                <button type="submit">Change password</button>
-            </form>
-        </section>
-        <section id="restaurants">
-            <h2>Your restaurants</h2>
-            <ul>
-              <li>---</li>
-            </ul>
-            <a class="register button" href="/register">Register a restaurant</a>
-        </section>
+        <div class="sections">
+            <section id="profile">
+                <h2>Profile settings</h2>
+                <div id="error">
+                    <p></p>
+                </div>
+                <form id="change-email">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" disabled>
+                    <button type="button" class="change fa fa-edit"></button>
+                    <button type="button" class="cancel hidden">Cancel</button>
+                    <button type="submit" class="save hidden">Save</button>
+                </form>
+                <form id="change-password">
+                    <label for="current-password">Current password</label>
+                    <input name="current-password" type="password" placeholder="••••••••" disabled>
+                    <label for="new-password" class="extra hidden">New password</label>
+                    <input name="new-password" type="password" class="extra hidden" disabled>
+                    <button type="button" class="change fa fa-edit"></button>
+                    <button type="button" class="cancel hidden">Cancel</button>
+                    <button type="submit" class="save hidden">Save</button>
+                </form>
+            </section>
+            <section id="restaurants">
+                <h2>Your restaurants</h2>
+                <ul>
+                  <li>---</li>
+                </ul>
+                <a class="register button" href="/register">Register a restaurant</a>
+            </section>
+        </div>
 
     </section>
 {% endblock %}
