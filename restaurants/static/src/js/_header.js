@@ -46,10 +46,20 @@ function loggedIn() {
   return localStorage.getItem('authToken') !== null;
 }
 
+function logoutRequest() {
+  return $.ajax({
+    type: 'POST',
+    url: apiUrl + '/auth/logout/',
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
+  });
+}
+
 function logout(e) {
   e.preventDefault();
-  localStorage.removeItem('authToken');
-  renderDefaults();
+  logoutRequest().always(function() {
+    localStorage.removeItem('authToken');
+    window.location = '/login';
+  });
 }
 
 function toggleUserMenu(e) {
