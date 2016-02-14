@@ -22,16 +22,16 @@ function renderRestaurant(restaurant) {
   $('#restaurants ul').append(restaurantElem);
 }
 
-function restaurantsRequest(authToken) {
+function restaurantsRequest() {
   return $.ajax({
     type: 'GET',
     url: apiUrl + '/restaurants/owned/',
-    headers: {Authorization: 'Token ' + authToken}
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
   });
 }
 
 function getRestaurants() {
-  var request = restaurantsRequest(localStorage.getItem('authToken'));
+  var request = restaurantsRequest();
   request.done(renderRestaurants)
 }
 
