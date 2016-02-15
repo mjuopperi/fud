@@ -43,6 +43,13 @@ $content-max-width: 960px;
       }
     }
 
+    input {
+      padding-left: 0;
+      padding-right: 34px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     label {
       margin-top: 1em;
     }
