@@ -1,6 +1,7 @@
 require('./_header');
 require('./lib/jquery.validate');
 var util = require('./_util');
+var uiUtil = require('./_uiUtil');
 
 const apiUrl = util.getApiUrl() + '/restaurants';
 const errorTexts = {
@@ -52,9 +53,12 @@ function registerRequest(data) {
 
 function register(e) {
   e.preventDefault();
+  var submitButton = $('#register').find('button[type=submit]');
+  uiUtil.showProgressIndicator(submitButton);
   var request = registerRequest(getInput());
   request.done(handleSuccess);
   request.fail(handleErrors);
+  request.always(function() { uiUtil.hideProgressIndicator(submitButton) });
 }
 
 function redirectToRestaurantPage(subdomain) {
@@ -89,5 +93,4 @@ $(function() {
   $('input[name=name]').focus();
   $('#register').validate(validationSettings);
   $('input[name=subdomain]').keyup(updateSubdomainInfo);
-  console.log(apiUrl + '/validate-subdomain')
 });

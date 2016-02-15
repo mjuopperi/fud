@@ -1,5 +1,6 @@
 require('./_header');
 var util = require('./_util');
+var uiUtil = require('./_uiUtil');
 
 const apiUrl = util.getApiUrl();
 const errorTexts = {
@@ -7,11 +8,12 @@ const errorTexts = {
 };
 
 function activateAccount() {
-  $('.spinner').show();
-  $(this).prop('disabled', true);
+  var activateButton = $('#activate-account');
+  uiUtil.showProgressIndicator(activateButton);
   var request = activationRequest($(this).data('uid'), $(this).data('token'));
   request.done(handleSuccess);
   request.fail(handleErrors);
+  request.always(function() { uiUtil.hideProgressIndicator(activateButton) });
 }
 
 function activationRequest(uid, token) {
@@ -26,16 +28,13 @@ function activationRequest(uid, token) {
 }
 
 function handleSuccess() {
-  $('.spinner').hide();
-  $('.success').fadeIn(400);
+  $('.success').show();
   setTimeout(function() {
     window.location = '/login'
   }, 800)
 }
 
 function handleErrors() {
-  $('.spinner').hide();
-  $(this).prop('disabled', false);
   $('#error').find('p').text(errorTexts.default).parent().show();
 }
 

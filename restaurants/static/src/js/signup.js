@@ -1,6 +1,7 @@
 require('./_header');
 require('./lib/jquery.validate');
 var util = require('./_util');
+var uiUtil = require('./_uiUtil');
 
 const apiUrl = util.getApiUrl();
 const errorTexts = {
@@ -62,10 +63,12 @@ function signUpRequest(data) {
 
 function signUp(e) {
   e.preventDefault();
-  showLoader();
+  var submitButton = $('#signup').find('button[type=submit]');
+  uiUtil.showProgressIndicator(submitButton);
   var request = signUpRequest(getInput());
   request.done(handleSuccess);
   request.fail(handleErrors);
+  request.always(function() { uiUtil.hideProgressIndicator(submitButton) });
 }
 
 function usernameInUse(errors) {
@@ -73,28 +76,16 @@ function usernameInUse(errors) {
 }
 
 function handleSuccess() {
-  hideLoader();
   window.location = '/activation';
 }
 
 function handleErrors(errors) {
-  hideLoader();
   if (usernameInUse(errors)) {
     $('#error').find('p').text(errorTexts.usernameInUse).parent().show();
     $('input[name="username"]').addClass('invalid');
   } else {
     $('#error').find('p').text(errorTexts.default).parent().show();
   }
-}
-
-function showLoader() {
-  $('.overlay').show();
-  $('#signup > button').prop('disabled', true);
-}
-
-function hideLoader() {
-  $('.overlay').hide();
-  $('#signup > button').prop('disabled', false);
 }
 
 $(function() {

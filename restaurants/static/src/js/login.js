@@ -1,5 +1,6 @@
 require('./_header');
 var util = require('./_util');
+var uiUtil = require('./_uiUtil');
 
 const apiUrl = util.getApiUrl();
 const errorTexts = {
@@ -28,10 +29,12 @@ function loginRequest(data) {
 
 function logIn(e) {
   e.preventDefault();
-  showLoader();
+  var submitButton = $('#login').find('button[type=submit]');
+  uiUtil.showProgressIndicator(submitButton);
   var request = loginRequest(getInput());
   request.done(handleSuccess);
   request.fail(handleErrors);
+  request.always(function() { uiUtil.hideProgressIndicator(submitButton) });
 }
 
 function redirectToUserPage() {
@@ -39,28 +42,16 @@ function redirectToUserPage() {
 }
 
 function handleSuccess(data) {
-  hideLoader();
   storeAuthToken(data.auth_token);
   redirectToUserPage();
 }
 
 function handleErrors(errors) {
-  hideLoader();
   if (errors.status == 400) {
     $('#error').find('p').text(errorTexts.invalidCredentials).parent().show();
   } else {
     $('#error').find('p').text(errorTexts.default).parent().show();
   }
-}
-
-function showLoader() {
-  $('.overlay').show();
-  $('#login > button').prop('disabled', true);
-}
-
-function hideLoader() {
-  $('.overlay').hide();
-  $('#login > button').prop('disabled', false);
 }
 
 $(function() {
