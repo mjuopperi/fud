@@ -1,5 +1,6 @@
 var header = require('./_header');
 var util = require('./_util');
+var uiUtil = require('./_uiUtil');
 
 const apiUrl = util.getApiUrl();
 
@@ -54,18 +55,6 @@ function toggleForm() {
   toggleFormFields($(this).closest('form'));
 }
 
-function showSuccesIndicator(form) {
-  form.find('.success').show().delay(1000).fadeOut();
-}
-
-function showProgressIndicator(form) {
-  form.find('button[type=submit]').addClass('loading').prop('disabled', true);
-}
-
-function hideProgressIndicator(form) {
-  form.find('button[type=submit]').removeClass('loading').prop('disabled', false);
-}
-
 function changePasswordRequest(data) {
   return $.ajax({
     type: 'POST',
@@ -88,32 +77,32 @@ function changeEmailRequest(email) {
 
 function changeEmail(e) {
   e.preventDefault();
-  var form = $('#change-email');
-  showProgressIndicator(form);
+  var submitButton = $('#change-email').find('button[type=submit]');
+  uiUtil.showProgressIndicator(submitButton);
   var request = changeEmailRequest($('input[name="email"]').val());
   request.done(handleEmailSuccess);
   request.fail(handleErrors);
-  request.always(function() { hideProgressIndicator(form) });
+  request.always(function() { uiUtil.hideProgressIndicator(submitButton) });
 }
 
 function handleEmailSuccess() {
   handleSuccess();
   var form = $('#change-email');
   toggleFormFields(form);
-  showSuccesIndicator(form);
+  uiUtil.showSuccesIndicator(form);
 }
 
 function changePassword(e) {
   e.preventDefault();
-  var form = $('#change-password');
-  showProgressIndicator(form);
+  var submitButton = $('#change-password').find('button[type=submit]');
+  uiUtil.showProgressIndicator(submitButton);
   var request = changePasswordRequest({
     current_password: $('input[name="current-password"]').val(),
     new_password: $('input[name="new-password"]').val()
   });
   request.done(handlePasswordSuccess);
   request.fail(handlePasswordErrors);
-  request.always(function() { hideProgressIndicator(form) });
+  request.always(function() { uiUtil.hideProgressIndicator(submitButton) });
 }
 
 function handleSuccess() {
@@ -128,7 +117,7 @@ function handlePasswordSuccess() {
     $(this).val('');
   });
   toggleFormFields(form);
-  showSuccesIndicator(form);
+  uiUtil.showSuccesIndicator(form);
 }
 
 function handleErrors() {
