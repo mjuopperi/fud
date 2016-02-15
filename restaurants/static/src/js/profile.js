@@ -8,7 +8,9 @@ const errorTexts = {
   default: 'Something went wrong. Please try again.'
 };
 
-function initPage(user) {
+var user;
+
+function initPage() {
   $('h1.welcome').append(', ' + user.username + '!');
   $('input[name="email"]').val(user.email);
 }
@@ -40,20 +42,6 @@ function getRestaurants() {
   request.done(renderRestaurants)
 }
 
-function nope() {
-  $('.wrapper > section').css({
-    'background': 'url(http://i.giphy.com/uVM1AZwC3AxYA.gif) no-repeat center',
-    'background-size': 'cover'
-  });
-  setTimeout(unNope, 5000)
-}
-
-function unNope() {
-  $('.wrapper > section').css({
-    'background': '#fff'
-  });
-}
-
 function toggleFormFields(form) {
   form.find('input').each(function() {
     $(this).prop('disabled', function(i, disabled) { return !disabled; });
@@ -63,7 +51,19 @@ function toggleFormFields(form) {
 }
 
 function toggleForm() {
-  toggleFormFields($(this).parent());
+  toggleFormFields($(this).closest('form'));
+}
+
+function showSuccesIndicator(form) {
+  form.find('.success').show().delay(1000).fadeOut();
+}
+
+function showProgressIndicator(form) {
+  form.find('button[type=submit]').addClass('loading').prop('disabled', true);
+}
+
+function hideProgressIndicator(form) {
+  form.find('button[type=submit]').removeClass('loading').prop('disabled', false);
 }
 
 function changePasswordRequest(data) {
@@ -75,20 +75,45 @@ function changePasswordRequest(data) {
   });
 }
 
-function changeEmail(e) {
-  e.preventDefault();
-  nope()
+function changeEmailRequest(email) {
+  var updated = _.clone(user);
+  updated.email = email;
+  return $.ajax({
+    type: 'PUT',
+    url: apiUrl + '/auth/me/',
+    data: updated,
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
+  });
 }
 
+function changeEmail(e) {
+  e.preventDefault();
+  var form = $('#change-email');
+  showProgressIndicator(form);
+  var request = changeEmailRequest($('input[name="email"]').val());
+  request.done(handleEmailSuccess);
+  request.fail(handleErrors);
+  request.always(function() { hideProgressIndicator(form) });
+}
+
+function handleEmailSuccess() {
+  handleSuccess();
+  var form = $('#change-email');
+  toggleFormFields(form);
+  showSuccesIndicator(form);
+}
 
 function changePassword(e) {
   e.preventDefault();
+  var form = $('#change-password');
+  showProgressIndicator(form);
   var request = changePasswordRequest({
     current_password: $('input[name="current-password"]').val(),
     new_password: $('input[name="new-password"]').val()
   });
   request.done(handlePasswordSuccess);
   request.fail(handlePasswordErrors);
+  request.always(function() { hideProgressIndicator(form) });
 }
 
 function handleSuccess() {
@@ -103,6 +128,11 @@ function handlePasswordSuccess() {
     $(this).val('');
   });
   toggleFormFields(form);
+  showSuccesIndicator(form);
+}
+
+function handleErrors() {
+  $('#error').find('p').text(errorTexts.default).parent().show();
 }
 
 function handlePasswordErrors(errors) {
@@ -110,13 +140,14 @@ function handlePasswordErrors(errors) {
     $('#error').find('p').text(errorTexts.currentPassword).parent().show();
     $('input[name="current-password"]').addClass('invalid');
   } else {
-    $('#error').find('p').text(errorTexts.default).parent().show();
+    handleErrors();
   }
 }
 
 $(function() {
-  header.userInfo.done(function(user) {
-    initPage(user);
+  header.userInfo.done(function(result) {
+    user = result;
+    initPage();
     getRestaurants(localStorage.getItem('authToken'));
   });
 

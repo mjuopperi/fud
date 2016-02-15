@@ -47,6 +47,13 @@ $content-max-width: 960px;
       margin-top: 1em;
     }
 
+    span.success {
+      display: none;
+      font-family: "Raleway", sans-serif;
+      font-size: 1em;
+      color: $color-success;
+    }
+
     button.change {
       position: absolute;
       top: 24px;

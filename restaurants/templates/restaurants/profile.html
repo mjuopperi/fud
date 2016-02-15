@@ -9,6 +9,7 @@
 
 {% block scripts %}
     <script src="{% static 'restaurants/js/profile.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -21,14 +22,15 @@
                     <p></p>
                 </div>
                 <form id="change-email">
-                    <label for="email">Email</label>
+                    <label for="email">Email<span class="success"> updated!</span></label>
                     <input name="email" type="email" disabled>
                     <button type="button" class="change fa fa-edit"></button>
                     <button type="button" class="cancel hidden">Cancel</button>
                     <button type="submit" class="save hidden">Save</button>
                 </form>
                 <form id="change-password">
-                    <label for="current-password">Current password</label>
+                    <label for="current-password" class="extra">Password<span class="success"> updated!</span></label>
+                    <label for="current-password" class="extra hidden">Current password</label>
                     <input name="current-password" type="password" placeholder="••••••••" disabled>
                     <label for="new-password" class="extra hidden">New password</label>
                     <input name="new-password" type="password" class="extra hidden" disabled>
@@ -40,7 +42,7 @@
             <section id="restaurants">
                 <h2>Your restaurants</h2>
                 <ul>
-                  <li>---</li>
+                    <li>---</li>
                 </ul>
                 <a class="register button" href="/register">Register a restaurant</a>
             </section>

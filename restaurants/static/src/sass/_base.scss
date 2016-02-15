@@ -191,6 +191,11 @@ input[type="password"]{
   color: $color-foreground;
 }
 
+@keyframes loading-stripes {
+  0%   { background-position: 0; }
+  100% { background-position: 60px; }
+}
+
 button, .button {
   padding: 0.6em 1.2em;
   border: 2px solid darken($color-success, 3%);
@@ -204,11 +209,16 @@ button, .button {
     background: darken($color-success, 4%);
     border: 2px solid darken($color-success, 6%);
   }
-  &:disabled {
+  &:disabled:not(.loading) {
     border-color: grayscale(lighten($color-success, 10%));
     background: grayscale(lighten($color-success, 20%));
   }
 
+  &.loading {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 60px 60px;
+    animation: loading-stripes 0.8s linear infinite;
+  }
 }
 
 form {
