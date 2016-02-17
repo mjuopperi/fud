@@ -48,8 +48,10 @@ $active-menu: #226f54;
 
   .menus {
     display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
     li {
-      width: 100%;
+      width: 33%;
       cursor: pointer;
       span {
         &:hover {
