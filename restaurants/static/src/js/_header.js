@@ -15,7 +15,7 @@ function renderUser(user) {
   $('header').find('.user').addClass('logged-in').html(
     $('<h2/>').append($('<a/>', {text: user.username}))
   ).append($('<ul/>')
-     .append($('<li/>').append($('<a/>', {href: '/me',text: 'Profile'})))
+     .append($('<li/>').append($('<a/>', {href: '/profile',text: 'Profile'})))
      .append($('<li/>').append($('<a/>', {class: 'logout', text: 'Log out'})))
   ).append(
     $('<i>', {class: 'fa fa-bars'})
@@ -32,17 +32,34 @@ function userInfoRequest(authToken) {
 
 function getUserInfo() {
   var request = userInfoRequest(localStorage.getItem('authToken'));
+  exports.userInfo = request;
   request.done(renderUser);
+  request.fail(handleAuthError)
+}
+
+function handleAuthError(e) {
+  localStorage.removeItem('authToken');
+  window.location = '/login';
 }
 
 function loggedIn() {
   return localStorage.getItem('authToken') !== null;
 }
 
+function logoutRequest() {
+  return $.ajax({
+    type: 'POST',
+    url: apiUrl + '/auth/logout/',
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
+  });
+}
+
 function logout(e) {
   e.preventDefault();
-  localStorage.removeItem('authToken');
-  renderDefaults();
+  logoutRequest().always(function() {
+    localStorage.removeItem('authToken');
+    window.location = '/login';
+  });
 }
 
 function toggleUserMenu(e) {

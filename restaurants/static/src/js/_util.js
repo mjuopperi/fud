@@ -20,5 +20,10 @@ function getRestaurantUrl(subdomain) {
   return window.location.protocol + '//' + subdomain + '.' + getDomainName() + getPort();
 }
 
+function getAuthToken() {
+  return localStorage.getItem('authToken');
+}
+
 exports.getApiUrl = getApiUrl;
 exports.getRestaurantUrl = getRestaurantUrl;
+exports.getAuthToken = getAuthToken;

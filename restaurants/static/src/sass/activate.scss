@@ -8,40 +8,23 @@ section {
 }
 
 #error {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 80%;
-  margin: 0;
-}
-
-.spinner-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  .fa {
-    display: none;
-    font-size: 48px;
-  }
-}
-
-.spinner {
-  color: $color-foreground;
+  margin: 0 auto;
 }
 
 .success {
-  color: $color-success;
+  display: none;
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 1.2em;
+    color: $color-success;
+    margin-bottom: 1em;
+  }
 }
 
 button {
-  margin: 120px auto 20px;
-  border-color: darken($color-info, 20%);
-  background: $color-info;
-
-  &:hover:not([disabled]) {
-    background: darken($color-info, 10%);
-  }
+  margin: 60px auto 20px;
 }

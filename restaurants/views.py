@@ -51,6 +51,10 @@ def activate(request, uid, token):
     })
 
 
+def profile(request):
+    return render(request, 'restaurants/profile.html')
+
+
 def restaurant_index(request):
     restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
     if restaurant is not None:
@@ -132,6 +136,14 @@ class RestaurantDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixin
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+class UserRestaurantList(generics.ListAPIView):
+    serializer_class = RestaurantSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def get_queryset(self):
+        return Restaurant.objects.filter(owner=self.request.user)
 
 
 class MenuList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
