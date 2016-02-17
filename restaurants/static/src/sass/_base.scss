@@ -183,22 +183,23 @@ input[type="email"],
 input[type="password"]{
   height: auto;
   padding: 0.6em 0.4em;
-  border: 2px solid lighten($color-foreground, 20%);
-  background: $color-background;
+  border: none;
+  border-bottom: 2px solid lighten($color-foreground, 50%);
+  background: transparent;
   color: $color-foreground;
-  box-shadow: 0 0 0 transparent;
 }
 
 button {
   padding: 0.6em 1.2em;
-  border: 2px solid darken($color-success, 20%);
+  border: 2px solid darken($color-success, 3%);
   background: $color-success;
   color: $color-background;
   cursor: pointer;
   font-weight: 700;
 
   &:hover:not([disabled]) {
-    background: darken($color-success, 10%);
+    background: darken($color-success, 4%);
+    border: 2px solid darken($color-success, 6%);
   }
   &:disabled {
     border-color: grayscale(lighten($color-success, 10%));
@@ -234,7 +235,7 @@ form {
     }
 
     &:focus {
-      border-color: $color-info;
+      border-color: $color-success-dark;
     }
   }
 
