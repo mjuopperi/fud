@@ -134,6 +134,7 @@ function handlePasswordErrors(errors) {
 }
 
 $(function() {
+  if (!util.authTokenExists()) window.location = '/login';
   header.userInfo.done(function(result) {
     user = result;
     initPage();
