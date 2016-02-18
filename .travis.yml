@@ -12,6 +12,8 @@ addons:
   hosts:
     - testserver
     - api.testserver
+    - localhost
+    - api.localhost
 install:
   - pip install -r requirements.txt
   - npm install
