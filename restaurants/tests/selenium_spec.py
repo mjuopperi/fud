@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
 from rest_framework.authtoken.models import Token
@@ -16,7 +18,10 @@ class SeleniumSpec(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super(SeleniumSpec, cls).setUpClass()
-        cls.selenium = webdriver.Firefox()
+        if 'TRAVIS' in os.environ:
+            cls.selenium = webdriver.Firefox()
+        else:
+            cls.selenium = webdriver.PhantomJS()
         cls.selenium.set_window_size(1024, 768)
         cls.selenium.implicitly_wait(2)
 
