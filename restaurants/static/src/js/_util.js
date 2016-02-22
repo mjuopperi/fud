@@ -18,7 +18,7 @@ function getRestaurantUrl(subdomain) {
 }
 
 function setAuthToken(token) {
-  Cookies.set('authToken', token);
+  Cookies.set('authToken', token, { domain: getDomainName() });
 }
 
 function getAuthToken() {
@@ -26,7 +26,7 @@ function getAuthToken() {
 }
 
 function removeAuthToken() {
-  Cookies.remove('authToken');
+  Cookies.remove('authToken', { domain: getDomainName() });
 }
 
 function authTokenExists() {

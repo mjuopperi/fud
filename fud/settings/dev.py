@@ -2,10 +2,10 @@ from .base import *
 
 DEBUG = True
 
-BASE_DOMAIN = 'localhost'
+BASE_DOMAIN = 'fud.localhost'
 
 ALLOWED_HOSTS = {
-    '.localhost',
+    '.fud.localhost',
 }
 
 # Database
