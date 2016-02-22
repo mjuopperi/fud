@@ -39,7 +39,6 @@ function getUserInfo() {
 
 function handleAuthError(e) {
   localStorage.removeItem('authToken');
-  window.location = '/login';
 }
 
 function loggedIn() {
