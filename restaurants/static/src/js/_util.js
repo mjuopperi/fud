@@ -1,3 +1,4 @@
+var Cookies = require('js-cookie');
 
 function getPort() {
   return window.location.port != '' ? ':' + window.location.port : '';
@@ -20,10 +21,25 @@ function getRestaurantUrl(subdomain) {
   return window.location.protocol + '//' + subdomain + '.' + getDomainName() + getPort();
 }
 
+function setAuthToken(token) {
+  Cookies.set('authToken', token);
+}
+
 function getAuthToken() {
-  return localStorage.getItem('authToken');
+  return Cookies.get('authToken');
+}
+
+function removeAuthToken() {
+  Cookies.remove('authToken');
+}
+
+function authTokenExists() {
+  return getAuthToken() !== undefined;
 }
 
 exports.getApiUrl = getApiUrl;
 exports.getRestaurantUrl = getRestaurantUrl;
+exports.setAuthToken = setAuthToken;
 exports.getAuthToken = getAuthToken;
+exports.removeAuthToken = removeAuthToken;
+exports.authTokenExists = authTokenExists;

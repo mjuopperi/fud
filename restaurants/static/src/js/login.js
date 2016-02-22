@@ -8,10 +8,6 @@ const errorTexts = {
   default: 'Something went wrong. Please try again.'
 };
 
-function storeAuthToken(token) {
-  localStorage.setItem('authToken', token);
-}
-
 function getInput() {
   return {
     username: $('input[name="username"]').val(),
@@ -42,7 +38,7 @@ function redirectToUserPage() {
 }
 
 function handleSuccess(data) {
-  storeAuthToken(data.auth_token);
+  util.setAuthToken(data.auth_token);
   redirectToUserPage();
 }
 

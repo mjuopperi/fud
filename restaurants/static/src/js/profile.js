@@ -137,7 +137,7 @@ $(function() {
   header.userInfo.done(function(result) {
     user = result;
     initPage();
-    getRestaurants(localStorage.getItem('authToken'));
+    getRestaurants(util.getAuthToken());
   });
 
   $('button.change, button.cancel').click(toggleForm);

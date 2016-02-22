@@ -47,7 +47,7 @@ function registerRequest(data) {
     type: 'POST',
     url: apiUrl,
     data: data,
-    headers: {Authorization: 'Token ' + localStorage.getItem('authToken')}
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
   });
 }
 
