@@ -1,16 +1,12 @@
 var Cookies = require('js-cookie');
+var _ = require('lodash');
 
 function getPort() {
   return window.location.port != '' ? ':' + window.location.port : '';
 }
 
 function getDomainName() {
-  if (window.location.hostname.indexOf('fud.fi') > -1) return 'fud.fi';
-  else if (window.location.hostname.indexOf('localhost') > -1) return 'localhost';
-  else {
-    var parts = window.location.hostname.split('.');
-    return parts[parts.length - 2]
-  }
+  return _(window.location.hostname).split('.').takeRight(2).join('.');
 }
 
 function getApiUrl() {
