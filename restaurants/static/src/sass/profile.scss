@@ -48,6 +48,13 @@ $content-max-width: 960px;
       padding-right: 34px;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      &:disabled {
+        @include placeholder-color($color-foreground);
+      }
+      &:not([disabled]) {
+        @include placeholder-color(transparent);
+      }
     }
 
     label {
