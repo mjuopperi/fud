@@ -86,21 +86,25 @@ $content-max-width: 960px;
       }
     }
 
-    button.cancel, button.save {
-      display: inline-block;
-      width: calc(50% - 10px);
-      &.hidden {
-        display: none;
-      }
-    }
+    .button-container {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
 
-    button.cancel {
-      margin-right: 8px;
-      background-color: lighten($color-foreground, 50%);
-      border-color: lighten($color-foreground, 45%);
-    }
-    button.save {
-      margin-left: 8px;
+      button.cancel, button.save {
+        &.hidden {
+          display: none;
+        }
+      }
+
+      button.cancel {
+        margin-right: 8px;
+        background-color: lighten($color-foreground, 50%);
+        border-color: lighten($color-foreground, 45%);
+      }
+      button.save {
+        margin-left: 8px;
+      }
     }
 
     ul {
