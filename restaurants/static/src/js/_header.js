@@ -31,19 +31,14 @@ function userInfoRequest(authToken) {
 }
 
 function getUserInfo() {
-  var request = userInfoRequest(localStorage.getItem('authToken'));
+  var request = userInfoRequest(util.getAuthToken());
   exports.userInfo = request;
   request.done(renderUser);
   request.fail(handleAuthError)
 }
 
 function handleAuthError(e) {
-  localStorage.removeItem('authToken');
-  window.location = '/login';
-}
-
-function loggedIn() {
-  return localStorage.getItem('authToken') !== null;
+  util.removeAuthToken();
 }
 
 function logoutRequest() {
@@ -57,7 +52,7 @@ function logoutRequest() {
 function logout(e) {
   e.preventDefault();
   logoutRequest().always(function() {
-    localStorage.removeItem('authToken');
+    util.removeAuthToken();
     window.location = '/login';
   });
 }
@@ -72,7 +67,7 @@ function hideUserMenu() {
 }
 
 $(function() {
-  if (loggedIn()) {
+  if (util.authTokenExists()) {
     getUserInfo();
   } else {
     renderDefaults();

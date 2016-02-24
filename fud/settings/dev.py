@@ -2,11 +2,15 @@ from .base import *
 
 DEBUG = True
 
-BASE_DOMAIN = 'localhost'
+BASE_DOMAIN = 'fud.localhost'
 
 ALLOWED_HOSTS = {
-    '.localhost',
+    '.fud.localhost',
 }
+
+MIDDLEWARE_CLASSES = (
+    'fud.util.middleware.LocalhostRedirectionMiddleware',
+) + MIDDLEWARE_CLASSES
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

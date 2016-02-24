@@ -15,5 +15,9 @@
     "gulp-rename": "^1.2.2",
     "del": "^2.2.0",
     "gulp-rev-all": "^0.8.22"
+  },
+  "dependencies": {
+    "js-cookie": "^2.1.0",
+    "lodash": "^4.5.1"
   }
 }
