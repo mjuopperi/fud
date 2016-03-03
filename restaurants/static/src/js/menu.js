@@ -21,7 +21,7 @@ function setListeners() {
     $(this).find("span").addClass("active-menu-title")
     // mobile
     if(Number(retrieveActiveMenu()) === $(this).index()) {
-      $(".categories").removeClass("active-menu");
+      $(".categories").eq($(this).index()).toggleClass("active-menu");
     } else {
       $(".categories").removeClass("active-menu");
       $(".categories").eq($(this).index()).addClass("active-menu");
