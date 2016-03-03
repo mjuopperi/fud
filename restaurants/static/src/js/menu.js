@@ -14,10 +14,19 @@ function getRestaurantSubdomain() {
 
 function setListeners() {
   $(".menus li").on( "click", function() {
+    // desktop
     $(".menu").removeClass("active-menu");
     $(".menu").eq($(this).index()).addClass("active-menu");
     $(this).parent().find(".active-menu-title").removeClass("active-menu-title");
     $(this).find("span").addClass("active-menu-title")
+    // mobile
+    if(Number(retrieveActiveMenu()) === $(this).index()) {
+      $(".categories").removeClass("active-menu");
+    } else {
+      $(".categories").removeClass("active-menu");
+      $(".categories").eq($(this).index()).addClass("active-menu");
+    }
+    // store active menu
     storeActiveMenu($(this).index())
   });
 }
@@ -27,7 +36,10 @@ function renderMenu(data) {
   var index = retrieveActiveMenu();
   $(".main").html(template(data));
   $(".menu").eq(index).addClass("active-menu");
-  $(".menus li").eq(index).find("span").addClass("active-menu-title");
+  $(".menus li h1").eq(index).find("span").addClass("active-menu-title");
+
+  // mobile
+  $(".categories").eq(index).addClass("active-menu");
 }
 
 function retrieveActiveMenu() {

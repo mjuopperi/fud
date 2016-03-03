@@ -6,11 +6,7 @@ $active-menu: #226f54;
   border-bottom: solid 2px $active-menu;
 }
 
-.menu {
-  display: none;
-}
-
-.active-menu {
+.categories.menu-mobile.active-menu {
   display: block;
 }
 
@@ -20,6 +16,7 @@ $active-menu: #226f54;
 }
 
 .categories {
+  display: none;
   font-family: $body-font;
   li {
     margin: 20px;
@@ -39,11 +36,26 @@ $active-menu: #226f54;
   }
 }
 
+.menu-desktop {
+  display: none;
+}
 
 @media (min-width:961px) {
   .main {
     width: 50%;
     margin: 0 auto;
+  }
+
+  .active-menu {
+    display: block;
+  }
+
+  .menu {
+    display: none;
+  }
+
+  .menu.active-menu {
+    display: block;
   }
 
   .menus {
@@ -62,7 +74,21 @@ $active-menu: #226f54;
   }
 
   .categories {
+    display: block;
     width: 70%;
     margin: auto;
   }
+
+  .categories.menu-mobile.active-menu {
+    display: none;
+  }
+
+  .menu-mobile {
+    display: none;
+  }
+
+  .menu-desktop {
+    display: block;
+  }
+
 }
