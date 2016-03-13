@@ -60,8 +60,8 @@ class RegisterSpec(SeleniumSpec):
         self.assertFalse(Restaurant.objects.filter(subdomain='api').exists())
 
     def test_register_with_in_use_subdomain(self):
-        self.login()
         create_restaurant('test-restaurant')
+        self.login()
         self._register({
             'name': 'Test Restaurant',
             'subdomain': 'test-restaurant'
@@ -76,6 +76,7 @@ class RegisterSpec(SeleniumSpec):
             'name': 'Test Restaurant',
             'subdomain': 'test-restaurant'
         })
+
         self.assertTrue(self.will_be_visible('#error'))
         error = self.selenium.find_element_by_css_selector('#error')
         self.assertEqual(error.text, 'You need to be logged in to register a restaurant.')
