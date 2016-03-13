@@ -1,5 +1,4 @@
 var Cookies = require('js-cookie');
-var _ = require('lodash');
 
 function getPort() {
   return window.location.port != '' ? ':' + window.location.port : '';
