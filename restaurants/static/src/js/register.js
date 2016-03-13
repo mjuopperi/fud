@@ -17,6 +17,7 @@ const validationSettings = {
     subdomain: {
       required: true,
       subdomain: true,
+      subdomainReserved: true,
       remote: apiUrl + '/validate-subdomain'
     }
   },
@@ -35,6 +36,10 @@ const validationSettings = {
 $.validator.addMethod('subdomain', function(value, element) {
   return /^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$/.test(value);
 }, 'Only lower case letters, numbers and dashes are allowed.');
+
+$.validator.addMethod('subdomainReserved', function(value, element) {
+  return !/^www/.test(value) && ['static', 'api', 'fud'].indexOf(value) == -1;
+}, 'Subdomain is reserved.');
 
 function getInput() {
   var data = {};

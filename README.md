@@ -91,3 +91,18 @@ Start gulp
 Start the server in development mode
 
     python manage.py runserver --settings=fud.settings.dev
+
+
+## Running tests
+
+Install [PhantomJS](http://phantomjs.org/) globally with npm
+
+    npm -g install phantomjs-prebuilt
+
+Run all tests
+
+    py.test
+
+Run a specific test
+
+    py.test <path/to/python_file.py>::<SpecName>::<test_name>

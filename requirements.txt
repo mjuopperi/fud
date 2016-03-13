@@ -7,4 +7,5 @@ djoser==0.4.0
 boto3==1.2.3
 pytest-django==2.9.1
 pytest==2.8.5
+selenium==2.52.0
 Fabric==1.10.2

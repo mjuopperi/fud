@@ -14,12 +14,29 @@ class EmailSender:
 
 
 class MockEmailSender(EmailSender):
+    sentEmails = []
+
     @staticmethod
     def send_email(to_email, from_email, context, subject_template_name=None,
                    plain_body_template_name=None, html_body_template_name=None):
-        print('Mock email to ' + to_email + ' from ' + from_email)
-        print('Subject: ' + get_template(ACTIVATION_SUBJECT_TEMPLATE).render(context))
-        print('Body: ' + get_template(ACTIVATION_BODY_TEMPLATE).render(context))
+        email = Email(to_email, from_email,
+                      get_template(ACTIVATION_SUBJECT_TEMPLATE).render(context),
+                      get_template(ACTIVATION_BODY_TEMPLATE).render(context))
+        MockEmailSender.sentEmails.append(email)
+        email.print()
+
+
+class Email():
+    def __init__(self, to_email, from_email, subject, body):
+        self.to_email = to_email
+        self.from_email = from_email
+        self.subject = subject
+        self.body = body
+
+    def print(self):
+        print('Mock email to ' + self.to_email + ' from ' + self.from_email)
+        print('Subject: ' + self.subject)
+        print('Body: ' + self.body)
 
 
 class SESEmailSender(EmailSender):
