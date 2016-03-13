@@ -60,3 +60,4 @@ class SeleniumSpec(StaticLiveServerTestCase):
         password.send_keys("password")
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
         self.title_will_be('Profile')
+        self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))

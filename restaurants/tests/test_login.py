@@ -24,6 +24,7 @@ class LoginSpec(SeleniumSpec):
 
         self.assertTrue(self.title_will_be('Profile'))
         self.assertTrue(self.will_have_text('.welcome', 'Hi, test-user!'))
+        self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))
 
     def test_login_with_invalid_credentials(self):
         self.selenium.get('%s%s' % (self.live_server_url, "/login"))
@@ -48,6 +49,7 @@ class LoginSpec(SeleniumSpec):
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
 
         self.assertTrue(self.title_will_be('Profile'))
+        self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))
 
         self.selenium.refresh()
         self.assertTrue(self.title_will_be('Profile'))
