@@ -42,9 +42,7 @@ class RegisterSpec(SeleniumSpec):
             'subdomain': 'test restaurant'
         })
 
-        self.assertTrue(self.will_be_visible('#subdomain-error'))
-        subdomain_error = self.selenium.find_element_by_css_selector('#subdomain-error')
-        self.assertEqual(subdomain_error.text, 'Only lower case letters, numbers and dashes are allowed.')
+        self.assertTrue(self.will_have_text('#subdomain-error', 'Only lower case letters, numbers and dashes are allowed.'))
         self.assertFalse(Restaurant.objects.filter(subdomain='test restaurant').exists())
 
     def test_register_with_reserved_subdomain(self):
@@ -54,9 +52,7 @@ class RegisterSpec(SeleniumSpec):
             'subdomain': 'api'
         })
 
-        self.assertTrue(self.will_be_visible('#subdomain-error'))
-        subdomain_error = self.selenium.find_element_by_css_selector('#subdomain-error')
-        self.assertEqual(subdomain_error.text, 'Subdomain is reserved.')
+        self.assertTrue(self.will_have_text('#subdomain-error', 'Subdomain is reserved.'))
         self.assertFalse(Restaurant.objects.filter(subdomain='api').exists())
 
     def test_register_with_in_use_subdomain(self):
@@ -68,8 +64,7 @@ class RegisterSpec(SeleniumSpec):
         })
 
         self.assertTrue(self.will_be_visible('#subdomain-error'))
-        subdomain_error = self.selenium.find_element_by_css_selector('#subdomain-error')
-        self.assertEqual(subdomain_error.text, 'Subdomain is already in use.')
+        self.assertTrue(self.will_have_text('#subdomain-error', 'Subdomain is already in use.'))
 
     def test_register_logged_out(self):
         self._register({
@@ -78,8 +73,7 @@ class RegisterSpec(SeleniumSpec):
         })
 
         self.assertTrue(self.will_be_visible('#error'))
-        error = self.selenium.find_element_by_css_selector('#error')
-        self.assertEqual(error.text, 'You need to be logged in to register a restaurant.')
+        self.assertTrue(self.will_have_text('#error', 'You need to be logged in to register a restaurant.'))
 
 
     def _register(self, data):
