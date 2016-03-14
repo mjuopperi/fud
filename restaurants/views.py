@@ -69,6 +69,8 @@ def restaurant_index(request):
 class CustomRegistrationView(RegistrationView):
 
     def send_email(self, *args, **kwargs):
+        kwargs['subject_template_name'] = 'activation_email_subject.txt'
+        kwargs['plain_body_template_name'] = 'activation_email_body.txt'
         settings.EMAIL_SENDER.send_email(*args, **kwargs)
 
 
