@@ -4,6 +4,7 @@ from restaurants import views
 app_name = 'restaurants'
 urlpatterns = [
     url(r'^auth/register/$', views.CustomRegistrationView.as_view()),
+    url(r'^auth/password/reset/$', views.CustomPasswordResetView.as_view()),
     url(r'^auth/', include('djoser.urls.authtoken')),
     url(r'^auth/validate-username/?$', views.UsernameValidationView.as_view(), name='validate-username'),
     url(r'^restaurants/?$', views.RestaurantList.as_view()),

@@ -12,3 +12,8 @@ form {
   position: relative;
   max-width: 400px;
 }
+
+a.forgot-password {
+  color: $color-info;
+  text-decoration: none;
+}

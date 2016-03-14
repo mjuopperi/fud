@@ -110,6 +110,7 @@ DJOSER = {
     'DOMAIN': 'localhost:8000',
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'reset/{uid}/{token}'
 }
 
 # Internationalization

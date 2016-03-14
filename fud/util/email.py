@@ -23,7 +23,7 @@ class MockEmailSender(EmailSender):
     def send_email(to_email, from_email, context, subject_template_name,
                    plain_body_template_name, html_body_template_name=None):
         email = Email(to_email, from_email,
-                      _get_template(subject_template_name, context),
+                      _get_template(subject_template_name, context).strip(),
                       _get_template(plain_body_template_name, context))
         MockEmailSender.sentEmails.append(email)
         email.print()
