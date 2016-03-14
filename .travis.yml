@@ -1,8 +1,4 @@
 language: python
-branches:
-  only:
-    - master
-    - /^feature_.*$/
 services:
   - postgresql
 python:
