@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^signup/?', views.signup, name='signup'),
     url(r'^login/?', views.login, name='login'),
     url(r'^forgot/?', views.forgot, name='forgot'),
+    url(r'^reset/(?P<uid>.+)/(?P<token>.+)/?', views.reset, name='reset'),
     url(r'^register/?', views.register, name='register'),
     url(r'^activation/?', views.activation, name='activation'),
     url(r'^activate/(?P<uid>.+)/(?P<token>.+)/?', views.activate, name='activate'),

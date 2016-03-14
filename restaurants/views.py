@@ -36,6 +36,13 @@ def forgot(request):
     return render(request, 'restaurants/forgot.html')
 
 
+def reset(request, uid, token):
+    return render(request, 'restaurants/reset.html', {
+        'uid': uid,
+        'token': token
+    })
+
+
 def register(request):
     form = forms.RegistrationForm()
     context = {
