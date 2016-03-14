@@ -6,6 +6,6 @@ psycopg2==2.6.1
 djoser==0.4.3
 boto3==1.2.6
 pytest-django==2.9.1
-pytest==2.8.5
+pytest==2.9.0
 selenium==2.52.0
 Fabric==1.10.2
