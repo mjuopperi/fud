@@ -38,7 +38,12 @@ gulp.task('clean-rev', ['rev'], function() {
         '!' + path.js_dest,    // https://www.npmjs.com/package/del#beware
         '!' + path.image_dest,
         '!' + path.dest_base + '/**/*.rev.*',
-        '!' + path.dest_base + '/rev-manifest.json'
+        '!' + path.dest_base + '/rev-manifest.json',
+        '!' + path.dest_base + '/favicon.ico',
+        '!' + path.dest_base + '/browserconfig.xml',
+        '!' + path.dest_base + '/mstile-*.png',
+        '!' + path.dest_base + '/manifest.json',
+        '!' + path.dest_base + '/android-chrome-*.png'
     ])
 });
 
@@ -82,9 +87,14 @@ gulp.task('icons', function () {
         .pipe(gulp.dest(path.dest_base));
 });
 
-gulp.task('rev', ['sass', 'js', 'images'], function () {
+gulp.task('rev', ['sass', 'js', 'images', 'icons'], function () {
     var revAll = new RevAll({
-        dontRenameFile: [/^\/favicon.ico$/g],
+        dontRenameFile: [
+            /\/favicon\.ico$/g,
+            /\/browserconfig\.xml/g,
+            /\/mstile-.*\.png/g,
+            /\/manifest\.json/g,
+            /\/android-chrome-.*\.png/g],
         transformFilename: function (file, hash) {
             return file.revFilenameOriginal + '.rev.' + hash.substr(0, 5) + file.revFilenameExtOriginal;
         }
