@@ -22,7 +22,8 @@ var path = {
     sass_src: './restaurants/static/src/sass/**/*.scss',
     sass_dest: './restaurants/static/restaurants/css',
     image_src: './restaurants/static/src/img/**/*.{svg,png,jpg,jpeg,gif}',
-    image_dest: './restaurants/static/restaurants/img'
+    image_dest: './restaurants/static/restaurants/img',
+    icon_src: './restaurants/static/src/icons/*.{ico,svg,png,xml,json}'
 };
 
 gulp.task('clean', function() {
@@ -76,6 +77,11 @@ gulp.task('images', function () {
         .pipe(gulp.dest(path.image_dest));
 });
 
+gulp.task('icons', function () {
+    return gulp.src(path.icon_src)
+        .pipe(gulp.dest(path.dest_base));
+});
+
 gulp.task('rev', ['sass', 'js', 'images'], function () {
     var revAll = new RevAll({
         dontRenameFile: [/^\/favicon.ico$/g],
@@ -91,6 +97,6 @@ gulp.task('rev', ['sass', 'js', 'images'], function () {
         .pipe(gulp.dest(path.dest_base))
 });
 
-gulp.task('default', ['sass', 'js', 'images', 'watch']);
+gulp.task('default', ['sass', 'js', 'images', 'icons', 'watch']);
 
-gulp.task('build', ['sass', 'js', 'images', 'rev', 'clean-rev']);
+gulp.task('build', ['sass', 'js', 'images', 'icons', 'rev', 'clean-rev']);
