@@ -31,11 +31,6 @@ DATABASES = {
 
 STATIC_ROOT = '/home/fud/server/static/'
 
-DJOSER = {
-    'SITE_NAME': 'Fud',
-    'DOMAIN': 'fud.fi',
-    'SEND_ACTIVATION_EMAIL': True,
-    'ACTIVATION_URL': 'activate/{uid}/{token}',
-}
+DJOSER['DOMAIN'] = 'fud.fi'
 
 EMAIL_SENDER = SESEmailSender
