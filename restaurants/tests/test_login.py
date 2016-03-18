@@ -1,8 +1,8 @@
-import time
 from django.contrib.auth import get_user_model
 from restaurants.tests.selenium_spec import SeleniumSpec
 
 User = get_user_model()
+
 
 class LoginSpec(SeleniumSpec):
 

@@ -6,6 +6,7 @@ import djoser.utils
 
 User = get_user_model()
 
+
 class SignupSpec(SeleniumSpec):
 
     def setUp(self):
@@ -16,7 +17,7 @@ class SignupSpec(SeleniumSpec):
         User.objects.all().delete()
 
     def test_signup_with_valid_input(self):
-        self._singUp('test-user', 'test-user@example.com', 'password')
+        self.sign_up('test-user', 'test-user@example.com', 'password')
 
         self.title_will_be('Account Activation')
         self.will_have_text('section h1', 'Almost done!')
@@ -24,37 +25,37 @@ class SignupSpec(SeleniumSpec):
         self.assertEqual(len(settings.EMAIL_SENDER.sentEmails), 1)
 
     def test_signup_with_existing_username(self):
-        self._singUp('existing-user', 'test-user@example.com', 'password')
+        self.sign_up('existing-user', 'test-user@example.com', 'password')
 
         self.will_be_visible('#username-error')
         self.will_have_text('#username-error', 'Username is already in use.')
 
     def test_signup_without_username(self):
-        self._singUp('', 'test-user@example.com', 'password')
+        self.sign_up('', 'test-user@example.com', 'password')
 
         self.will_be_visible('#username-error')
         self.will_have_text('#username-error', 'This field is required.')
 
     def test_signup_without_email(self):
-        self._singUp('test-user', '', 'password')
+        self.sign_up('test-user', '', 'password')
 
         self.will_be_visible('#email-error')
         self.will_have_text('#email-error', 'This field is required.')
 
     def test_signup_with_invalid_email(self):
-        self._singUp('test-user', 'invalid', 'password')
+        self.sign_up('test-user', 'invalid', 'password')
 
         self.will_be_visible('#email-error')
         self.will_have_text('#email-error', 'Please enter a valid email address.')
 
     def test_signup_without_password(self):
-        self._singUp('test-user', 'test-user@example.com', '')
+        self.sign_up('test-user', 'test-user@example.com', '')
 
         self.will_be_visible('#password-error')
         self.will_have_text('#password-error', 'This field is required.')
 
     def test_signup_and_activate(self):
-        self._singUp('test-user', 'test-user@example.com', 'password')
+        self.sign_up('test-user', 'test-user@example.com', 'password')
 
         self.title_will_be('Account Activation')
         self.assertTrue(User.objects.filter(username='test-user').exists())
@@ -74,13 +75,12 @@ class SignupSpec(SeleniumSpec):
         self.title_will_be('Login')
         self.assertTrue(User.objects.get(username='test-user').is_active)
 
-
-    def _singUp(self, username, email, password):
+    def sign_up(self, username, email, password):
         self.selenium.get('%s%s' % (self.live_server_url, "/signup"))
-        usernameInput = self.selenium.find_element_by_name("username")
-        usernameInput.send_keys(username)
-        emailInput = self.selenium.find_element_by_name("email")
-        emailInput.send_keys(email)
-        passwordInput = self.selenium.find_element_by_name("password")
-        passwordInput.send_keys(password)
+        username_input = self.selenium.find_element_by_name("username")
+        username_input.send_keys(username)
+        email_input = self.selenium.find_element_by_name("email")
+        email_input.send_keys(email)
+        password_input = self.selenium.find_element_by_name("password")
+        password_input.send_keys(password)
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()

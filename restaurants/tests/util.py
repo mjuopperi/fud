@@ -10,17 +10,22 @@ from restaurants.models import Restaurant, Menu
 User = get_user_model()
 API_HOST = 'api.testserver'
 
+
 def random_string(length=6):
     return ''.join(random.choice(string.ascii_letters + string.digits) for n in range(length))
+
 
 def random_username():
     return 'user-' + random_string()
 
+
 def random_title():
     return 'title-' + random_string()
 
+
 def render_json(json):
     JSONRenderer().render(json).decode('utf-8')
+
 
 def authenticate_requests(user, client):
     token, _ = Token.objects.get_or_create(user=user)
@@ -28,17 +33,17 @@ def authenticate_requests(user, client):
 
 
 def create_restaurant(subdomain, user=None):
-    if user == None:
+    if user is None:
         user = User.objects.create_user(random_username(), 'test@example.com', 'password')
     restaurant = Restaurant(name=subdomain, subdomain=subdomain, owner=user)
     restaurant.save()
-    return (restaurant, user)
+    return restaurant, user
 
 
 def create_menu(restaurant, title=None, content=None):
-    if title == None:
-        title=random_title()
-    if content == None:
+    if title is None:
+        title = random_title()
+    if content is None:
         content = MENU_CONTENT
     menu = Menu(title=title, content=content, restaurant=restaurant)
     menu.save()
@@ -82,7 +87,7 @@ MENU_CONTENT = [
 
 
 def menu_data(title='Test Menu', content=None):
-    if content == None:
+    if content is None:
         content = MENU_CONTENT
     return {
         'title': title,

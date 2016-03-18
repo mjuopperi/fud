@@ -3,6 +3,7 @@ from .util import *
 
 User = get_user_model()
 
+
 class RegisterSpec(SeleniumSpec):
 
     def setUp(self):
@@ -74,7 +75,6 @@ class RegisterSpec(SeleniumSpec):
 
         self.assertTrue(self.will_be_visible('#error'))
         self.assertTrue(self.will_have_text('#error', 'You need to be logged in to register a restaurant.'))
-
 
     def _register(self, data):
         self.selenium.get('%s%s' % (self.live_server_url, "/register"))

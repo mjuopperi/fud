@@ -2,13 +2,13 @@ import os
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
-from rest_framework.authtoken.models import Token
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 import selenium.webdriver.support.ui as ui
+
 
 @override_settings(BASE_DOMAIN='localhost')
 class SeleniumSpec(StaticLiveServerTestCase):
@@ -51,9 +51,9 @@ class SeleniumSpec(StaticLiveServerTestCase):
         except TimeoutException:
             return False
 
-
     def login(self):
         self.selenium.get('%s%s' % (self.live_server_url, "/login"))
+
         username = self.selenium.find_element_by_name("username")
         username.send_keys("test-user")
         password = self.selenium.find_element_by_name("password")

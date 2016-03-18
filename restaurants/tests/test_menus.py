@@ -6,6 +6,7 @@ from .util import *
 
 User = get_user_model()
 
+
 class MenuApiSpec(APITestCase):
     def tearDown(self):
         User.objects.all().delete()

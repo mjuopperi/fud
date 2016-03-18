@@ -3,6 +3,7 @@ from .util import *
 
 User = get_user_model()
 
+
 class ProfileSpec(SeleniumSpec):
 
     def setUp(self):
@@ -18,9 +19,9 @@ class ProfileSpec(SeleniumSpec):
     def test_change_email(self):
         self.login()
         self.selenium.find_element_by_css_selector('#change-email button.change').click()
-        emailInput = self.selenium.find_element_by_css_selector('input[name="email"]')
-        emailInput.clear()
-        emailInput.send_keys('changed@example.com')
+        email_input = self.selenium.find_element_by_css_selector('input[name="email"]')
+        email_input.clear()
+        email_input.send_keys('changed@example.com')
         self.selenium.find_element_by_css_selector('#change-email button.save').click()
 
         self.assertTrue(self.will_be_visible('#change-email .success'))
@@ -29,10 +30,10 @@ class ProfileSpec(SeleniumSpec):
     def test_change_password(self):
         self.login()
         self.selenium.find_element_by_css_selector('#change-password button.change').click()
-        currentPassword = self.selenium.find_element_by_css_selector('input[name="current-password"]')
-        currentPassword.send_keys('password')
-        newPassword = self.selenium.find_element_by_css_selector('input[name="new-password"]')
-        newPassword.send_keys('changed')
+        current_password = self.selenium.find_element_by_css_selector('input[name="current-password"]')
+        current_password.send_keys('password')
+        new_password = self.selenium.find_element_by_css_selector('input[name="new-password"]')
+        new_password.send_keys('changed')
         self.selenium.find_element_by_css_selector('#change-password button.save').click()
 
         self.assertTrue(self.will_be_visible('#change-password .success'))
