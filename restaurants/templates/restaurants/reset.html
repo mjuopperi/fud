@@ -1,0 +1,33 @@
+{% extends "restaurants/base.html" %}
+{% load revisioned_staticfiles %}
+
+{% block title %}Reset Password{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/forgot.css' %}"/>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'restaurants/js/reset.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Reset your Password</h1>
+        <p class="info">Enter a new password for your account.</p>
+        <div id="error">
+            <p>New password could not be set. Please request a new password reset link from <a href="/forgot">here</a>.</p>
+        </div>
+        <div class="success">
+            <h2>Your password has been set!</h2>
+            <p>Click <a href="/login">here</a> to log in.</p>
+        </div>
+        <form id="reset-password">
+            <label for="new-password">New password</label>
+            <input type="password" id="new-password" name="new_password" required>
+            <input type="text" class="hidden" name="uid" value="{{ uid }}">
+            <input type="text" class="hidden" name="token" value="{{ token }}">
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+{% endblock %}

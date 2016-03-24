@@ -4,7 +4,7 @@ from django.conf import settings
 from django.http import Http404
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404
-from djoser.views import RegistrationView
+from djoser.views import RegistrationView, PasswordResetView
 from rest_framework import permissions, mixins, generics
 from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.renderers import JSONRenderer
@@ -30,6 +30,17 @@ def signup(request):
 
 def login(request):
     return render(request, 'restaurants/login.html')
+
+
+def forgot(request):
+    return render(request, 'restaurants/forgot.html')
+
+
+def reset(request, uid, token):
+    return render(request, 'restaurants/reset.html', {
+        'uid': uid,
+        'token': token
+    })
 
 
 def register(request):
@@ -69,6 +80,16 @@ def restaurant_index(request):
 class CustomRegistrationView(RegistrationView):
 
     def send_email(self, *args, **kwargs):
+        kwargs['subject_template_name'] = 'activation_email_subject.txt'
+        kwargs['plain_body_template_name'] = 'activation_email_body.txt'
+        settings.EMAIL_SENDER.send_email(*args, **kwargs)
+
+
+class CustomPasswordResetView(PasswordResetView):
+
+    def send_email(self, *args, **kwargs):
+        kwargs['subject_template_name'] = 'password_reset_email_subject.txt'
+        kwargs['plain_body_template_name'] = 'password_reset_email_body.txt'
         settings.EMAIL_SENDER.send_email(*args, **kwargs)
 
 

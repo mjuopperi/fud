@@ -1,0 +1,31 @@
+{% extends "restaurants/base.html" %}
+{% load revisioned_staticfiles %}
+
+{% block title %}Forgot Password{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/forgot.css' %}"/>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'restaurants/js/forgot.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Reset your Password</h1>
+        <p class="info">Enter your email address and we will send you a link to reset your password.</p>
+        <div id="error">
+            <p></p>
+        </div>
+        <div class="success">
+            <h2>Password reset email sent!</h2>
+            <p>Follow the instructions in the email to set a new password.</p>
+        </div>
+        <form id="forgot-password">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+{% endblock %}

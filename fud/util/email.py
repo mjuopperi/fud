@@ -2,14 +2,17 @@ from django.conf import settings
 from django.template.loader import get_template
 from boto3.session import Session
 
-ACTIVATION_SUBJECT_TEMPLATE = 'restaurants/email/activation_email_subject.txt'
-ACTIVATION_BODY_TEMPLATE = 'restaurants/email/activation_email_body.txt'
+TEMPLATE_BASE = 'restaurants/email/'
+
+
+def _get_template(template_name, context):
+    return get_template(TEMPLATE_BASE + template_name).render(context)
 
 
 class EmailSender:
     @staticmethod
-    def send_email(to_email, from_email, context, subject_template_name=None,
-                   plain_body_template_name=None, html_body_template_name=None):
+    def send_email(to_email, from_email, context, subject_template_name,
+                   plain_body_template_name, html_body_template_name=None):
         raise NotImplementedError("Not implemented in the base class")
 
 
@@ -17,11 +20,11 @@ class MockEmailSender(EmailSender):
     sentEmails = []
 
     @staticmethod
-    def send_email(to_email, from_email, context, subject_template_name=None,
-                   plain_body_template_name=None, html_body_template_name=None):
+    def send_email(to_email, from_email, context, subject_template_name,
+                   plain_body_template_name, html_body_template_name=None):
         email = Email(to_email, from_email,
-                      get_template(ACTIVATION_SUBJECT_TEMPLATE).render(context),
-                      get_template(ACTIVATION_BODY_TEMPLATE).render(context))
+                      _get_template(subject_template_name, context).strip(),
+                      _get_template(plain_body_template_name, context))
         MockEmailSender.sentEmails.append(email)
         email.print()
 
@@ -42,10 +45,10 @@ class Email():
 class SESEmailSender(EmailSender):
 
     @staticmethod
-    def send_email(to_email, from_email, context, subject_template_name=None,
-                   plain_body_template_name=None, html_body_template_name=None):
-        subject = get_template(ACTIVATION_SUBJECT_TEMPLATE).render(context).strip()
-        body = get_template(ACTIVATION_BODY_TEMPLATE).render(context)
+    def send_email(to_email, from_email, context, subject_template_name,
+                   plain_body_template_name, html_body_template_name=None):
+        subject = _get_template(subject_template_name, context).strip()
+        body = _get_template(plain_body_template_name, context)
         SESUtil().send_email(to_email, from_email, subject, body)
 
 

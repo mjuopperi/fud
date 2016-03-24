@@ -5,30 +5,28 @@ section {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  padding-bottom: 20px;
+
+  > p {
+    margin: 1.5em 1em;
+    line-height: 1.4em;
+  }
 }
 
-#error {
-  width: 80%;
-  margin: 0 auto;
+form {
+  position: relative;
+  max-width: 400px;
 }
 
 .success {
   display: none;
   width: 80%;
-  text-align: center;
   margin: 0 auto;
+  text-align: center;
 
   h2 {
     font-size: 1.2em;
     color: $color-success;
     margin-bottom: 1em;
   }
-
-  p {
-    line-height: 1.4em;
-  }
-}
-
-button {
-  margin: 60px auto 20px;
 }
