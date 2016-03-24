@@ -22,7 +22,8 @@ var path = {
     sass_src: './restaurants/static/src/sass/**/*.scss',
     sass_dest: './restaurants/static/restaurants/css',
     image_src: './restaurants/static/src/img/**/*.{svg,png,jpg,jpeg,gif}',
-    image_dest: './restaurants/static/restaurants/img'
+    image_dest: './restaurants/static/restaurants/img',
+    icon_src: './restaurants/static/src/icons/*.{ico,svg,png,xml,json}'
 };
 
 gulp.task('clean', function() {
@@ -37,7 +38,12 @@ gulp.task('clean-rev', ['rev'], function() {
         '!' + path.js_dest,    // https://www.npmjs.com/package/del#beware
         '!' + path.image_dest,
         '!' + path.dest_base + '/**/*.rev.*',
-        '!' + path.dest_base + '/rev-manifest.json'
+        '!' + path.dest_base + '/rev-manifest.json',
+        '!' + path.dest_base + '/favicon.ico',
+        '!' + path.dest_base + '/browserconfig.xml',
+        '!' + path.dest_base + '/mstile-*.png',
+        '!' + path.dest_base + '/manifest.json',
+        '!' + path.dest_base + '/android-chrome-*.png'
     ])
 });
 
@@ -76,9 +82,19 @@ gulp.task('images', function () {
         .pipe(gulp.dest(path.image_dest));
 });
 
-gulp.task('rev', ['sass', 'js', 'images'], function () {
+gulp.task('icons', function () {
+    return gulp.src(path.icon_src)
+        .pipe(gulp.dest(path.dest_base));
+});
+
+gulp.task('rev', ['sass', 'js', 'images', 'icons'], function () {
     var revAll = new RevAll({
-        dontRenameFile: [/^\/favicon.ico$/g],
+        dontRenameFile: [
+            /\/favicon\.ico$/g,
+            /\/browserconfig\.xml/g,
+            /\/mstile-.*\.png/g,
+            /\/manifest\.json/g,
+            /\/android-chrome-.*\.png/g],
         transformFilename: function (file, hash) {
             return file.revFilenameOriginal + '.rev.' + hash.substr(0, 5) + file.revFilenameExtOriginal;
         }
@@ -91,6 +107,6 @@ gulp.task('rev', ['sass', 'js', 'images'], function () {
         .pipe(gulp.dest(path.dest_base))
 });
 
-gulp.task('default', ['sass', 'js', 'images', 'watch']);
+gulp.task('default', ['sass', 'js', 'images', 'icons', 'watch']);
 
-gulp.task('build', ['sass', 'js', 'images', 'rev', 'clean-rev']);
+gulp.task('build', ['sass', 'js', 'images', 'icons', 'rev', 'clean-rev']);
