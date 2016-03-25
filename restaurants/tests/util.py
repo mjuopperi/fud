@@ -73,6 +73,17 @@ def restaurant_data(name='Test Restaurant', subdomain='test-restaurant', address
 
 MENU_CONTENT = [
     {
+        "name": "Starters",
+        "items": [
+            {
+                "name": "Carrot on a Stick",
+                "price": "1.50 €",
+                "description": "Unsafe for consumption.",
+                "allergens": ["V", "C"]
+            }
+        ]
+    },
+    {
         'name': 'Burgers',
         'items': [
             {

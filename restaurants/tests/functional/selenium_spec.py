@@ -61,3 +61,7 @@ class SeleniumSpec(StaticLiveServerTestCase):
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
         self.title_will_be('Profile')
         self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))
+
+    def live_server_subdomain_url(self, subdomain):
+        protocol, url = self.live_server_url.split('//', 1)
+        return protocol + '//' + subdomain + '.' + url
