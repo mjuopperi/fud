@@ -5,7 +5,9 @@ function getPort() {
 }
 
 function getDomainName() {
-  return _(window.location.hostname).split('.').takeRight(2).join('.');
+  var domain = _(window.location.hostname).split('.').takeRight(2).join('.');
+  if (!_.startsWith(domain, 'fud')) return 'localhost';
+  else return domain;
 }
 
 function getApiUrl() {
