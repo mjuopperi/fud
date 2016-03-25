@@ -1,94 +1,87 @@
 @import 'base';
-$active-menu: #226f54;
 
 @mixin active-menu {
-  color: $active-menu;
-  border-bottom: solid 2px $active-menu;
+  color: $color-success-dark;
+  border-bottom: solid 2px $color-success-dark;
 }
 
-.categories.menu-mobile.active-menu {
-  display: block;
-}
-
-.active-menu-title  {
-  color: $active-menu;
-  border-bottom: solid 2px $active-menu;
+.menu-title {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  margin: 0.5em 0;
+  padding: 8px;
+  cursor: pointer;
 }
 
 .categories {
-  display: none;
   font-family: $body-font;
   li {
     margin: 20px;
-    article {
+
+    h3 {
+      font-size: 1.5em;
+      text-align: center;
+      margin: 0 0 1.2em;
+    }
+    .menu-item-title {
       display: flex;
       justify-content: space-between;
       padding-bottom: 10px;
-    }
-    h2 {
-      font-size: 1.5em;
-      text-align: center;
+
+      h4 {
+        font-size: 1.2em;
+      }
     }
     p {
-      font-size: 0.8em;
+      font-size: 1em;
+      line-height: 1.4em;
       padding-bottom: 10px;
     }
   }
 }
 
-.menu-desktop {
-  display: none;
+@media (max-width:960px) {
+  .desktop {
+    display: none;
+  }
 }
 
 @media (min-width:961px) {
-  .main {
-    width: 50%;
-    margin: 0 auto;
-  }
-
-  .active-menu {
-    display: block;
-  }
-
-  .menu {
+  .mobile {
     display: none;
   }
+  section {
+    min-width: 640px;
+    max-width: 840px;
+    margin: 0 auto;
 
-  .menu.active-menu {
-    display: block;
-  }
+    .menu-titles {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+      li {
+        min-width: 33%;
+        text-align: center;
+        h2 {
+          width: auto;
+          margin: 1em 0;
+          &:hover span, &.active span {
+            @include active-menu;
+          }
+        }
+      }
+    }
 
-  .menus {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    li {
-      width: 33%;
-      cursor: pointer;
-      span {
-        &:hover {
-          @include active-menu;
+    .menus {
+      li {
+        .categories {
+          display: block;
+          width: 80%;
+          margin: auto;
         }
       }
     }
   }
-
-  .categories {
-    display: block;
-    width: 70%;
-    margin: auto;
-  }
-
-  .categories.menu-mobile.active-menu {
-    display: none;
-  }
-
-  .menu-mobile {
-    display: none;
-  }
-
-  .menu-desktop {
-    display: block;
-  }
-
 }

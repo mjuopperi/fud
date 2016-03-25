@@ -8,6 +8,7 @@ var source      = require('vinyl-source-stream');
 var glob        = require('glob');
 var es          = require('event-stream');
 var browserify  = require('browserify');
+var stringify   = require('stringify');
 var rename      = require('gulp-rename');
 var buffer      = require('vinyl-buffer');
 var del         = require('del');
@@ -59,6 +60,9 @@ gulp.task('js', function(done) {
 
         var tasks = files.map(function(entry) {
             return browserify({ entries: [entry] })
+              .transform(stringify, {
+                  appliesTo: { includeExtensions: ['.html'] }
+              })
               .bundle()
               .pipe(source(entry))
               .pipe(buffer())
