@@ -1,4 +1,6 @@
-### Status
+<div align="center">
+  <img src="https://cloud.githubusercontent.com/assets/6764054/14056040/992bcfd8-f2ef-11e5-9f9d-83cc118fe830.png" alt="logo" width="400">
+</div>
 
 [![Build Status](https://magnum.travis-ci.com/mjuopperi/fud.svg?token=vQUUTgeveVz3wPSNPQET&branch=master)](https://magnum.travis-ci.com/mjuopperi/fud)
 
