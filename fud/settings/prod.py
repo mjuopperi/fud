@@ -36,3 +36,5 @@ REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRend
 DJOSER['DOMAIN'] = 'fud.fi'
 
 EMAIL_SENDER = SESEmailSender
+
+ADMIN_URL = r'^säätökäli/'

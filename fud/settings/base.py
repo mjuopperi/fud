@@ -144,3 +144,5 @@ except IOError:
 
 EMAIL_SENDER = MockEmailSender
 DEFAULT_FROM_EMAIL = 'noreply@fud.fi'
+
+ADMIN_URL = r'^admin/'
