@@ -31,6 +31,8 @@ DATABASES = {
 
 STATIC_ROOT = '/home/fud/server/static/'
 
+REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = ['rest_framework.renderers.JSONRenderer']
+
 DJOSER['DOMAIN'] = 'fud.fi'
 
 EMAIL_SENDER = SESEmailSender
