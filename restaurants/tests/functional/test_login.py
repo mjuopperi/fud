@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
-from restaurants.tests.selenium_spec import SeleniumSpec
+
+from restaurants.tests.functional.selenium_spec import SeleniumSpec
 
 User = get_user_model()
 

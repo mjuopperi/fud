@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from restaurants.serializers import RestaurantSerializer
-from .util import *
+from restaurants.tests.util import *
 
 User = get_user_model()
 

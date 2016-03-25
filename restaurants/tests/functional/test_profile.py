@@ -1,5 +1,5 @@
-from restaurants.tests.selenium_spec import SeleniumSpec
-from .util import *
+from restaurants.tests.functional.selenium_spec import SeleniumSpec
+from restaurants.tests.util import *
 
 User = get_user_model()
 
