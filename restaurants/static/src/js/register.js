@@ -41,12 +41,6 @@ $.validator.addMethod('subdomainReserved', function(value, element) {
   return !/^www/.test(value) && ['static', 'api', 'fud'].indexOf(value) == -1;
 }, 'Subdomain is reserved.');
 
-function getInput() {
-  var data = {};
-  $("#register").serializeArray().map(function(field){data[field.name] = field.value;});
-  return data;
-}
-
 function registerRequest(data) {
   return $.ajax({
     type: 'POST',
@@ -60,7 +54,7 @@ function register(e) {
   e.preventDefault();
   var submitButton = $('#register').find('button[type=submit]');
   uiUtil.showProgressIndicator(submitButton);
-  var request = registerRequest(getInput());
+  var request = registerRequest(util.serializeForm($('#register')));
   request.done(handleSuccess);
   request.fail(handleErrors);
   request.always(function() { uiUtil.hideProgressIndicator(submitButton) });

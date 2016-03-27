@@ -47,6 +47,12 @@ function authTokenExists() {
   return getAuthToken() !== undefined;
 }
 
+function toPair(item) { return [item.name, item.value]; }
+
+function serializeForm(form) {
+  return _(form.serializeArray()).map(toPair).fromPairs().value();
+}
+
 exports.getApiUrl = getApiUrl;
 exports.getRestaurantUrl = getRestaurantUrl;
 exports.getBaseUrl = getBaseUrl;
@@ -55,3 +61,4 @@ exports.setAuthToken = setAuthToken;
 exports.getAuthToken = getAuthToken;
 exports.removeAuthToken = removeAuthToken;
 exports.authTokenExists = authTokenExists;
+exports.serializeForm = serializeForm;
