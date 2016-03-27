@@ -2,7 +2,7 @@
     <h2 class="menu-title mobile" data-id="<%- id %>"><input class="title" value="<%- title %>"></input></h2>
     <ul class="categories">
         <% _.each(content, function(category) { %>
-        <li>
+        <li class="category">
             <% if(category.name) { %>
             <h3><input class="category-name" value="<%- category.name %>"></input></h3>
             <% }; %>
@@ -13,13 +13,14 @@
                         <h4> <input class="item-name" value="<%- item.name %>"></input> </h4>
                         <h4> <input class="item-price" value="<%- item.price %>"></input> </h4>
                     </div>
-                    <p> <textarea><%- item.description %></textarea> </p>
+                    <p> <textarea class="item-description"><%- item.description %></textarea> </p>
                     <% var allergens = item.allergens.join(', '); %>
-                    <p> <textarea><%- allergens %></textarea> </p>
+                    <p> <textarea class="item-allergens"><%- allergens %></textarea> </p>
                 </li>
                 <% }); %>
             </ul>
         </li>
         <% }); %>
+        <button class="save-menu">Save</button>
     </ul>
 </li>

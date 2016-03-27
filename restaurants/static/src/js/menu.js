@@ -56,6 +56,33 @@ function setActiveMenu(id) {
   activeTitles.addClass('active');
 }
 
+function readMenu() {
+  var $menu = $(this).parent().parent();
+  var menu = {
+    content: [],
+    restaurant: subdomain,
+    id: Number($($menu).attr("data-id")),
+    title: $(".active").text() // change to val() after converting to input element
+  }
+  var categories = $($menu).find(".category");
+  _.map(categories, function(c) {
+    var category = {
+      name: $(c).find("h3 input").val(),
+      items: []
+    };
+    var menuItems = $(c).find(".menu-items li");
+    _.map(menuItems, function(item) {
+      category.items.push({
+        name: $(item).find(".item-name").val(),
+        price: $(item).find(".item-price").val(),
+        description: $(item).find(".item-description").text(),
+        allergens: $(item).find(".item-allergens").text().split(" ,")
+      })
+    })
+    menu.content.push(category);
+  })
+}
+
 function init() {
   getMenu().then(function(data) {
     var menus = data.menus;
@@ -68,4 +95,5 @@ function init() {
 $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
+  $('section').on('click', '.save-menu', readMenu);
 });
