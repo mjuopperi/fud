@@ -1,6 +1,6 @@
 require('./_header');
 var util = require('./_util');
-var menuTemplate = require('./templates/menu.html');
+var menuTemplate = require('./templates/menuAdmin.html');
 
 const apiUrl = util.getApiUrl();
 const subdomain = util.getSubdomain();

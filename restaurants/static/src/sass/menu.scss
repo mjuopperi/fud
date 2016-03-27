@@ -5,6 +5,26 @@
   border-bottom: solid 2px $color-success-dark;
 }
 
+input {
+  border: 0;
+}
+
+textarea {
+  border: 0;
+  resize: none;
+  overflow: hidden;
+}
+
+.title {
+  text-align: center;
+}
+
+.category-name {
+  margin: 0 auto;
+  text-align: center;
+}
+
+
 .menu-title {
   display: inline-block;
   width: 100%;
@@ -49,9 +69,14 @@
 }
 
 @media (min-width:961px) {
+  .item-price {
+    text-align: right;
+  }
+
   .mobile {
     display: none;
   }
+  
   section {
     min-width: 640px;
     max-width: 840px;
