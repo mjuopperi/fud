@@ -56,8 +56,8 @@ function setActiveMenu(id) {
   activeTitles.addClass('active');
 }
 
-function readMenu() {
-  var $menu = $(this).parent().parent();
+function readMenu(context) {
+  var $menu = $(context).parent().parent();
   var menu = {
     content: [],
     restaurant: subdomain,
@@ -81,6 +81,19 @@ function readMenu() {
     })
     menu.content.push(category);
   })
+  return menu;
+}
+
+function saveMenu() {
+  var data = readMenu(this);
+  $.ajax({
+    type: 'PUT',
+    url: apiUrl + '/restaurants/' + subdomain +  '/menus/' + data.id,
+    data: JSON.stringify(data),
+    contentType: "application/json",
+    dataType: "json",
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
+  });
 }
 
 function init() {
@@ -95,5 +108,5 @@ function init() {
 $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
-  $('section').on('click', '.save-menu', readMenu);
+  $('section').on('click', '.save-menu', saveMenu);
 });
