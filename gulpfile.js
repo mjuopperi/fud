@@ -20,6 +20,7 @@ var path = {
     js_src: './restaurants/static/src/js/**/!(_)*.js',
     js_dest: './restaurants/static/restaurants/js',
     js_extras: './restaurants/static/src/js/**/_*.js',
+    template_src: './restaurants/static/src/js/templates/*.html',
     sass_src: './restaurants/static/src/sass/**/*.scss',
     sass_dest: './restaurants/static/restaurants/css',
     image_src: './restaurants/static/src/img/**/*.{svg,png,jpg,jpeg,gif}',
@@ -78,6 +79,7 @@ gulp.task('watch', function () {
     gulp.watch(path.sass_src, ['sass']);
     gulp.watch(path.js_src, ['js']);
     gulp.watch(path.js_extras, ['js']);
+    gulp.watch(path.template_src, ['js']);
     gulp.watch(path.image_src, ['images']);
 });
 
