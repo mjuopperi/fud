@@ -54,3 +54,5 @@ DJOSER['DOMAIN'] = 'fud.fi'
 EMAIL_SENDER = SESEmailSender
 
 ADMIN_URL = r'^säätökäli/'
+
+GOOGLE_MAPS_API_KEY = GOOGLE_MAPS_API_KEY

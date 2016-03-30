@@ -14,10 +14,20 @@
 </head>
 <body>
     <header>
-        <h1><a href="/">{% block name %}Fud.fi{% endblock %}</a></h1>
+        <h1><a href="/">{% block name %}{% endblock %}</a></h1>
         <div class="user">
         </div>
     </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="/" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+            </li>
+            <li>
+                <a href="/menu" class="{% if request.resolver_match.url_name == 'menu' %}active{% endif %}">Menu</a>
+            </li>
+        </ul>
+    </nav>
     {% block content %}{% endblock %}
 </body>
 </html>

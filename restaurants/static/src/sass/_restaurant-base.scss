@@ -1,0 +1,22 @@
+@import 'base';
+
+nav {
+  background: #fafafa;
+  ul {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    li {
+      a {
+        display: inline-block;
+        font-size: 2em;
+        text-decoration: none;
+        padding: 0.5em 1.5em;
+
+        &.active {
+          border-bottom: 1px solid $color-foreground;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+<section class="info">
+    <form class="input-container h1">
+        <span class="success fixed"> updated!</span>
+        <input class="h1" type="text" name="name" value="<%- restaurant.name %>" disabled>
+        <button type="button" class="change fa fa-edit"></button>
+        <div class="button-container">
+            <button type="button" class="cancel hidden">Cancel</button>
+            <button type="submit" class="save hidden">Save</button>
+        </div>
+    </form>
+</section>
+<section class="location">
+    <div class="location-container">
+        <div class="location-info">
+            <div class="info-wrapper">
+                <div class="address">
+                    <form class="input-container">
+                        <span class="success fixed"> updated!</span>
+                        <input class="h3" type="text" name="address" value="<%- restaurant.address %>" disabled>
+                        <div class="inline-group">
+                            <input class="h3" type="text" name="postal_code" value="<%- restaurant.postal_code %>" disabled>
+                            <input class="h3" type="text" name="city" value="<%- restaurant.city %>" disabled>
+                        </div>
+                        <button type="button" class="change fa fa-edit"></button>
+                        <div class="button-container">
+                            <button type="button" class="cancel hidden">Cancel</button>
+                            <button type="submit" class="save hidden">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="contact">
+                    <form class="input-container">
+                        <span class="success fixed"> updated!</span>
+                        <input class="h3" type="text" name="phone_number" value="<%- restaurant.phone_number %>" disabled>
+                        <input class="h3" type="text" name="email" value="<%- restaurant.email %>" disabled>
+                        <button type="button" class="change fa fa-edit"></button>
+                        <div class="button-container">
+                            <button type="button" class="cancel hidden">Cancel</button>
+                            <button type="submit" class="save hidden">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="map">
+            <iframe
+                    frameborder="0"
+                    src="https://www.google.com/maps/embed/v1/place?key=<%- googleMapsApiKey %>&q=<%- restaurant.address %>,<%- restaurant.city %>" allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</section>
