@@ -96,6 +96,15 @@ function saveMenu() {
   });
 }
 
+function deleteMenu() {
+  var id = $(this).parent().parent().attr("data-id");
+  $.ajax({
+    type: 'DELETE',
+    url: apiUrl + '/restaurants/' + subdomain +  '/menus/' + id,
+    headers: {Authorization: 'Token ' + util.getAuthToken()}
+  });
+}
+
 function init() {
   getMenu().then(function(data) {
     var menus = data.menus;
@@ -109,4 +118,5 @@ $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
   $('section').on('click', '.save-menu', saveMenu);
+  $('section').on('click', '.delete-menu', deleteMenu);
 });
