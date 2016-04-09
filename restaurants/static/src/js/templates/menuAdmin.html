@@ -4,18 +4,18 @@
         <% _.each(content, function(category) { %>
         <li class="category">
             <% if(category.name) { %>
-            <h3><input class="category-name" value="<%- category.name %>"></h3>
+            <h3 class="category-name"><span contenteditable="true"><%- category.name %></span></h3>
             <% }; %>
             <ul class="menu-items">
                 <% _.each(category.items, function(item) { %>
                 <li>
                     <div class="menu-item-title">
-                        <h4><input class="item-name" value="<%- item.name %>"></h4>
-                        <h4><input class="item-price" value="<%- item.price %>"></h4>
+                        <h4 class="item-name" contenteditable="true"> <%- item.name %> </h4>
+                        <h4 class="item-price" contenteditable="true"> <%- item.price %> </h4>
                     </div>
-                    <p><textarea class="item-description"><%- item.description %></textarea></p>
+                    <p class="item-description" contenteditable="true"> <%- item.description %> </p>
                     <% var allergens = item.allergens.join(', '); %>
-                    <p><textarea class="item-allergens"><%- allergens %></textarea></p>
+                    <p class="item-allergens" contenteditable="true"><%- allergens %></p>
                 </li>
                 <% }); %>
             </ul>
