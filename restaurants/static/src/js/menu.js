@@ -114,9 +114,15 @@ function init() {
   });
 }
 
+function setEditable() {
+  $(this).attr('contenteditable', 'true');
+  $(this).focus();
+}
+
 $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
   $('section').on('click', '.save-menu', saveMenu);
   $('section').on('click', '.delete-menu', deleteMenu);
+  $('section').on('click',  '.menu-title span', setEditable);
 });
