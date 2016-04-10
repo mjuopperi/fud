@@ -62,19 +62,19 @@ function readMenu(context) {
     content: [],
     restaurant: subdomain,
     id: Number($($menu).attr("data-id")),
-    title: $(".active").text() // change to val() after converting to input element
+    title: $(".active").text()
   }
   var categories = $($menu).find(".category");
   _.map(categories, function(c) {
     var category = {
-      name: $(c).find("h3 input").val(),
+      name: $(c).find("h3 span").text(),
       items: []
     };
     var menuItems = $(c).find(".menu-items li");
     _.map(menuItems, function(item) {
       category.items.push({
-        name: $(item).find(".item-name").val(),
-        price: $(item).find(".item-price").val(),
+        name: $(item).find(".item-name").text(),
+        price: $(item).find(".item-price").text(),
         description: $(item).find(".item-description").text(),
         allergens: $(item).find(".item-allergens").text().split(" ,")
       })
