@@ -27,7 +27,7 @@ function renderMenuTitles(menus) {
     $('.menu-titles').append(
       $('<li>').append(
         $('<h2>', {class: 'menu-title desktop', 'data-id': menu.id}).append(
-          $('<span>').text(menu.title)
+          $('<span placeholder="Title">').text(menu.title)
         )
       )
     )

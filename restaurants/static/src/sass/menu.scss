@@ -15,6 +15,12 @@ textarea {
   overflow: hidden;
 }
 
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+  color: rgba(33, 33, 33, 0.5);
+}
+
 .title {
   text-align: center;
 }
@@ -76,7 +82,7 @@ textarea {
   .mobile {
     display: none;
   }
-  
+
   section {
     min-width: 640px;
     max-width: 840px;
