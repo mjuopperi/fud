@@ -35,6 +35,9 @@ function renderMenuTitles(menus) {
       )
     )
   });
+  if(isAdmin()) {
+    $('.menu-title span').attr('contenteditable', true);
+  }
 }
 
 function renderMenuContents(menus) {
@@ -134,11 +137,6 @@ function toggleEdit() {
   refresh();
 }
 
-function setEditable() {
-  $(this).attr('contenteditable', 'true');
-  $(this).focus();
-}
-
 function init() {
   getMenu().then(function(data) {
     var menus = data.menus;
@@ -153,6 +151,5 @@ $(function() {
   $('section').on('click', '.menu-title', toggleMenu);
   $('section').on('click', '.save-menu', saveMenu);
   $('section').on('click', '.delete-menu', deleteMenu);
-  $('section').on('click',  '.menu-title span', setEditable);
   $('section').on('click', '.edit-menu', toggleEdit);
 });
