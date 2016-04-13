@@ -1,6 +1,9 @@
 require('./_header');
 var util = require('./_util');
-var menuTemplate = require('./templates/menuAdmin.html');
+var menuTemplates = {
+  user: require('./templates/menu.html'),
+  admin: require('./templates/menuAdmin.html')
+};
 
 const apiUrl = util.getApiUrl();
 const subdomain = util.getSubdomain();
@@ -35,7 +38,9 @@ function renderMenuTitles(menus) {
 }
 
 function renderMenuContents(menus) {
-  var template = _.template(menuTemplate);
+  var template = _.template(
+    isAdmin() ? menuTemplates.admin : menuTemplates.user
+  );
   _.each(menus, function (menu) {
     $("ul.menus").append(template(menu))
   });
@@ -105,6 +110,35 @@ function deleteMenu() {
   });
 }
 
+function setAdmin(owner) {
+  owner ? sessionStorage.setItem('owner', true) : sessionStorage.setItem('owner', false);
+}
+
+function isAdmin() {
+  return sessionStorage.getItem('owner') === null ? false : JSON.parse(sessionStorage.getItem('owner'));
+}
+
+function refresh() {
+  getMenu().then(function(data) {
+    var menus = data.menus;
+    $('.menu-titles').empty();
+    $('.menus').empty();
+    renderMenuTitles(menus);
+    renderMenuContents(menus);
+    setActiveMenu(getActiveMenuId());
+  });
+}
+
+function toggleEdit() {
+  setAdmin(!isAdmin());
+  refresh();
+}
+
+function setEditable() {
+  $(this).attr('contenteditable', 'true');
+  $(this).focus();
+}
+
 function init() {
   getMenu().then(function(data) {
     var menus = data.menus;
@@ -114,15 +148,11 @@ function init() {
   });
 }
 
-function setEditable() {
-  $(this).attr('contenteditable', 'true');
-  $(this).focus();
-}
-
 $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
   $('section').on('click', '.save-menu', saveMenu);
   $('section').on('click', '.delete-menu', deleteMenu);
   $('section').on('click',  '.menu-title span', setEditable);
+  $('section').on('click', '.edit-menu', toggleEdit);
 });
