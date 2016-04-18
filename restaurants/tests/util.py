@@ -1,3 +1,4 @@
+import os
 import random
 import string
 
@@ -110,3 +111,7 @@ def menu_data(title='Test Menu', content=None):
         'title': title,
         'content': content
     }
+
+
+def in_travis():
+    return 'TRAVIS' in os.environ

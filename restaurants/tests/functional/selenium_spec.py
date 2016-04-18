@@ -1,4 +1,3 @@
-import os
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
@@ -9,6 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 import selenium.webdriver.support.ui as ui
 
+from restaurants.tests.util import *
+
 
 @override_settings(BASE_DOMAIN='localhost')
 class SeleniumSpec(StaticLiveServerTestCase):
@@ -18,7 +19,7 @@ class SeleniumSpec(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super(SeleniumSpec, cls).setUpClass()
-        if 'TRAVIS' in os.environ:
+        if in_travis():
             cls.selenium = webdriver.Firefox()
         else:
             cls.selenium = webdriver.PhantomJS()
