@@ -42,7 +42,7 @@ class RestaurantMenuSpec(SeleniumSpec):
         self.assertIn('active', self.find_title_by_id(menu2.id).get_attribute('class').split(' '))
 
     def create_restaurant_and_menus(self):
-        restaurant, _ = create_restaurant()
+        restaurant = self.create_restaurant()
         menu1 = create_menu(restaurant, 'Menu 1')
         menu2 = create_menu(restaurant, 'Menu 2')
         return restaurant, menu1, menu2
