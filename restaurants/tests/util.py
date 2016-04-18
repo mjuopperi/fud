@@ -19,6 +19,10 @@ def random_username():
     return 'user-' + random_string()
 
 
+def random_restaurant_name():
+    return 'restaurant-' + random_string().lower()
+
+
 def random_title():
     return 'title-' + random_string()
 
@@ -32,9 +36,11 @@ def authenticate_requests(user, client):
     client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
 
-def create_restaurant(subdomain, user=None):
+def create_restaurant(subdomain=None, user=None):
     if user is None:
         user = User.objects.create_user(random_username(), 'test@example.com', 'password')
+    if subdomain is None:
+        subdomain = random_restaurant_name()
     restaurant = Restaurant(name=subdomain, subdomain=subdomain, owner=user)
     restaurant.save()
     return restaurant, user

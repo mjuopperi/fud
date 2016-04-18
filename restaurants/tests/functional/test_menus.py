@@ -9,7 +9,6 @@ class RestaurantMenuSpec(SeleniumSpec):
     def tearDown(self):
         Restaurant.objects.all().delete()
         Menu.objects.all().delete()
-        self.clear_active_menu()
 
     def test_render_menus(self):
         restaurant, menu1, menu2 = self.create_restaurant_and_menus()
@@ -43,7 +42,7 @@ class RestaurantMenuSpec(SeleniumSpec):
         self.assertIn('active', self.find_title_by_id(menu2.id).get_attribute('class').split(' '))
 
     def create_restaurant_and_menus(self):
-        restaurant, _ = create_restaurant('test-restaurant')
+        restaurant, _ = create_restaurant()
         menu1 = create_menu(restaurant, 'Menu 1')
         menu2 = create_menu(restaurant, 'Menu 2')
         return restaurant, menu1, menu2
@@ -59,6 +58,3 @@ class RestaurantMenuSpec(SeleniumSpec):
 
     def select_menu(self, menu_id):
         self.find_title_by_id(menu_id).click()
-
-    def clear_active_menu(self):
-        self.selenium.get('javascript:sessionStorage.clear();')
