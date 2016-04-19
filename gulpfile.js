@@ -99,6 +99,9 @@ gulp.task('rev', ['sass', 'js', 'images', 'icons'], function () {
             /\/mstile-.*\.png/g,
             /\/manifest\.json/g,
             /\/android-chrome-.*\.png/g],
+        dontUpdateReference: [
+            /\/.*\.js/g
+        ],
         transformFilename: function (file, hash) {
             return file.revFilenameOriginal + '.rev.' + hash.substr(0, 5) + file.revFilenameExtOriginal;
         }
