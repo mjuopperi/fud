@@ -5,7 +5,9 @@ function getPort() {
 }
 
 function getDomainName() {
-  return _(window.location.hostname).split('.').takeRight(2).join('.');
+  var domain = _(window.location.hostname).split('.').takeRight(2).join('.');
+  if (!_.startsWith(domain, 'fud')) return 'localhost';
+  else return domain;
 }
 
 function getApiUrl() {
@@ -14,6 +16,10 @@ function getApiUrl() {
 
 function getRestaurantUrl(subdomain) {
   return window.location.protocol + '//' + subdomain + '.' + getDomainName() + getPort();
+}
+
+function getSubdomain() {
+  return _(window.location.hostname).split('.').first();
 }
 
 function setAuthToken(token) {
@@ -34,6 +40,7 @@ function authTokenExists() {
 
 exports.getApiUrl = getApiUrl;
 exports.getRestaurantUrl = getRestaurantUrl;
+exports.getSubdomain = getSubdomain;
 exports.setAuthToken = setAuthToken;
 exports.getAuthToken = getAuthToken;
 exports.removeAuthToken = removeAuthToken;

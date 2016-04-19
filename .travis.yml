@@ -11,6 +11,16 @@ addons:
     - localhost
     - api.localhost
     - test-restaurant.localhost
+    - restaurant-0.localhost
+    - restaurant-1.localhost
+    - restaurant-2.localhost
+    - restaurant-3.localhost
+    - restaurant-4.localhost
+    - restaurant-5.localhost
+    - restaurant-6.localhost
+    - restaurant-7.localhost
+    - restaurant-8.localhost
+    - restaurant-9.localhost
 before_install:
     - "export DISPLAY=:99.0"
     - "sh -e /etc/init.d/xvfb start"

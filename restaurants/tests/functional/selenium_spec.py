@@ -1,4 +1,4 @@
-import os
+from operator import mod
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
@@ -9,16 +9,32 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 import selenium.webdriver.support.ui as ui
 
+from restaurants.tests.util import *
+
 
 @override_settings(BASE_DOMAIN='localhost')
 class SeleniumSpec(StaticLiveServerTestCase):
 
     DEFAULT_TIMEOUT = 10
 
+    SUBDOMAIN_INDEX = 0
+    RESTAURANT_SUBDOMAINS = [
+        'restaurant-0',
+        'restaurant-1',
+        'restaurant-2',
+        'restaurant-3',
+        'restaurant-4',
+        'restaurant-5',
+        'restaurant-6',
+        'restaurant-7',
+        'restaurant-8',
+        'restaurant-9',
+    ]
+
     @classmethod
     def setUpClass(cls):
         super(SeleniumSpec, cls).setUpClass()
-        if 'TRAVIS' in os.environ:
+        if in_travis():
             cls.selenium = webdriver.Firefox()
         else:
             cls.selenium = webdriver.PhantomJS()
@@ -61,3 +77,15 @@ class SeleniumSpec(StaticLiveServerTestCase):
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
         self.title_will_be('Profile')
         self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))
+
+    def live_server_subdomain_url(self, subdomain):
+        protocol, url = self.live_server_url.split('//', 1)
+        return protocol + '//' + subdomain + '.' + url
+
+    def create_restaurant(self):
+        if in_travis():
+            subdomain = self.RESTAURANT_SUBDOMAINS[SeleniumSpec.SUBDOMAIN_INDEX]
+            SeleniumSpec.SUBDOMAIN_INDEX = mod(SeleniumSpec.SUBDOMAIN_INDEX + 1, 10)
+            return create_restaurant(subdomain)[0]
+        else:
+            return create_restaurant()[0]

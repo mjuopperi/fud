@@ -1,3 +1,4 @@
+import os
 import random
 import string
 
@@ -19,6 +20,10 @@ def random_username():
     return 'user-' + random_string()
 
 
+def random_restaurant_name():
+    return 'restaurant-' + random_string().lower()
+
+
 def random_title():
     return 'title-' + random_string()
 
@@ -32,9 +37,11 @@ def authenticate_requests(user, client):
     client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
 
 
-def create_restaurant(subdomain, user=None):
+def create_restaurant(subdomain=None, user=None):
     if user is None:
         user = User.objects.create_user(random_username(), 'test@example.com', 'password')
+    if subdomain is None:
+        subdomain = random_restaurant_name()
     restaurant = Restaurant(name=subdomain, subdomain=subdomain, owner=user)
     restaurant.save()
     return restaurant, user
@@ -73,6 +80,17 @@ def restaurant_data(name='Test Restaurant', subdomain='test-restaurant', address
 
 MENU_CONTENT = [
     {
+        "name": "Starters",
+        "items": [
+            {
+                "name": "Carrot on a Stick",
+                "price": "1.50 €",
+                "description": "Unsafe for consumption.",
+                "allergens": ["V", "C"]
+            }
+        ]
+    },
+    {
         'name': 'Burgers',
         'items': [
             {
@@ -93,3 +111,7 @@ def menu_data(title='Test Menu', content=None):
         'title': title,
         'content': content
     }
+
+
+def in_travis():
+    return 'TRAVIS' in os.environ

@@ -1,8 +1,9 @@
-from django.contrib.auth.tokens import default_token_generator
+import djoser.utils
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from restaurants.tests.selenium_spec import SeleniumSpec
-import djoser.utils
+from django.contrib.auth.tokens import default_token_generator
+
+from restaurants.tests.functional.selenium_spec import SeleniumSpec
 
 User = get_user_model()
 
