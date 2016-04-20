@@ -66,11 +66,14 @@ function setActiveMenu(id) {
 
 function readMenu(context) {
   var $menu = $(context).parent().parent();
+  var $mobile = $(".menu-title.title.mobile.active");
+  var $desktop = $(".menu-title.desktop.active");
+  var title = $mobile.is(":visible") ? $mobile.text() : $desktop.text();
   var menu = {
     content: [],
     restaurant: subdomain,
     id: Number($($menu).attr("data-id")),
-    title: $(".active").text()
+    title: title
   }
   var categories = $($menu).find(".category");
   _.map(categories, function(c) {
