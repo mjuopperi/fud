@@ -37,6 +37,11 @@ function renderMenuTitles(menus) {
   });
   if(isAdmin()) {
     $('.menu-title span').attr('contenteditable', true);
+    $('.menu-titles').append(
+      $('<li>').append(
+        $('<button>', {class: 'button-add'}).text('Add new menu').prepend($('<i>', {class: 'fa fa-plus plus-add', 'aria-hidden': 'true'}))
+      )
+    )
   }
 }
 

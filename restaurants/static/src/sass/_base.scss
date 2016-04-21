@@ -230,6 +230,22 @@ button, .button {
   }
 }
 
+.button-add {
+  border: none;
+  background: transparent;
+  color: #2ca97d;
+  margin: 1.9em auto;
+
+  &:hover:not([disabled]) {
+    background: transparent;
+    border: none;
+  }
+}
+
+.plus-add {
+  padding-right: 0.5em;
+}
+
 form {
   background: transparent;
   margin: 1.5em 1em;
