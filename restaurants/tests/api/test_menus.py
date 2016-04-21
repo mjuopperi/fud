@@ -94,3 +94,58 @@ class MenuApiSpec(APITestCase):
         response = self.client.delete(url, format='json', HTTP_HOST=API_HOST)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertTrue(Menu.objects.filter(id=menu.id).exists())
+
+    def test_update_multiple_menus(self):
+        restaurant, user = create_restaurant('test-restaurant')
+        menu1 = create_menu(restaurant)
+        menu2 = create_menu(restaurant)
+        menu3 = create_menu(restaurant, 'original-title')
+        authenticate_requests(user, self.client)
+        url = '/restaurants/' + restaurant.subdomain + '/menus/'
+        menu1.title = 'changed1'
+        menu2.title = 'changed2'
+        data = MenuSerializer([menu1, menu2], many=True).data
+        response = self.client.put(url, data, format='json', HTTP_HOST=API_HOST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Menu.objects.get(id=menu1.id).title, 'changed1')
+        self.assertEqual(Menu.objects.get(id=menu2.id).title, 'changed2')
+        self.assertEqual(Menu.objects.get(id=menu3.id).title, 'original-title')
+
+    def test_update_multiple_menus_with_nonexistent_menu(self):
+        restaurant, user = create_restaurant('test-restaurant')
+        menu = create_menu(restaurant)
+        menu.delete()
+        authenticate_requests(user, self.client)
+        url = '/restaurants/' + restaurant.subdomain + '/menus/'
+        menu.title = 'changed1'
+        data = MenuSerializer([menu], many=True).data
+        response = self.client.put(url, data, format='json', HTTP_HOST=API_HOST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(Menu.objects.filter(title=menu.title).exists())
+
+    def test_update_multiple_menus_with_other_restaurants_menu(self):
+        restaurant, user = create_restaurant('test-restaurant')
+        other_restaurant, _ = create_restaurant('other-restaurant')
+        menu = create_menu(other_restaurant, title='original-title')
+        authenticate_requests(user, self.client)
+        url = '/restaurants/' + restaurant.subdomain + '/menus/'
+        menu.title = 'changed1'
+        data = MenuSerializer([menu], many=True).data
+        response = self.client.put(url, data, format='json', HTTP_HOST=API_HOST)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Menu.objects.get(id=menu.id).title, 'original-title')
+        created_id = response.data['menus'][0]['id']
+        self.assertTrue(Menu.objects.filter(id=created_id).exists())
+        self.assertEqual(Menu.objects.get(id=created_id).title, 'changed1')
+
+    def test_update_multiple_menus_with_invalid_data(self):
+        restaurant, user = create_restaurant('test-restaurant')
+        menu = create_menu(restaurant, title='original-title')
+        authenticate_requests(user, self.client)
+        url = '/restaurants/' + restaurant.subdomain + '/menus/'
+        menu.title = 'changed1'
+        data = MenuSerializer(menu).data
+        response = self.client.put(url, data, format='json', HTTP_HOST=API_HOST)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('Data must be a list.', response.data)
+        self.assertEqual(Menu.objects.get(id=menu.id).title, 'original-title')

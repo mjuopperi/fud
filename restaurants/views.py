@@ -211,6 +211,32 @@ class MenuList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
         else:
             raise PermissionDenied()
 
+    def put(self, request, *args, **kwargs):
+        restaurant = Restaurant.objects.get(subdomain=kwargs['subdomain'])
+        if restaurant is None:
+            raise ValidationError('Restaurant does not exist.')
+        elif RestaurantPermission.has_permission(request, kwargs['subdomain']):
+            if not isinstance(request.data, list):
+                raise ValidationError('Data must be a list.')
+            else:
+                return self.update_menus(request.data, restaurant)
+        else:
+            raise PermissionDenied()
+
+    def update_menus(self, data, restaurant):
+        updated = []
+        for item in data:
+            serializer = MenuSerializer(data=item)
+            if serializer.is_valid():
+                if Menu.objects.filter(id=item['id'], restaurant=restaurant).exists():
+                    serializer.update(Menu.objects.get(id=item['id']), serializer.validated_data)
+                else:
+                    self.perform_create(serializer)
+                updated.append(serializer.data)
+        return Response({
+            'menus': updated
+        })
+
 
 class MenuDetail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
     """
