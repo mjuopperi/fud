@@ -230,11 +230,26 @@ button, .button {
   }
 }
 
-.add-menu {
+.button-text {
   border: none;
   background: transparent;
-  color: #2ca97d;
+  color: $color-success;
   margin: 1.9em auto;
+
+  &:hover:not([disabled]) {
+    background: transparent;
+    border: none;
+    color: darken($color-success, 15%);
+  }
+}
+
+.button-icon {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0.1em 0;
+  font-size: 0.8em;
 
   &:hover:not([disabled]) {
     background: transparent;

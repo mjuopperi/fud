@@ -4,7 +4,7 @@
         <% _.each(content, function(category) { %>
         <li class="category">
             <% if(category.name) { %>
-            <h3 class="category-name"><span contenteditable="true" placeholder="Category"><%- category.name %></span></h3>
+            <h3 class="category-name"><span contenteditable="true" placeholder="Category"><%- category.name %></span><button class="add-menu-item button-icon"><i class="fa fa-plus" aria-hidden="true"></i></button><button class="delete-category button-icon"><i class="fa fa-times" aria-hidden="true"></i></button></h3>
             <% }; %>
             <ul class="menu-items">
                 <% _.each(category.items, function(item) { %>
@@ -16,12 +16,14 @@
                     <p class="item-description" contenteditable="true" placeholder="Description"> <%- item.description %> </p>
                     <% var allergens = item.allergens.join(', '); %>
                     <p class="item-allergens" contenteditable="true" placeholder="Allergens"><%- allergens %></p>
+                    <button class="delete-item button-icon"><i class="fa fa-times plus-add" aria-hidden="true"></i>Delete <%- item.name %></button>
                 </li>
                 <% }); %>
             </ul>
         </li>
         <% }); %>
-        <button class="add-menu mobile"><i class="fa fa-plus plus-add" aria-hidden="true"></i>Add new menu</button>
+        <button class="add-category button-text"><i class="fa fa-plus plus-add" aria-hidden="true"></i>Add new category</button>
+        <button class="add-menu button-text mobile"><i class="fa fa-plus plus-add" aria-hidden="true"></i>Add new menu</button>
         <button class="edit-menu">View mode</button>
         <button class="save-menu">Save</button>
         <button class="delete-menu">Delete</button>

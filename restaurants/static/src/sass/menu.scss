@@ -30,6 +30,31 @@ textarea {
   text-align: center;
 }
 
+.delete-category {
+  color: $color-error;
+
+  &:hover:not([disabled]) {
+    color: darken($color-error, 15%);
+  }
+}
+
+.delete-item {
+  color: $color-error;
+
+  &:hover:not([disabled]) {
+    color: darken($color-error, 15%);
+  }
+}
+
+.add-menu-item {
+  color: $color-success;
+  margin: 0 2rem 0 2rem;
+
+  &:hover:not([disabled]) {
+    color: darken($color-success, 15%);
+  }
+}
+
 
 .menu-title {
   display: inline-block;
