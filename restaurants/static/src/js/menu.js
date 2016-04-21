@@ -39,7 +39,7 @@ function renderMenuTitles(menus) {
     $('.menu-title span').attr('contenteditable', true);
     $('.menu-titles').append(
       $('<li>').append(
-        $('<button>', {class: 'button-add'}).text('Add new menu').prepend($('<i>', {class: 'fa fa-plus plus-add', 'aria-hidden': 'true'}))
+        $('<button>', {class: 'add-menu'}).text('Add new menu').prepend($('<i>', {class: 'fa fa-plus plus-add', 'aria-hidden': 'true'}))
       )
     )
   }
