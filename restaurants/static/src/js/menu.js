@@ -100,7 +100,7 @@ function readMenu(context) {
   return menu;
 }
 
-function saveMenu() {
+function updateMenu() {
   var data = readMenu(this);
   $.ajax({
     type: 'PUT',
@@ -119,6 +119,10 @@ function deleteMenu() {
     url: apiUrl + '/restaurants/' + subdomain +  '/menus/' + id,
     headers: {Authorization: 'Token ' + util.getAuthToken()}
   });
+  $(this).parent().parent().remove();
+  $('.menu-titles').find("[data-id='" + id + "']").parent().remove();
+  var firstMenuID = $('.menu-titles > li > h2').first().attr('data-id');
+  setActiveMenu(firstMenuID);
 }
 
 function setAdmin(owner) {
@@ -145,6 +149,98 @@ function toggleEdit() {
   refresh();
 }
 
+function createMenu() {
+  var menu = {
+    content: [{
+      name: 'Category',
+      items: [{
+        name: '',
+        price: '',
+        description: '',
+        allergens: ['']
+      }]
+    }],
+    restaurant: subdomain,
+    title: 'Title'
+  }
+
+  $.ajax({
+    type: 'POST',
+    url: apiUrl + '/restaurants/' + subdomain +  '/menus/',
+    data: JSON.stringify(menu),
+    contentType: "application/json",
+    dataType: "json",
+    headers: {Authorization: 'Token ' + util.getAuthToken()},
+    success: renderNewMenu
+  });
+}
+
+function renderNewMenu(data) {
+  $('.menu-titles > li:last').before(
+    $('<li>').append(
+      $('<h2>', {class: 'menu-title desktop', 'data-id': data.id}).append(
+        $('<span placeholder="Title" contenteditable=true>').text(data.title)
+      )
+    )
+  )
+  var template = _.template(menuTemplates.admin);
+  $("ul.menus").append(template(data))
+  setActiveMenu(data.id);
+}
+
+function createCategory() {
+  $(this).parent().find('.category:last').after(
+    $('<li>', {class: 'category'}).append(
+      $('<h3>', {class: 'category-name'}).append(
+        $('<span placeholder="Category" contenteditable=true>'),
+        $('<button>', {class: 'add-menu-item button-icon'}).append(
+          $('<i class="fa fa-plus" aria-hidden=true>')
+        ),
+        $('<button>', {class: 'delete-category button-icon'}).append(
+          $('<i class="fa fa-times" aria-hidden=true>')
+        )
+      ),
+      $('<ul>', {class: 'menu-items'}).append(
+        $('<li>').append(
+          $('<div>', {class: 'menu-item-title'}).append(
+            $('<h4 class="item-name" contenteditable=true placeholder="Name">'),
+            $('<h4 class="item-price" contenteditable=true placeholder="0.0€">')
+          ),
+          $('<p class="item-description" contenteditable=true placeholder="Description">'),
+          $('<p class="item-allergens" contenteditable=true placeholder="Allergens">'),
+          $('<button>', {class: 'delete-item button-icon'}).append(
+            $('<i class="fa fa-times plus-add" aria-hidden="true">')
+          )
+        )
+      )
+    )
+  )
+}
+
+function deleteCategory() {
+  $(this).parent().parent().remove();
+}
+
+function createMenuItem() {
+  $(this).parent().parent().find('.menu-items').append(
+    $('<li>').append(
+      $('<div>', {class: 'menu-item-title'}).append(
+        $('<h4 contenteditable=true placeholder="Name">', {class: 'item-name'}),
+        $('<h4 contenteditable=true placeholder="0.0€">', {class: 'item-price'})
+      ),
+      $('<p contenteditable=true placeholder="Description">', {class: 'item-description'}),
+      $('<p contenteditable=true placeholder="Allergens">', {class: 'item-allergens'}),
+      $('<button>', {class: 'delete-item button-icon'}).append(
+        $('<i class="fa fa-times plus-add" aria-hidden="true">')
+      )
+    )
+  )
+}
+
+function deleteMenuItem() {
+  $(this).parent().remove();
+}
+
 function init() {
   getMenu().then(function(data) {
     var menus = data.menus;
@@ -157,7 +253,12 @@ function init() {
 $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
-  $('section').on('click', '.save-menu', saveMenu);
+  $('section').on('click', '.save-menu', updateMenu);
   $('section').on('click', '.delete-menu', deleteMenu);
   $('section').on('click', '.edit-menu', toggleEdit);
+  $('section').on('click', '.add-menu', createMenu);
+  $('section').on('click', '.add-category', createCategory);
+  $('section').on('click', '.delete-category', deleteCategory);
+  $('section').on('click', '.add-menu-item', createMenuItem);
+  $('section').on('click', '.delete-item', deleteMenuItem);
 });

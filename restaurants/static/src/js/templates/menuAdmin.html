@@ -10,10 +10,10 @@
                 <% _.each(category.items, function(item) { %>
                 <li>
                     <div class="menu-item-title">
-                        <h4 class="item-name" contenteditable="true" placeholder="Name"> <%- item.name %> </h4>
-                        <h4 class="item-price" contenteditable="true" placeholder="0.0 €"> <%- item.price %> </h4>
+                        <h4 class="item-name" contenteditable="true" placeholder="Name"><%- item.name %></h4>
+                        <h4 class="item-price" contenteditable="true" placeholder="0.0 €"><%- item.price %></h4>
                     </div>
-                    <p class="item-description" contenteditable="true" placeholder="Description"> <%- item.description %> </p>
+                    <p class="item-description" contenteditable="true" placeholder="Description"><%- item.description %></p>
                     <% var allergens = item.allergens.join(', '); %>
                     <p class="item-allergens" contenteditable="true" placeholder="Allergens"><%- allergens %></p>
                     <button class="delete-item button-icon"><i class="fa fa-times plus-add" aria-hidden="true"></i>Delete <%- item.name %></button>
