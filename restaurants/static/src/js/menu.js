@@ -152,7 +152,7 @@ function toggleEdit() {
 function createMenu() {
   var menu = {
     content: [{
-      name: 'Category',
+      name: '',
       items: [{
         name: '',
         price: '',
@@ -161,7 +161,7 @@ function createMenu() {
       }]
     }],
     restaurant: subdomain,
-    title: 'Title'
+    title: 'New menu'
   }
 
   $.ajax({
