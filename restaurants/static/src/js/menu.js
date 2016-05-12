@@ -209,7 +209,7 @@ function createCategory() {
           $('<p class="item-description" contenteditable=true placeholder="Description">'),
           $('<p class="item-allergens" contenteditable=true placeholder="Allergens">'),
           $('<button>', {class: 'delete-item button-icon'}).append(
-            $('<i class="fa fa-times plus-add" aria-hidden="true">')
+            $('<i class="fa fa-times" aria-hidden="true">')
           )
         )
       )
@@ -231,7 +231,7 @@ function createMenuItem() {
       $('<p contenteditable=true placeholder="Description">', {class: 'item-description'}),
       $('<p contenteditable=true placeholder="Allergens">', {class: 'item-allergens'}),
       $('<button>', {class: 'delete-item button-icon'}).append(
-        $('<i class="fa fa-times plus-add" aria-hidden="true">')
+        $('<i class="fa fa-times" aria-hidden="true">')
       )
     )
   )
