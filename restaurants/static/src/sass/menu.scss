@@ -46,6 +46,18 @@ textarea {
   }
 }
 
+.delete-menu {
+  display: inline-block;
+  background: none;
+  color: $color-error;
+  border: none;
+  float: right;
+}
+
+.save-menu {
+  display: inline-block;
+}
+
 .add-menu-item {
   color: $color-success;
   margin: 0 2rem 0 2rem;
