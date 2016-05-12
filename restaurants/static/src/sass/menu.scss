@@ -56,6 +56,17 @@ textarea {
 
 .save-menu {
   display: inline-block;
+  margin-left: 1.2em;
+  @media (min-width:960px) {
+    margin-left: 0;
+  }
+}
+
+.edit-menu {
+  margin-left: 1.2em;
+  @media (min-width:960px) {
+    margin-left: 0;
+  }
 }
 
 .add-menu-item {
