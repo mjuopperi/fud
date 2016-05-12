@@ -16,16 +16,16 @@
                     <p class="item-description" contenteditable="true" placeholder="Description"><%- item.description %></p>
                     <% var allergens = item.allergens.join(', '); %>
                     <p class="item-allergens" contenteditable="true" placeholder="Allergens"><%- allergens %></p>
-                    <button class="delete-item button-icon"><i class="fa fa-times plus-add" aria-hidden="true"></i>Delete <%- item.name %></button>
+                    <button class="delete-item button-icon"><i class="fa fa-times" aria-hidden="true"></i>  Delete <%- item.name %></button>
                 </li>
                 <% }); %>
             </ul>
         </li>
         <% }); %>
-        <button class="add-category button-text"><i class="fa fa-plus plus-add" aria-hidden="true"></i>Add new category</button>
+        <button class="add-category button-text"><i class="fa fa-plus" aria-hidden="true"></i>  Add new category</button>
         <button class="add-menu button-text mobile"><i class="fa fa-plus plus-add" aria-hidden="true"></i>Add new menu</button>
         <button class="edit-menu">View mode</button>
         <button class="save-menu">Save</button>
-        <button class="delete-menu">Delete</button>
+        <button class="delete-menu"><i class="fa fa-times" aria-hidden="true"> Delete</button>
     </ul>
 </li>
