@@ -10,6 +10,10 @@ function getDomainName() {
   else return domain;
 }
 
+function getBaseUrl() {
+  return window.location.protocol + '//' + getDomainName() + getPort();
+}
+
 function getApiUrl() {
   return window.location.protocol + '//api.' + getDomainName() + getPort();
 }
@@ -40,6 +44,7 @@ function authTokenExists() {
 
 exports.getApiUrl = getApiUrl;
 exports.getRestaurantUrl = getRestaurantUrl;
+exports.getBaseUrl = getBaseUrl;
 exports.getSubdomain = getSubdomain;
 exports.setAuthToken = setAuthToken;
 exports.getAuthToken = getAuthToken;

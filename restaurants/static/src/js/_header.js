@@ -1,8 +1,10 @@
 var util = require('./_util');
+util = require('./_util')
 
 const apiUrl = util.getApiUrl();
-const loginElem = $('<h2/>').append($('<a/>', {'href': '/login', 'text': 'Log in'}));
-const signUpElem = $('<h2/>').append($('<a/>', {'href': '/signup', 'text': 'Sign up'}));
+const baseUrl = util.getBaseUrl();
+const loginElem = $('<h2/>').append($('<a/>', {'href': baseUrl + '/login', 'text': 'Log in'}));
+const signUpElem = $('<h2/>').append($('<a/>', {'href': baseUrl + '/signup', 'text': 'Sign up'}));
 
 function renderDefaults() {
   if (window.location.pathname === '/login') $('header').find('.user').html(signUpElem);
@@ -15,7 +17,7 @@ function renderUser(user) {
   $('header').find('.user').addClass('logged-in').html(
     $('<h2/>').append($('<a/>', {text: user.username}))
   ).append($('<ul/>')
-     .append($('<li/>').append($('<a/>', {href: '/profile',text: 'Profile'})))
+     .append($('<li/>').append($('<a/>', {href: baseUrl + '/profile',text: 'Profile'})))
      .append($('<li/>').append($('<a/>', {class: 'logout', text: 'Log out'})))
   ).append(
     $('<i>', {class: 'fa fa-bars'})
@@ -53,7 +55,7 @@ function logout(e) {
   e.preventDefault();
   logoutRequest().always(function() {
     util.removeAuthToken();
-    window.location = '/login';
+    window.location = baseUrl + '/login';
   });
 }
 
