@@ -2,7 +2,7 @@ from operator import mod
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from selenium import webdriver
@@ -67,6 +67,13 @@ class SeleniumSpec(StaticLiveServerTestCase):
         except TimeoutException:
             return False
 
+    def element_exists(self, locator):
+        try:
+            self.selenium.find_element_by_css_selector(locator)
+            return True
+        except NoSuchElementException:
+            return False
+
     def login(self):
         self.selenium.get('%s%s' % (self.server_url(), "/login"))
 
@@ -86,10 +93,10 @@ class SeleniumSpec(StaticLiveServerTestCase):
         protocol, url = self.server_url().split('//', 1)
         return protocol + '//' + subdomain + '.' + url
 
-    def create_restaurant(self):
+    def create_restaurant(self, subdomain=None, user=None):
         if in_travis():
             subdomain = self.RESTAURANT_SUBDOMAINS[SeleniumSpec.SUBDOMAIN_INDEX]
             SeleniumSpec.SUBDOMAIN_INDEX = mod(SeleniumSpec.SUBDOMAIN_INDEX + 1, 10)
-            return create_restaurant(subdomain)[0]
+            return create_restaurant(subdomain, user)[0]
         else:
-            return create_restaurant()[0]
+            return create_restaurant(subdomain, user)[0]
