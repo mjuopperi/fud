@@ -77,7 +77,7 @@ class RegisterSpec(SeleniumSpec):
         self.assertTrue(self.will_have_text('#error', 'You need to be logged in to register a restaurant.'))
 
     def _register(self, data):
-        self.selenium.get('%s%s' % (self.live_server_url, "/register"))
+        self.selenium.get('%s%s' % (self.server_url(), "/register"))
         for name, value in data.items():
             input = self.selenium.find_element_by_name(name)
             input.send_keys(value)

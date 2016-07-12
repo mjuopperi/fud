@@ -1,3 +1,5 @@
+import time
+
 from restaurants.tests.functional.selenium_spec import SeleniumSpec
 from restaurants.tests.util import *
 
@@ -12,7 +14,7 @@ class RestaurantMenuSpec(SeleniumSpec):
 
     def test_render_menus(self):
         restaurant, menu1, menu2 = self.create_restaurant_and_menus()
-        self.selenium.get(self.live_server_subdomain_url(restaurant.subdomain))
+        self.selenium.get('%s%s' % (self.live_server_subdomain_url(restaurant.subdomain), '/menu'))
         self.will_be_visible('.menu-title.desktop[data-id="' + str(menu1.id) + '"]')
 
         active_menu_title = self.find_title_by_id(menu1.id)
@@ -29,7 +31,7 @@ class RestaurantMenuSpec(SeleniumSpec):
 
     def test_change_menu(self):
         restaurant, menu1, menu2 = self.create_restaurant_and_menus()
-        self.selenium.get(self.live_server_subdomain_url(restaurant.subdomain))
+        self.selenium.get('%s%s' % (self.live_server_subdomain_url(restaurant.subdomain), '/menu'))
         self.will_be_visible('.menu-title.desktop[data-id="' + str(menu1.id) + '"]')
 
         self.assertTrue(self.find_menu_content_by_id(menu1.id).is_displayed())

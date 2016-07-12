@@ -12,7 +12,7 @@ import selenium.webdriver.support.ui as ui
 from restaurants.tests.util import *
 
 
-@override_settings(BASE_DOMAIN='localhost')
+@override_settings(BASE_DOMAIN='fud.localhost')
 class SeleniumSpec(StaticLiveServerTestCase):
 
     DEFAULT_TIMEOUT = 10
@@ -68,7 +68,7 @@ class SeleniumSpec(StaticLiveServerTestCase):
             return False
 
     def login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, "/login"))
+        self.selenium.get('%s%s' % (self.server_url(), "/login"))
 
         username = self.selenium.find_element_by_name("username")
         username.send_keys("test-user")
@@ -78,8 +78,12 @@ class SeleniumSpec(StaticLiveServerTestCase):
         self.title_will_be('Profile')
         self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))
 
-    def live_server_subdomain_url(self, subdomain):
+    def server_url(self):
         protocol, url = self.live_server_url.split('//', 1)
+        return protocol + '//fud.' + url
+
+    def live_server_subdomain_url(self, subdomain):
+        protocol, url = self.server_url().split('//', 1)
         return protocol + '//' + subdomain + '.' + url
 
     def create_restaurant(self):

@@ -13,7 +13,7 @@ class ProfileSpec(SeleniumSpec):
         User.objects.all().delete()
 
     def test_redirect_to_login_if_not_logged_in(self):
-        self.selenium.get('%s%s' % (self.live_server_url, "/profile"))
+        self.selenium.get('%s%s' % (self.server_url(), "/profile"))
         self.title_will_be('Login')
 
     def test_change_email(self):

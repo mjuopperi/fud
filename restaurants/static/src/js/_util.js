@@ -26,8 +26,13 @@ function getSubdomain() {
   return _(window.location.hostname).split('.').first();
 }
 
+function cookieDomain() {
+  var domain = getDomainName();
+  return domain === 'localhost' ? '' : domain
+}
+
 function setAuthToken(token) {
-  Cookies.set('authToken', token, { domain: getDomainName() });
+  Cookies.set('authToken', token, { domain: cookieDomain() });
 }
 
 function getAuthToken() {
@@ -35,7 +40,7 @@ function getAuthToken() {
 }
 
 function removeAuthToken() {
-  Cookies.remove('authToken', { domain: getDomainName() });
+  Cookies.remove('authToken', { domain: cookieDomain() });
 }
 
 function authTokenExists() {

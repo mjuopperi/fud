@@ -68,7 +68,7 @@ class SignupSpec(SeleniumSpec):
         self.assertEqual(len(settings.EMAIL_SENDER.sentEmails), 1)
         self.assertTrue(path in settings.EMAIL_SENDER.sentEmails[0].body)
 
-        self.selenium.get('%s%s' % (self.live_server_url, path))
+        self.selenium.get('%s%s' % (self.server_url(), path))
 
         self.will_be_visible('#activate-account')
         self.selenium.find_element_by_css_selector('#activate-account').click()
@@ -77,7 +77,7 @@ class SignupSpec(SeleniumSpec):
         self.assertTrue(User.objects.get(username='test-user').is_active)
 
     def sign_up(self, username, email, password):
-        self.selenium.get('%s%s' % (self.live_server_url, "/signup"))
+        self.selenium.get('%s%s' % (self.server_url(), "/signup"))
         username_input = self.selenium.find_element_by_name("username")
         username_input.send_keys(username)
         email_input = self.selenium.find_element_by_name("email")

@@ -19,7 +19,7 @@ class ForgotPasswordSpec(SeleniumSpec):
         User.objects.all().delete()
 
     def test_send_password_reset_email_to_existing_user(self):
-        self.selenium.get('%s%s' % (self.live_server_url, "/forgot"))
+        self.selenium.get('%s%s' % (self.server_url(), "/forgot"))
         email = self.selenium.find_element_by_name("email")
         email.send_keys("test-user@example.com")
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
@@ -39,7 +39,7 @@ class ForgotPasswordSpec(SeleniumSpec):
     def test_do_not_change_password_with_invalid_uid(self):
         user = User.objects.get(username='test-user')
         token = default_token_generator.make_token(user)
-        self.selenium.get('%s%s%s' % (self.live_server_url, "/reset/invalid-uid/", token))
+        self.selenium.get('%s%s%s' % (self.server_url(), "/reset/invalid-uid/", token))
 
         new_password = self.selenium.find_element_by_name("new_password")
         new_password.send_keys("new-password")
@@ -51,7 +51,7 @@ class ForgotPasswordSpec(SeleniumSpec):
     def test_do_not_change_password_with_invalid_token(self):
         user = User.objects.get(username='test-user')
         uid = djoser.utils.encode_uid(user.pk)
-        self.selenium.get('%s%s%s%s' % (self.live_server_url, "/reset/", uid, "/invalid-token"))
+        self.selenium.get('%s%s%s%s' % (self.server_url(), "/reset/", uid, "/invalid-token"))
 
         new_password = self.selenium.find_element_by_name("new_password")
         new_password.send_keys("new-password")
@@ -64,7 +64,7 @@ class ForgotPasswordSpec(SeleniumSpec):
         user = User.objects.get(username='test-user')
         uid = djoser.utils.encode_uid(user.pk)
         token = default_token_generator.make_token(user)
-        self.selenium.get('%s%s%s%s%s' % (self.live_server_url, "/reset/", uid, "/", token))
+        self.selenium.get('%s%s%s%s%s' % (self.server_url(), "/reset/", uid, "/", token))
 
         new_password = self.selenium.find_element_by_name("new_password")
         new_password.send_keys("new-password")
@@ -74,7 +74,7 @@ class ForgotPasswordSpec(SeleniumSpec):
         self.assertTrue(User.objects.get(username=user.username).check_password('new-password'))
 
     def test_reset_password_and_login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, "/login"))
+        self.selenium.get('%s%s' % (self.server_url(), "/login"))
         self.selenium.find_element_by_css_selector('a.forgot-password').click()
 
         self.title_will_be('Forgot Password')
@@ -89,7 +89,7 @@ class ForgotPasswordSpec(SeleniumSpec):
         uid = djoser.utils.encode_uid(user.pk)
         token = default_token_generator.make_token(user)
         path = "/reset/%s/%s" % (uid, token)
-        self.selenium.get('%s%s' % (self.live_server_url, path))
+        self.selenium.get('%s%s' % (self.server_url(), path))
 
         self.assertTrue(self.title_will_be('Reset Password'))
         new_password = self.selenium.find_element_by_name("new_password")
