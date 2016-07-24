@@ -189,7 +189,8 @@ function renderNewMenu(data) {
 }
 
 function createCategory() {
-  $(this).parent().find('.category:last').after(
+  var $sel = $(this).parent()
+  var template =
     $('<li>', {class: 'category'}).append(
       $('<h3>', {class: 'category-name'}).append(
         $('<span placeholder="Category" contenteditable=true>'),
@@ -214,7 +215,11 @@ function createCategory() {
         )
       )
     )
-  )
+    if($sel.find('.category').length > 0) {
+      $sel.find('.category:last').after(template)
+    } else {
+      $sel.prepend(template)
+    }
 }
 
 function deleteCategory() {
