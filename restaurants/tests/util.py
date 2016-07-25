@@ -42,7 +42,10 @@ def create_restaurant(subdomain=None, user=None):
         user = User.objects.create_user(random_username(), 'test@example.com', 'password')
     if subdomain is None:
         subdomain = random_restaurant_name()
-    restaurant = Restaurant(name=subdomain, subdomain=subdomain, owner=user)
+    restaurant = Restaurant(name=subdomain, subdomain=subdomain, owner=user,
+                            address='10 Rockefeller Plaza', postal_code=10020,
+                            city='New York City', phone_number='+358 50505050',
+                            email=subdomain + '@fud.fi')
     restaurant.save()
     return restaurant, user
 

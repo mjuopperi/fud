@@ -1,0 +1,112 @@
+@import 'restaurant-base';
+@import 'form';
+
+section {
+  margin: 0 auto;
+  text-align: center;
+}
+
+button.switch-mode {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 100%;
+  max-width: 600px;
+  @media screen and (max-width: 660px) { text-align: center }
+  text-align: right;
+  border: none;
+  background: transparent;
+  color: $color-success;
+  z-index: 1000;
+  &:hover {
+    border: none;
+    background: transparent;
+  }
+}
+
+.location-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+
+  >div {
+    width: calc(50% - 80px);
+    margin: 40px 40px;
+    @media screen and (max-width: 960px) {
+      width: 100%;
+      min-width: 0;
+    }
+    &.location-info {
+      display: flex;
+      @media screen and (min-width: 961px) { justify-content: flex-end }
+      @media screen and (max-width: 960px) { justify-content: center }
+      .info-wrapper {
+        display: flex;
+        >div:first-child { margin-bottom: 20px }
+        @media screen and (min-width: 961px) { flex-flow: column nowrap }
+        @media screen and (max-width: 960px) {
+          flex-flow: row wrap;
+          flex: 1 0;
+          justify-content: space-around;
+          >div {
+            margin: 0 20px;
+          }
+        }
+        h3 {
+          font-size: 1.4em;
+          text-align: left;
+          @media screen and (max-width: 960px) { text-align: center }
+          margin: 0 0 20px;
+        }
+      }
+    }
+
+    &.map {
+      height: 400px;
+      @media screen and (max-width: 960px) { margin: 0 }
+      text-align: left;
+      iframe {
+        display: inline-block;
+        border: none;
+        width: 100%;
+        height: 100%;
+        @media screen and (min-width: 961px) {
+          max-width: 600px;
+        }
+      }
+    }
+  }
+}
+
+.input-container {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  min-width: 0;
+
+  &.h1 {
+    margin: 0 auto;
+    padding: 0 30px;
+    input {
+      max-width: 900px;
+    }
+    button.change {
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    .success {
+      top: 30px;
+    }
+  }
+  .address &, .contact & {
+    button.change {
+      top: 0;
+      right: -32px;
+    }
+    .success {
+      top: -20px;
+    }
+  }
+}

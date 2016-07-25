@@ -3,5 +3,6 @@ from restaurants import views
 
 app_name = 'restaurants'
 urlpatterns = [
-    url(r'^$', views.restaurant_index, name='index'),
+    url(r'^$', views.RestaurantIndexView.as_view(), name='home'),
+    url(r'^menu/?$', views.restaurant_menu, name='menu'),
 ]

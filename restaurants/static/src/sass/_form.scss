@@ -1,0 +1,125 @@
+@import 'mixins';
+@import "colors";
+
+form {
+  position: relative;
+  min-width: 400px;
+}
+
+.inline-group {
+  text-align: left;
+  >input {
+    display: inline-block;
+  }
+}
+
+input, label {
+  text-align: left;
+  width: 100%;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+input {
+  padding-left: 0;
+  padding-right: 34px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Raleway", sans-serif;
+  color: #3a3335;
+
+  &:disabled {
+    @include placeholder-color($color-foreground);
+    border: none;
+  }
+  &:not([disabled]) {
+    @include placeholder-color(transparent);
+  }
+
+  &.h1 {
+    display: inline-block;
+    margin: 1.5em auto 1.5em;
+    padding: 0;
+    font-size: 2em;
+    height: 32px;
+    text-align: center;
+  }
+  &.h3 {
+    font-size: 1.4em;
+    text-align: left;
+    margin: 0 0 20px;
+    padding: 0;
+  }
+}
+
+label {
+  margin-top: 1em;
+}
+
+span.success {
+  display: none;
+  font-family: "Raleway", sans-serif;
+  font-size: 1em;
+  color: $color-success;
+
+  &.fixed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}
+
+button.change {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  font-size: 18px;
+  color: lighten($color-foreground, 20%);
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 8px;
+
+  &:hover {
+    color: $color-foreground;
+    background: transparent;
+    border: none;
+  }
+}
+
+.button-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+
+  button.cancel, button.save {
+    width: 160px;
+    &.hidden {
+      display: none;
+    }
+  }
+
+  button.cancel {
+    margin-right: 8px;
+    background-color: lighten($color-foreground, 50%);
+    border-color: lighten($color-foreground, 45%);
+  }
+  button.save {
+    margin-left: 8px;
+  }
+}
+
+.hidden-span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  width: auto;
+  box-sizing: border-box;
+}

@@ -11,6 +11,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from fud.util.auth import TokenAuthenticatedView
+
 from restaurants import forms
 from restaurants.models import Restaurant, Menu
 from restaurants.permissions import IsOwnerOrReadOnly, RestaurantPermission
@@ -66,7 +68,19 @@ def profile(request):
     return render(request, 'restaurants/profile.html')
 
 
-def restaurant_index(request):
+class RestaurantIndexView(TokenAuthenticatedView):
+    def get(self, request):
+        restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
+        if restaurant is not None:
+            return render(request, 'restaurants/restaurant.html', {
+                'name': restaurant.name,
+                'is_admin': self.is_owner(restaurant)
+            })
+        else:
+            raise Http404('Not found')
+
+
+def restaurant_menu(request):
     restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
     if restaurant is not None:
         return render(request, 'restaurants/menu.html', {

@@ -2,7 +2,7 @@ from operator import mod
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import override_settings
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from selenium import webdriver
@@ -12,7 +12,7 @@ import selenium.webdriver.support.ui as ui
 from restaurants.tests.util import *
 
 
-@override_settings(BASE_DOMAIN='localhost')
+@override_settings(BASE_DOMAIN='fud.localhost')
 class SeleniumSpec(StaticLiveServerTestCase):
 
     DEFAULT_TIMEOUT = 10
@@ -67,8 +67,15 @@ class SeleniumSpec(StaticLiveServerTestCase):
         except TimeoutException:
             return False
 
+    def element_exists(self, locator):
+        try:
+            self.selenium.find_element_by_css_selector(locator)
+            return True
+        except NoSuchElementException:
+            return False
+
     def login(self):
-        self.selenium.get('%s%s' % (self.live_server_url, "/login"))
+        self.selenium.get('%s%s' % (self.server_url(), "/login"))
 
         username = self.selenium.find_element_by_name("username")
         username.send_keys("test-user")
@@ -78,14 +85,18 @@ class SeleniumSpec(StaticLiveServerTestCase):
         self.title_will_be('Profile')
         self.assertTrue(self.will_have_text('.user h2 a', 'test-user'))
 
-    def live_server_subdomain_url(self, subdomain):
+    def server_url(self):
         protocol, url = self.live_server_url.split('//', 1)
+        return protocol + '//fud.' + url
+
+    def live_server_subdomain_url(self, subdomain):
+        protocol, url = self.server_url().split('//', 1)
         return protocol + '//' + subdomain + '.' + url
 
-    def create_restaurant(self):
+    def create_restaurant(self, subdomain=None, user=None):
         if in_travis():
             subdomain = self.RESTAURANT_SUBDOMAINS[SeleniumSpec.SUBDOMAIN_INDEX]
             SeleniumSpec.SUBDOMAIN_INDEX = mod(SeleniumSpec.SUBDOMAIN_INDEX + 1, 10)
-            return create_restaurant(subdomain)[0]
+            return create_restaurant(subdomain, user)[0]
         else:
-            return create_restaurant()[0]
+            return create_restaurant(subdomain, user)[0]

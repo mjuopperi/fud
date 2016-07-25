@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'fud.util.context_processors.global_settings',
             ],
         },
     },
@@ -146,3 +147,5 @@ EMAIL_SENDER = MockEmailSender
 DEFAULT_FROM_EMAIL = 'noreply@fud.fi'
 
 ADMIN_URL = r'^admin/'
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyAqxSmUBTxM_Tt3ZK1QdpYxqbOZmSNCDyQ'

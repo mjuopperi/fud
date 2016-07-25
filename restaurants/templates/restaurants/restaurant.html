@@ -1,0 +1,23 @@
+{% extends "restaurants/restaurant-base.html" %}
+{% load revisioned_staticfiles %}
+
+{% block title %}{{ name }}{% endblock %}
+{% block name %}{{ name }}{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{% static 'restaurants/css/restaurant.css' %}" />
+{% endblock %}
+
+{% block content %}
+    {% if is_admin %}
+        <button class="switch-mode">Edit page</button>
+    {% endif %}
+    <div class="content">
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>var googleMapsApiKey = "{{ GOOGLE_MAPS_API_KEY }}"</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+    <script src="{% static 'restaurants/js/restaurant.js' %}"></script>
+{% endblock %}
