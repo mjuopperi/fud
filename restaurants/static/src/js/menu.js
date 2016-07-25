@@ -277,5 +277,5 @@ $(function() {
   $('section').on('click', '.delete-category', deleteCategory);
   $('section').on('click', '.add-menu-item', createMenuItem);
   $('section').on('click', '.delete-item', deleteMenuItem);
-  $('section').on('keyup', '.menu-item-title h4', changeDeleteName);
+  $('section').on('keyup', '.menu-item-title .item-name', changeDeleteName);
 });
