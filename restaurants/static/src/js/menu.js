@@ -210,7 +210,8 @@ function createCategory() {
           $('<p class="item-description" contenteditable=true placeholder="Description">'),
           $('<p class="item-allergens" contenteditable=true placeholder="Allergens">'),
           $('<button>', {class: 'delete-item button-icon'}).append(
-            $('<i class="fa fa-times" aria-hidden="true">')
+            $('<i class="fa fa-times" aria-hidden="true">'),
+            ' Delete '
           )
         )
       )
@@ -236,7 +237,8 @@ function createMenuItem() {
       $('<p contenteditable=true placeholder="Description">', {class: 'item-description'}),
       $('<p contenteditable=true placeholder="Allergens">', {class: 'item-allergens'}),
       $('<button>', {class: 'delete-item button-icon'}).append(
-        $('<i class="fa fa-times" aria-hidden="true">')
+        $('<i class="fa fa-times" aria-hidden="true">'),
+        ' Delete '
       )
     )
   )
@@ -244,6 +246,15 @@ function createMenuItem() {
 
 function deleteMenuItem() {
   $(this).parent().remove();
+}
+
+function changeDeleteName() {
+  var text = $(this).text()
+  var $del = $(this).parent().parent().find('.delete-item')
+  $del.html(
+    $('<i class="fa fa-times" aria-hidden="true">')
+  )
+  $del.append(' Delete ' + text)
 }
 
 function init() {
@@ -266,4 +277,5 @@ $(function() {
   $('section').on('click', '.delete-category', deleteCategory);
   $('section').on('click', '.add-menu-item', createMenuItem);
   $('section').on('click', '.delete-item', deleteMenuItem);
+  $('section').on('keyup', '.menu-item-title h4', changeDeleteName);
 });
