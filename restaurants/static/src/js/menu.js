@@ -1,4 +1,5 @@
-require('./_header');
+require('./_header')
+var dragula = require('dragula')
 var util = require('./_util');
 var menuTemplates = {
   user: require('./templates/menu.html'),

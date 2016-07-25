@@ -1,4 +1,5 @@
 @import 'restaurant-base';
+@import 'node_modules/dragula/dist/dragula';
 
 @mixin active-menu {
   color: $color-success-dark;
