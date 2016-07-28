@@ -109,7 +109,19 @@ function updateMenu() {
     data: JSON.stringify(data),
     contentType: "application/json",
     dataType: "json",
-    headers: {Authorization: 'Token ' + util.getAuthToken()}
+    headers: {Authorization: 'Token ' + util.getAuthToken()},
+    success: function() {
+      $('.save-menu').css({
+        'box-shadow': 'inset 200px 0 0 0 #2ca97d',
+        'color': '#FFF'
+      });
+      setTimeout(function() {
+          $('.save-menu').css({
+            'box-shadow': 'inset 0 0 0 0 #2ca97d',
+            'color': '#2ca97d'
+          })
+        }, 1000);
+    }
   });
 }
 
@@ -142,6 +154,9 @@ function refresh() {
     renderMenuTitles(menus);
     renderMenuContents(menus);
     setActiveMenu(getActiveMenuId());
+    $('.edit-menu').text(
+      isAdmin() ? 'View' : 'Edit'
+    )
   });
 }
 
@@ -162,7 +177,7 @@ function createMenu() {
       }]
     }],
     restaurant: subdomain,
-    title: 'New menu'
+    title: 'Menu'
   }
 
   $.ajax({
@@ -264,6 +279,9 @@ function init() {
     renderMenuTitles(menus);
     renderMenuContents(menus);
     setActiveMenu(getActiveMenuId());
+    $('.edit-menu').text(
+      isAdmin() ? 'View' : 'Edit'
+    )
   });
 }
 

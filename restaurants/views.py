@@ -80,15 +80,17 @@ class RestaurantIndexView(TokenAuthenticatedView):
             raise Http404('Not found')
 
 
-def restaurant_menu(request):
-    restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
-    if restaurant is not None:
-        return render(request, 'restaurants/menu.html', {
-            "title": restaurant.name,
-            "name": restaurant.name,
-        })
-    else:
-        raise Http404('Not found')
+class RestaurantMenuView(TokenAuthenticatedView):
+    def get(self, request):
+        restaurant = Restaurant.objects.filter(subdomain=request.subdomain).first()
+        if restaurant is not None:
+            return render(request, 'restaurants/menu.html', {
+                "title": restaurant.name,
+                "name": restaurant.name,
+                'is_admin': self.is_owner(restaurant),
+            })
+        else:
+            raise Http404('Not found')
 
 
 class CustomRegistrationView(RegistrationView):

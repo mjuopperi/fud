@@ -10,6 +10,9 @@
 
 {% block content %}
     <section>
+      {% if is_admin %}
+          <button class="edit-menu">Edit</button>
+      {% endif %}
         <ul class="menu-titles desktop"></ul>
         <ul  class="menus"></ul>
     </section>
