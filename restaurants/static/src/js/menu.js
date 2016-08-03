@@ -68,6 +68,7 @@ function setActiveMenu(id) {
   activeMenu.siblings().find('.categories').hide();
   $('.menu-title').removeClass('active');
   activeTitles.addClass('active');
+  storeActiveMenuId(id);
 }
 
 function readMenu(context) {
@@ -157,6 +158,7 @@ function refresh() {
     $('.edit-menu').text(
       isAdmin() ? 'View' : 'Edit'
     )
+    if(isAdmin()) setDragContainers();
   });
 }
 
@@ -202,6 +204,7 @@ function renderNewMenu(data) {
   var template = _.template(menuTemplates.admin);
   $("ul.menus").append(template(data))
   setActiveMenu(data.id);
+  $('.menu-title[data-id="' + data.id + '"]').find('span').focus();
 }
 
 function createCategory() {
@@ -220,11 +223,11 @@ function createCategory() {
       $('<ul>', {class: 'menu-items'}).append(
         $('<li>').append(
           $('<div>', {class: 'menu-item-title'}).append(
-            $('<h4 class="item-name" contenteditable=true placeholder="Name">'),
-            $('<h4 class="item-price" contenteditable=true placeholder="0.0€">')
+            $('<h4 contenteditable=true placeholder="Name">', {class: 'item-name'}),
+            $('<h4 contenteditable=true placeholder="0.0€">', {class: 'item-price'})
           ),
-          $('<p class="item-description" contenteditable=true placeholder="Description">'),
-          $('<p class="item-allergens" contenteditable=true placeholder="Allergens">'),
+          $('<p contenteditable=true placeholder="Description">', {class: 'item-description'}),
+          $('<p contenteditable=true placeholder="Allergens">', {class: 'item-allergens'}),
           $('<button>', {class: 'delete-item button-icon'}).append(
             $('<i class="fa fa-times" aria-hidden="true">'),
             ' Delete '
@@ -247,11 +250,11 @@ function createMenuItem() {
   $(this).parent().parent().find('.menu-items').append(
     $('<li>').append(
       $('<div>', {class: 'menu-item-title'}).append(
-        $('<h4 contenteditable=true placeholder="Name">', {class: 'item-name'}),
-        $('<h4 contenteditable=true placeholder="0.0€">', {class: 'item-price'})
+        $('<h4 class="item-name" contenteditable=true placeholder="Name">'),
+        $('<h4 class="item-price" contenteditable=true placeholder="0.0€">')
       ),
-      $('<p contenteditable=true placeholder="Description">', {class: 'item-description'}),
-      $('<p contenteditable=true placeholder="Allergens">', {class: 'item-allergens'}),
+      $('<p class="item-description" contenteditable=true placeholder="Description">'),
+      $('<p class="item-allergens" contenteditable=true placeholder="Allergens">'),
       $('<button>', {class: 'delete-item button-icon'}).append(
         $('<i class="fa fa-times" aria-hidden="true">'),
         ' Delete '
@@ -282,6 +285,7 @@ function init() {
     $('.edit-menu').text(
       isAdmin() ? 'View' : 'Edit'
     )
+    if(isAdmin()) setDragContainers();
   });
 }
 
@@ -298,3 +302,34 @@ $(function() {
   $('section').on('click', '.delete-item', deleteMenuItem);
   $('section').on('keyup', '.menu-item-title .item-name', changeDeleteName);
 });
+
+function setDragContainers() {
+  var $menu = $('.menu-titles')[0];
+  var $categories = $('.categories:visible')[0];
+  dragula([$menu]);
+  dragula([$categories], {
+    moves: function(el, container, handle) {
+      // starts dragging from these classes
+      return handle.classList.contains('category')
+    }
+  });
+  var drake = dragula([].slice.apply(document.querySelectorAll('.menu-items.category')), {
+    direction: 'vertical',
+    moves: function(el, container, handle) {
+      // starts dragging from these classes
+       return handle.classList.contains('draggable-item')
+      || handle.classList.contains('item');
+    },
+    accepts: function(el, target, source, sibling) {
+      // sibling needs to be another item (ie. can't be dragged over category title)
+    return !sibling || (sibling.classList && sibling.classList.contains('item'));
+    }
+  });
+  //drake.on('drop', function(el, target, source, sibling) {
+    // if category toggled to hidden
+    //if($(target).find('.item').is(':hidden')) {
+      //$(el).hide();
+    //}
+  //})
+
+}
