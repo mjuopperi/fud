@@ -152,6 +152,11 @@ textarea {
   }
 }
 
+.menu-items {
+  min-width: 500px;
+  min-height: 5px;
+}
+
 /*
   Dragula styling
 */
@@ -163,6 +168,7 @@ textarea {
   opacity: 0.8;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
   filter: alpha(opacity=80);
+  cursor: move;
   /* styling */
 }
 .gu-hide {

@@ -29,7 +29,7 @@ function getMenu() {
 function renderMenuTitles(menus) {
   _.each(menus, function(menu) {
     $('.menu-titles').append(
-      $('<li>').append(
+      $('<li>', {class: 'draggable-title'}).append(
         $('<h2>', {class: 'menu-title desktop', 'data-id': menu.id}).append(
           $('<span placeholder="Title">').text(menu.title)
         )
@@ -39,7 +39,7 @@ function renderMenuTitles(menus) {
   if(isAdmin()) {
     $('.menu-title span').attr('contenteditable', true);
     $('.menu-titles').append(
-      $('<li>').append(
+      $('<li>', {class: 'add-menu-container'}).append(
         $('<button>', {class: 'add-menu button-text'}).text(' Add new menu').prepend($('<i>', {class: 'fa fa-plus', 'aria-hidden': 'true'}))
       )
     )
@@ -68,6 +68,7 @@ function setActiveMenu(id) {
   activeMenu.siblings().find('.categories').hide();
   $('.menu-title').removeClass('active');
   activeTitles.addClass('active');
+
   storeActiveMenuId(id);
 }
 
@@ -306,30 +307,25 @@ $(function() {
 function setDragContainers() {
   var $menu = $('.menu-titles')[0];
   var $categories = $('.categories:visible')[0];
-  dragula([$menu]);
+
+  dragula([$menu], {
+    invalid: function(el, handle) {
+      return handle.classList.contains('add-menu-container')
+      || handle.classList.contains('add-menu')
+    },
+    accepts: function (el, target, source, sibling) {
+      return sibling;
+    }
+  });
+
   dragula([$categories], {
     moves: function(el, container, handle) {
       // starts dragging from these classes
-      return handle.classList.contains('category')
+      return handle.classList.contains('category-name')
     }
   });
-  var drake = dragula([].slice.apply(document.querySelectorAll('.menu-items.category')), {
-    direction: 'vertical',
-    moves: function(el, container, handle) {
-      // starts dragging from these classes
-       return handle.classList.contains('draggable-item')
-      || handle.classList.contains('item');
-    },
-    accepts: function(el, target, source, sibling) {
-      // sibling needs to be another item (ie. can't be dragged over category title)
-    return !sibling || (sibling.classList && sibling.classList.contains('item'));
-    }
-  });
-  //drake.on('drop', function(el, target, source, sibling) {
-    // if category toggled to hidden
-    //if($(target).find('.item').is(':hidden')) {
-      //$(el).hide();
-    //}
-  //})
 
+  dragula([].slice.apply(document.querySelectorAll('.menu-items')), {
+    direction: 'vertical',
+  });
 }
