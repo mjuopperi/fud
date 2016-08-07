@@ -170,7 +170,6 @@ function refresh() {
     $('.edit-menu').text(
       isAdmin() ? 'View' : 'Edit'
     )
-    if(isAdmin()) setDragContainers();
   });
 }
 
@@ -301,6 +300,9 @@ function setDragContainers() {
   var $categories = $('.categories:visible')[0];
 
   var drake = dragula([$menu], {
+    moves: function (el, source, handle, sibling) {
+      return isAdmin();
+    },
     invalid: function(el, handle) {
       return handle.classList.contains('add-menu-container')
       || handle.classList.contains('add-menu')
@@ -333,7 +335,7 @@ function init() {
     $('.edit-menu').text(
       isAdmin() ? 'View' : 'Edit'
     )
-    if(isAdmin()) setDragContainers();
+    setDragContainers();
   });
 }
 
