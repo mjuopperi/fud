@@ -27,10 +27,13 @@ function getMenu() {
 }
 
 function renderMenuTitles(menus) {
+  menus.sort(function(a, b) {
+    return a.order > b.order
+  });
   _.each(menus, function(menu) {
     $('.menu-titles').append(
       $('<li>', {class: 'draggable-title'}).append(
-        $('<h2>', {class: 'menu-title desktop', 'data-id': menu.id}).append(
+        $('<h2>', {class: 'menu-title desktop', 'data-id': menu.id, order: menu.order}).append(
           $('<span placeholder="Title">').text(menu.title)
         )
       )
@@ -68,20 +71,21 @@ function setActiveMenu(id) {
   activeMenu.siblings().find('.categories').hide();
   $('.menu-title').removeClass('active');
   activeTitles.addClass('active');
-
   storeActiveMenuId(id);
 }
 
 function readMenu(context) {
-  var $menu = $(context).parent().parent();
+  var $menu = $(context);
   var $mobile = $(".menu-title.title.mobile.active");
   var $desktop = $(".menu-title.desktop.active");
-  var title = $mobile.is(":visible") ? $mobile.text() : $desktop.text();
+  var title = $(".menu-titles:visible").find("[data-id='" + Number($($menu).attr("data-id")) + "']").text()
+  var orderID = $(".menu-titles:visible").find("[data-id='" + Number($($menu).attr("data-id")) + "']").attr("order")
   var menu = {
     content: [],
     restaurant: subdomain,
     id: Number($($menu).attr("data-id")),
-    title: title
+    title: title,
+    order: orderID
   }
   var categories = $($menu).find(".category");
   _.map(categories, function(c) {
@@ -103,8 +107,15 @@ function readMenu(context) {
   return menu;
 }
 
-function updateMenu() {
-  var data = readMenu(this);
+function updateMenus() {
+  var $menus = $('.menus:visible').find('.menu')
+  _.map($menus, function(menu) {
+    updateMenu($(menu));
+  })
+}
+
+function updateMenu(menu) {
+  var data = readMenu(menu);
   $.ajax({
     type: 'PUT',
     url: apiUrl + '/restaurants/' + subdomain +  '/menus/' + data.id,
@@ -277,6 +288,42 @@ function changeDeleteName() {
   $del.append(' Delete ' + text)
 }
 
+function setTitleOrder() {
+  var $menus = $('.menu-title:visible')
+  var pos = 1;
+  _.map($menus, function(menu) {
+    $(menu).attr('order', pos++);
+  })
+}
+
+function setDragContainers() {
+  var $menu = $('.menu-titles')[0];
+  var $categories = $('.categories:visible')[0];
+
+  var drake = dragula([$menu], {
+    invalid: function(el, handle) {
+      return handle.classList.contains('add-menu-container')
+      || handle.classList.contains('add-menu')
+    },
+    accepts: function (el, target, source, sibling) {
+      return sibling;
+    }
+  });
+  drake.on('drop', function(el, target, source, sibling) {
+    setTitleOrder();
+  })
+
+  dragula([$categories], {
+    moves: function(el, container, handle) {
+      return handle.classList.contains('category-name')
+    }
+  });
+
+  dragula([].slice.apply(document.querySelectorAll('.menu-items')), {
+    direction: 'vertical',
+  });
+}
+
 function init() {
   getMenu().then(function(data) {
     var menus = data.menus;
@@ -293,7 +340,7 @@ function init() {
 $(function() {
   init();
   $('section').on('click', '.menu-title', toggleMenu);
-  $('section').on('click', '.save-menu', updateMenu);
+  $('section').on('click', '.save-menu', updateMenus);
   $('section').on('click', '.delete-menu', deleteMenu);
   $('section').on('click', '.edit-menu', toggleEdit);
   $('section').on('click', '.add-menu', createMenu);
@@ -303,29 +350,3 @@ $(function() {
   $('section').on('click', '.delete-item', deleteMenuItem);
   $('section').on('keyup', '.menu-item-title .item-name', changeDeleteName);
 });
-
-function setDragContainers() {
-  var $menu = $('.menu-titles')[0];
-  var $categories = $('.categories:visible')[0];
-
-  dragula([$menu], {
-    invalid: function(el, handle) {
-      return handle.classList.contains('add-menu-container')
-      || handle.classList.contains('add-menu')
-    },
-    accepts: function (el, target, source, sibling) {
-      return sibling;
-    }
-  });
-
-  dragula([$categories], {
-    moves: function(el, container, handle) {
-      // starts dragging from these classes
-      return handle.classList.contains('category-name')
-    }
-  });
-
-  dragula([].slice.apply(document.querySelectorAll('.menu-items')), {
-    direction: 'vertical',
-  });
-}
