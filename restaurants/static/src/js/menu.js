@@ -179,6 +179,12 @@ function toggleEdit() {
 }
 
 function createMenu() {
+  var orderD = Number(
+    $('.menu-titles:visible').find('.menu-title').last().attr('order')
+  ) + 1
+  var orderM = Number(
+    $('.menus:visible').find('.menu').last().attr('order')
+  ) + 1
   var menu = {
     content: [{
       name: '',
@@ -190,7 +196,8 @@ function createMenu() {
       }]
     }],
     restaurant: subdomain,
-    title: 'Menu'
+    title: 'Menu',
+    order: orderD ? orderD : orderM
   }
 
   $.ajax({
@@ -207,7 +214,7 @@ function createMenu() {
 function renderNewMenu(data) {
   $('.menu-titles > li:last').before(
     $('<li>').append(
-      $('<h2>', {class: 'menu-title desktop', 'data-id': data.id}).append(
+      $('<h2>', {class: 'menu-title desktop', 'data-id': data.id, order: data.order}).append(
         $('<span placeholder="Title" contenteditable=true>').text(data.title)
       )
     )
