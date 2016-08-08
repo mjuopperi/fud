@@ -76,16 +76,16 @@ function setActiveMenu(id) {
 
 function readMenu(context) {
   var $menu = $(context);
-  var $mobile = $(".menu-title.title.mobile.active");
-  var $desktop = $(".menu-title.desktop.active");
-  var title = $(".menu-titles:visible").find("[data-id='" + Number($($menu).attr("data-id")) + "']").text()
-  var orderID = $(".menu-titles:visible").find("[data-id='" + Number($($menu).attr("data-id")) + "']").attr("order")
+  var titleD = $(".menu-titles:visible").find("[data-id='" + Number($($menu).attr("data-id")) + "']").text()
+  var titleM = $(".menus").find("[data-id='" + Number($($menu).attr("data-id")) + "']").find(".menu-title").text()
+  var orderD = $(".menu-titles:visible").find("[data-id='" + Number($($menu).attr("data-id")) + "']").attr("order")
+  var orderM = $(".menus").find("[data-id='" + Number($($menu).attr("data-id")) + "']").attr("order")
   var menu = {
     content: [],
     restaurant: subdomain,
     id: Number($($menu).attr("data-id")),
-    title: title,
-    order: orderID
+    title: titleD ? titleD : titleM,
+    order: orderD ? orderD : orderM
   }
   var categories = $($menu).find(".category");
   _.map(categories, function(c) {
