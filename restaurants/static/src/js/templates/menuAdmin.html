@@ -4,7 +4,7 @@
         <% _.each(content, function(category) { %>
         <li class="category">
             <% if(!_.isUndefined(category.name)) { %>
-            <h3 class="category-name"><span contenteditable="true" placeholder="Category"><%- category.name %></span><button class="add-menu-item button-icon"><i class="fa fa-plus" aria-hidden="true"></i></button><button class="delete-category button-icon"><i class="fa fa-times" aria-hidden="true"></i></button></h3>
+            <h3 class="category-name"><span class="draggable" contenteditable="true" placeholder="Category"><%- category.name %></span><button class="add-menu-item button-icon"><i class="fa fa-plus" aria-hidden="true"></i></button><button class="delete-category button-icon"><i class="fa fa-times" aria-hidden="true"></i></button></h3>
             <% }; %>
             <ul class="menu-items">
                 <% _.each(category.items, function(item) { %>

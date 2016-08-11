@@ -325,6 +325,7 @@ function setDragContainers() {
   dragula([$categories], {
     moves: function(el, container, handle) {
       return handle.classList.contains('category-name')
+      || handle.classList.contains('draggable')
     }
   });
 
