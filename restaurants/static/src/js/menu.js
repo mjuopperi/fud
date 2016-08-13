@@ -1,6 +1,7 @@
 require('./_header')
 var dragula = require('dragula')
 var util = require('./_util');
+var uiUtil = require('./_uiUtil');
 var menuTemplates = {
   user: require('./templates/menu.html'),
   admin: require('./templates/menuAdmin.html')
@@ -115,6 +116,7 @@ function updateMenus() {
 }
 
 function updateMenu(menu) {
+  uiUtil.showProgressIndicator($('.save-menu'))
   var data = readMenu(menu);
   $.ajax({
     type: 'PUT',
@@ -124,16 +126,7 @@ function updateMenu(menu) {
     dataType: "json",
     headers: {Authorization: 'Token ' + util.getAuthToken()},
     success: function() {
-      $('.save-menu').css({
-        'box-shadow': 'inset 200px 0 0 0 #2ca97d',
-        'color': '#FFF'
-      });
-      setTimeout(function() {
-          $('.save-menu').css({
-            'box-shadow': 'inset 0 0 0 0 #2ca97d',
-            'color': '#2ca97d'
-          })
-        }, 1000);
+      uiUtil.hideProgressIndicator($('.save-menu'))
     }
   });
 }

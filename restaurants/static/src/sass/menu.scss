@@ -62,23 +62,6 @@ textarea {
 
 .save-menu {
   display: inline-block;
-  margin-left: 1.2em;
-  background: none;
-  color: $color-success;
-  @media (min-width:960px) {
-    color: $color-success;
-    background: none;
-    box-shadow: inset 0 0 0 0 $color-success-dark;
-	 -webkit-transition: all ease 0.8s;
-	 -moz-transition: all ease 0.8s;
-	transition: all ease 0.8s;
-    margin-left: 0;
-    &:hover:not([disabled]) {
-      background: none;
-      border-color: $color-success-dark;
-      color: $color-success-dark;
-    }
-  }
 }
 
 .edit-menu {
