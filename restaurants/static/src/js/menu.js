@@ -234,11 +234,11 @@ function createCategory() {
       $('<ul>', {class: 'menu-items'}).append(
         $('<li>').append(
           $('<div>', {class: 'menu-item-title'}).append(
-            $('<h4 contenteditable=true placeholder="Name">', {class: 'item-name'}),
-            $('<h4 contenteditable=true placeholder="0.0€">', {class: 'item-price'})
+            $('<h4 class="item-name" contenteditable=true placeholder="Name">'),
+            $('<h4 class="item-price" contenteditable=true placeholder="0.0€">')
           ),
-          $('<p contenteditable=true placeholder="Description">', {class: 'item-description'}),
-          $('<p contenteditable=true placeholder="Allergens">', {class: 'item-allergens'}),
+          $('<p class="item-description" contenteditable=true placeholder="Description">'),
+          $('<p class="item-allergens" contenteditable=true placeholder="Allergens">'),
           $('<button>', {class: 'delete-item button-icon'}).append(
             $('<i class="fa fa-times" aria-hidden="true">'),
             ' Delete '
