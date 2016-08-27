@@ -16,8 +16,10 @@
                 <div class="address">
                     <form class="input-container">
                         <span class="success fixed"> updated!</span>
+                        <label>Address</label>
                         <input class="h3" type="text" name="address" value="<%- restaurant.address %>" disabled>
                         <div class="inline-group">
+                            <label>Postal code | City</label>
                             <input class="h3" type="text" name="postal_code" value="<%- restaurant.postal_code %>" disabled>
                             <input class="h3" type="text" name="city" value="<%- restaurant.city %>" disabled>
                         </div>
@@ -31,7 +33,9 @@
                 <div class="contact">
                     <form class="input-container">
                         <span class="success fixed"> updated!</span>
+                        <label>Phone number</label>
                         <input class="h3" type="text" name="phone_number" value="<%- restaurant.phone_number %>" disabled>
+                        <label>Email</label>
                         <input class="h3" type="text" name="email" value="<%- restaurant.email %>" disabled>
                         <button type="button" class="change fa fa-edit"></button>
                         <div class="button-container">
