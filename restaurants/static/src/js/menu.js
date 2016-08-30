@@ -175,10 +175,16 @@ function toggleEdit() {
 function createMenu() {
   var orderD = Number(
     $('.menu-titles:visible').find('.menu-title').last().attr('order')
-  ) + 1
+  )
   var orderM = Number(
     $('.menus:visible').find('.menu').last().attr('order')
-  ) + 1
+  )
+  
+  if(orderD !== orderD) orderD = 0;
+  else orderD++
+  if(orderM !== orderM) orderM = 0;
+  else orderM++
+
   var menu = {
     content: [{
       name: '',
