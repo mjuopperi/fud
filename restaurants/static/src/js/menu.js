@@ -163,6 +163,7 @@ function refresh() {
     $('.edit-menu').text(
       isAdmin() ? 'View' : 'Edit'
     )
+    highlightOnHover();
   });
 }
 
@@ -179,7 +180,7 @@ function createMenu() {
   var orderM = Number(
     $('.menus:visible').find('.menu').last().attr('order')
   )
-  
+
   if(orderD !== orderD) orderD = 0;
   else orderD++
   if(orderM !== orderM) orderM = 0;
@@ -223,6 +224,7 @@ function renderNewMenu(data) {
   $("ul.menus").append(template(data))
   setActiveMenu(data.id);
   $('.menu-title[data-id="' + data.id + '"]').find('span').focus();
+  highlightOnHover();
 }
 
 function createCategory() {
@@ -344,7 +346,34 @@ function init() {
       isAdmin() ? 'View' : 'Edit'
     )
     setDragContainers();
+    highlightOnHover()
   });
+}
+
+function highlightOnHover() {
+  $('.delete-item').hover(function() {
+    $(this).parent().removeClass('hide-delete-highlight')
+    $(this).parent().addClass('show-delete-highlight')
+  }, function() {
+    $(this).parent().removeClass('show-delete-highlight')
+    $(this).parent().addClass('hide-delete-highlight')
+  })
+
+  $('.delete-category').hover(function() {
+    $(this).parent().parent().removeClass('hide-delete-highlight')
+    $(this).parent().parent().addClass('show-delete-highlight')
+  }, function() {
+    $(this).parent().parent().removeClass('show-delete-highlight')
+    $(this).parent().parent().addClass('hide-delete-highlight')
+  })
+
+  $('.delete-menu').hover(function() {
+    $(this).parent().parent().removeClass('hide-delete-highlight')
+    $(this).parent().parent().addClass('show-delete-highlight')
+  }, function() {
+    $(this).parent().parent().removeClass('show-delete-highlight')
+    $(this).parent().parent().addClass('hide-delete-highlight')
+  })
 }
 
 $(function() {
