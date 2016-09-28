@@ -260,6 +260,7 @@ function createCategory() {
     } else {
       $sel.prepend(template)
     }
+    highlightOnHover();
 }
 
 function deleteCategory() {
@@ -281,6 +282,7 @@ function createMenuItem() {
       )
     )
   )
+  highlightOnHover();
 }
 
 function deleteMenuItem() {
