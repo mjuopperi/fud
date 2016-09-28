@@ -163,6 +163,7 @@ function refresh() {
     $('.edit-menu').text(
       isAdmin() ? 'View' : 'Edit'
     )
+    setDragContainers();
     highlightOnHover();
   });
 }
@@ -170,7 +171,6 @@ function refresh() {
 function toggleEdit() {
   setAdmin(!isAdmin());
   refresh();
-  setDragContainers();
 }
 
 function createMenu() {
