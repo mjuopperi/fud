@@ -44,7 +44,7 @@ class Menu(models.Model):
     title = models.TextField()
     content = JSONField()
     restaurant = models.ForeignKey(Restaurant)
-    order = models.IntegerField()
+    order = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'menu'
